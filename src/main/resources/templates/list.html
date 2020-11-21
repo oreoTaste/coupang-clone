@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OreoTaste - member list</title>
+</head>
+<body>
+<table>
+    <h1>회원리스트</h1>
+    <tr>
+        <td>username</td>
+        <td>password</td>
+    </tr>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.name}">En las Orillas del Sar</td>
+        <td th:text= "${member.password}">En las Orillas del Sar</td>
+    </tr>
+</table>
+</body>
+</html>
