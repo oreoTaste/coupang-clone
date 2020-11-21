@@ -20,12 +20,13 @@ public class MemberController {
 
     @GetMapping("/new")
     public String signin(Member member) {
+        System.out.println("START : /new에 진입");
         return "new";
     }
 
     @PostMapping("/new")
     public String register(Member member) {
-        System.out.println("/new로 진입완료" + member.getName() + "님의 비밀번호는 " + member.getPassword() + "입니다.");
+        System.out.println("END : /new로 진입완료" + member.getName() + "님의 비밀번호는 " + member.getPassword() + "입니다.");
         memberService.join(member);
         return "redirect:/";
     }

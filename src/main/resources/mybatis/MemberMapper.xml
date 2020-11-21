@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- mybatis-3-mapper.dtd에 주목 -->
+<mapper namespace="Member">
+
+    <insert id="save" parameterType="Member">
+        insert into member (name, password)
+        values (#{name}, #{password})
+    </insert>
+
+    <select id="findAll" resultType="Member">
+        select * from member
+    </select>
+
+    <select id="findByName" parameterType="String" resultType="Member">
+        select * from member where name = #{name}
+    </select>
+
+</mapper>
