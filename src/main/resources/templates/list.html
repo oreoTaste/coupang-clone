@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>OreoTaste</title>
+    <style>
+        ul {
+        list-style: none;
+        padding: 0;
+        }
+    </style>
+</head>
+<body>
+<p>아래는 멤버리스트입니다</p>
+<ul th:each="member: ${members}">
+    <li th:text="${member.id} + ' : ' + ${member.name} + ' ' + ${member.email}"></li>
+</ul>
+</body>
+</html>

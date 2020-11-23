@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- mybatis-3-mapper.dtd에 주목 -->
+<mapper namespace="Member">
+    <insert id="save" parameterType="Member">
+        INSERT INTO Member (name, email)
+        VALUES (#{name}, #{email})
+    </insert>
+
+    <select id="findAll" resultType="Member">
+        SELECT * FROM Member
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="Member">
+        SELECT * FROM Member m where m.id = #{id}
+    </select>
+
+    <select id="findByName" parameterType="String" resultType="Member">
+        SELECT * FROM Member m where m.name = #{name}
+    </select>
+
+</mapper>
