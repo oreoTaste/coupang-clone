@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OreoTaste</title>
+    <style>
+    body > * {
+        all:unset;
+    }
+    body {
+        width: 100vw;
+        height: 100vh;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem;
+        overflow: hidden;
+        background-color: rgba(0,0,0,.2);
+    }
+    h1 {
+        margin: 0 0 3rem 0;
+    }
+    h5 {
+        margin: 0;
+    }
+    </style>
+    <!-- index.html 고유 CSS 추가
+    <link rel="stylesheet" href="css/error.css" th:href="@{css/error.css}" />
+    -->
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Oops!..;(</h1>
+        <h5 th:text="${exception.message}">에러메시지</h5>
+        <h5 th:text=" '(from : ' + ${url} + ')' ">url</h5>
+    </div>
+</body>
+</html>

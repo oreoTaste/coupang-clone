@@ -13,6 +13,11 @@ repositories {
 }
 
 dependencies {
+	// log4j2
+	implementation 'org.apache.logging.log4j:log4j-core:2.13.1'
+
+	// encrption : commons-codec
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.15'
 	// jpa : sql
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// thymeleaf : template engine
@@ -27,6 +32,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
 test {
 	useJUnitPlatform()
 }

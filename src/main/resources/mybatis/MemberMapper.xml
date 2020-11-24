@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- mybatis-3-mapper.dtd에 주목 -->
 <mapper namespace="Member">
     <insert id="save" parameterType="Member">
-        INSERT INTO Member (name, email)
-        VALUES (#{name}, #{email})
+        INSERT INTO Member (name, email, password)
+        VALUES (#{name}, #{email}, #{password})
     </insert>
 
     <select id="findAll" resultType="Member">
@@ -20,4 +20,7 @@
         SELECT * FROM Member m where m.name = #{name}
     </select>
 
+    <select id="findByEmail" parameterType="String" resultType="Member">
+        SELECT * FROM Member m where m.email = #{email}
+    </select>
 </mapper>

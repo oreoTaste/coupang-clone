@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -14,12 +15,17 @@ public class MemberService {
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-    public long save(Member member) {
+
+    public long save(Member member) throws Exception{
         memberRepository.insert(member);
         return 0;
     }
 
-    public List<Member> findAll() {
+    public List<Member> findAll() throws Exception {
         return memberRepository.findAll();
+    }
+
+    public Optional<Member> findByEmail(String email) throws Exception{
+        return memberRepository.findByEmail(email);
     }
 }
