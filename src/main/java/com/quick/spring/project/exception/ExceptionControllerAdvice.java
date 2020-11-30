@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
-@ControllerAdvice
+    @ControllerAdvice
 public class ExceptionControllerAdvice {
     @ExceptionHandler()
     public ModelAndView error(Exception exception, HttpServletRequest req) {
