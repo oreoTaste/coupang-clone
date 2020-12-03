@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <form action="/login" method="post">
+        <div class="index-wrapper">
+            <div class="index-wrapper__center">
+                <img th:src="@{/static/asset/img/logo.png}" alt="">
+                <div class="index-wrapper__center__inputs">
+                    <div class="email-form">
+                        <label for="email" >
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img id="email-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <input type="text" name="email" id="email" required/>
+                            </span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="password" >
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img id="password-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <input type="password" name="password" id="password" required/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="index-wrapper__center__auto-box">
+                    <div>
+                        <input type="checkbox" value="auto-login"/>
+                        자동로그인
+                    </div>
+                    <a href="">아이디(이메일)/비밀번호 찾기</a>
+                </div>
+                <div class="index-wrapper__center__buttons">
+                    <button>로그인</button>
+                    <hr>
+                    <a href="/register">회원가입</a>
+                </div>
+                <p class="copyright">©Coupang Corp. All rights reserved.</p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

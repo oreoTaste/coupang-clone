@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+<form action="/register" method="post">
+    <div class="index-wrapper">
+        <div class="register-wrapper__center">
+            <a href="/">
+                <img th:src="@{/static/asset/img/logo.png}" alt="logo">
+            </a>
+            <div class="register-content">
+                    <h4>회원정보를 입력해주세요</h4>
+
+                    <div class="register-content__inputs">
+                        <div>
+                            <label for="email" >
+                                <span>
+                                    <div class="icon-wrapper">
+                                        <img id="email-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                    </div>
+                                </span>
+                                <span>
+                                    <input type="text" name="email" id="email" placeholder="아이디(이메일)" required/>
+                                </span>
+                            </label>
+                        </div>
+                        <div>
+                            <label for="password" >
+                                <span>
+                                    <div class="icon-wrapper">
+                                        <img id="password-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                    </div>
+                                </span>
+                                <span>
+                                    <input type="password" name="password" id="password" placeholder="비밀번호" required/>
+                                </span>
+                            </label>
+                        </div>
+                        <div>
+                            <label for="password-2" >
+                                <span>
+                                    <div class="icon-wrapper">
+                                        <img id="password-icon-2" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                    </div>
+                                </span>
+                                <span>
+                                    <input type="password" name="password" id="password-2" placeholder="비밀번호 확인" required/>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div>
+                            <label for="name" >
+                                <span>
+                                    <div class="icon-wrapper">
+                                        <img id="name-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                    </div>
+                                </span>
+                                <span>
+                                    <input type="text" name="name" id="name" placeholder="이름" required/>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div>
+                            <label for="tel" >
+                                <span>
+                                    <div class="icon-wrapper">
+                                        <img id="tel-icon" th:src="@{/static/asset/img/icons.svg}" alt="svg"/>
+                                    </div>
+                                </span>
+                                <span>
+                                    <input type="text" name="tel" id="tel" placeholder="휴대폰 번호" required/>
+                                </span>
+                            </label>
+                        </div>
+
+                    </div>
+
+            </div>
+            <div class="agree-content">
+                <div class="agree-content__summary">
+                    <h4>쿠팡 서비스약관에 동의해주세요</h4>
+                    <div class="agree-content__summary__check-all">
+                        <input id="check-all" type="checkbox"/>
+                        <h4><label for="check-all">모두 동의합니다</label></h4>
+                    </div>
+                </div>
+                <div class="agree-context__lines">
+                    <div>
+                        <input required type="checkbox" name="overFourteen" id="overFourteen" class="check_agreement"/>
+                        <p><label for="overFourteen">[필수] 만 14세 이상입니다</label></p>
+                    </div>
+                    <div>
+                        <input required type="checkbox" name="coupangUse" id="coupangUse" class="check_agreement"/>
+                        <p><label for="coupangUse">[필수] 쿠팡 이용약관 동의</label></p>
+                    </div>
+                    <div>
+                        <input required type="checkbox" name="electricUse" id="electricUse" class="check_agreement"/>
+                        <p><label for="electricUse">[필수] 전자금융거래 이용약관 동의</label></p>
+                    </div>
+                    <div>
+                        <input required type="checkbox" name="personalInfoUse" id="personalInfoUse" class="check_agreement"/>
+                        <p><label for="personalInfoUse">[필수] 개인정보 수집 및 이용 동의</label></p>
+                    </div>
+                    <div>
+                        <input required type="checkbox" name="personalInfoProvideUse" id="personalInfoProvideUse" class="check_agreement"/>
+                        <p><label for="personalInfoProvideUse">[필수] 개인정보 제공 동의</label></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="register-wrapper__center__buttons">
+                <button id="agree">동의하고 가입하기</button>
+            </div>
+            <p class="copyright">©Coupang Corp. All rights reserved.</p>
+        </div>
+    </div>
+
+</form>
+    <script th:src="@{/static/asset/js/registerForm.js}">
+    </script>
+</body>
+
+</html>

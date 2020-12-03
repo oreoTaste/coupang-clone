@@ -1,0 +1,61 @@
+.icon-wrapper {
+    margin: 0!important;
+    padding: 0;
+    height: 100%!important;
+    width: 100%;
+    overflow: hidden;
+}
+.icon-wrapper img {
+    transform: translate(-1px, 0px);
+}
+
+#email-icon {
+    transform: translate(-1px, 0px);
+}
+#password-icon {
+    transform: translate(-22px, -1.3px);
+}
+#password-icon-2 {
+    transform: translate(-22px, -1.3px);
+}
+#name-icon {
+    transform: translate(-1px, -22.5px);
+}
+#tel-icon {
+    transform: translate(-21px, -22.5px);
+}
+.agree-content__summary > h4:fist-child{
+    margin: 1.2rem 0 0.6rem 0;
+}
+.agree-content__summary__check-all > *{
+    display: inline-block;
+    margin: 0;
+}
+.agree-content__summary__check-all > input{
+    width: 1rem;
+    height: 1rem;
+}
+.agree-content__summary__check-all > h4 {
+    margin: 0 0 0.6rem 0.6rem;
+}
+
+.agree-context__lines {
+    border: 1px solid rgba(0,0,0,0.3);
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+.agree-context__lines div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.agree-context__lines div > *{
+    display: inline-block;
+}
+.agree-context__lines div > input{
+    width: 1rem;
+    height: 1rem;
+}
+.agree-context__lines div > p{
+    margin: 0.4rem 0.8rem;
+}

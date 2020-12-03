@@ -1,0 +1,87 @@
+
+.index-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.index-wrapper__center {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 25rem;
+}
+.index-wrapper__center__inputs {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+.index-wrapper__center__inputs div {
+    width: 100%;
+    height: 2.5rem;
+    margin-top: 0.7rem;
+}
+.index-wrapper__center__inputs div label span:first-child{
+    overflow: hidden;
+    background: white;
+    border: 1.5px solid rgba(0,0,0,.3);
+    width: 2.5rem;
+    display: inline-block;
+    height: 100%;
+    float: left;
+    padding: 0.5rem;
+}
+
+.index-wrapper__center__inputs div label span:last-child{
+    width: calc(100% - 2.5rem);
+    display: inline-block;
+    height: 100%;
+    float: right;
+}
+.index-wrapper__center__inputs input[type="text"],
+.index-wrapper__center__inputs input[type="password"] {
+    height: 100%;
+    width: 100%;
+    border: 1.5px solid rgba(0,0,0,.3);
+    background: #e8f0fe;
+    margin: 0;
+    margin-left: -2px;
+}
+.index-wrapper__center__auto-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin: 0.8rem 0;
+}
+.index-wrapper__center__auto-box div{
+    color: rgba(0,0,0,0.8);
+}
+
+.index-wrapper__center__auto-box a {
+    color: #0073e9;
+}
+.index-wrapper__center__buttons {
+    width: 100%;
+}
+.index-wrapper__center__buttons button,
+.index-wrapper__center__buttons a {
+    background-color: #0074e9;
+    border: 0;
+    width: 100%;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0px 1px 0px rgba(0,0,0,.4);
+    margin: 0;
+    height: 2.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.index-wrapper__center__buttons a {
+    display: inline-block;
+    text-align: center;
+    line-height: 2.8rem;
+    text-decoration: none;
+}

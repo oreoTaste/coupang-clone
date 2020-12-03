@@ -1,0 +1,20 @@
+@import "component/index.css";
+@import "component/register.css";
+@import "component/icon.css";
+
+* {
+box-sizing: border-box;
+}
+body {
+    all: unset;
+}
+body > * {
+    all: unset;
+}
+input::placeholder {
+    color: rgba(0,0,0,.4);
+}
+.copyright {
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.7);
+}
