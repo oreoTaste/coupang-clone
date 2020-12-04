@@ -12,10 +12,8 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
-    @Autowired
-    private EntityManager em;
+    @Autowired private final EntityManager em;
 
-    @Transactional
     public Long save(Member member) {
         em.persist(member);
         return member.getId();
@@ -39,11 +37,7 @@ public class MemberRepository {
         List<Member> memberList = em.createQuery("select m from Member m where m.email = :email", Member.class)
                                     .setParameter("email", email)
                                     .getResultList();
-        if(memberList.isEmpty()) {
-            return null;
-        } else {
-            return memberList;
-        }
+        return memberList;
     }
 
 

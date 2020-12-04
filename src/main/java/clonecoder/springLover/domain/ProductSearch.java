@@ -5,10 +5,9 @@ import lombok.Setter;
 
 
 @Getter @Setter
-public class OrderSearch {
+public class ProductSearch {
 
-    private String memberEmail;
-    private OrderStatus orderStatus;
-
+    private String name;
+    private String smallCategory;
 
 }

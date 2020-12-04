@@ -17,11 +17,32 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; // 배송 중인지 여부;
 
-    @OneToMany(mappedBy="delivery")
-    private List<Order> orderList;
+    @OneToOne(mappedBy="delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Order order;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
+
+    // 연관관계 메서드
+    public void setOrder(Order order) {
+        this.order = order;
+        order.setDelivery(this);
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    // 생성 메서드
+    public Delivery createDelivery(Order order, Address address) {
+        Delivery delivery = new Delivery();
+        delivery.setAddress(address);
+        delivery.setOrder(order);
+        delivery.setStatus(DeliveryStatus.READY);
+        return delivery;
+    }
+
+
 
 }

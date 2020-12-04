@@ -1,6 +1,10 @@
+/* import component */
 @import "component/index.css";
 @import "component/register.css";
 @import "component/icon.css";
+
+/* import page css */
+@import "pages/main.css";
 
 * {
 box-sizing: border-box;
