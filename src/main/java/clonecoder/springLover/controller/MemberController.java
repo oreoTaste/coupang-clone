@@ -5,8 +5,11 @@ import clonecoder.springLover.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.ConstructorArgs;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,8 +17,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("login")
-    public String login() {
-        return "redirect:main";
+    public String login(Member member, Model model) throws Exception {
+        if(!memberService.login(member.getEmail(), member.getPassword())){
+            throw new IllegalAccessException("등록되지 않은 회원입니다");
+        }
+        model.addAttribute("members", memberService.findMembers());
+        return "main";
     }
 
     @GetMapping("register")
@@ -32,6 +39,6 @@ public class MemberController {
         Member member = Member.createMember(email, name, tel, password);
 
         memberService.join(member);
-        return "redirect:main";
+        return "redirect:/";
     }
 }

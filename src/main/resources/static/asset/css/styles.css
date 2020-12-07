@@ -12,9 +12,6 @@ box-sizing: border-box;
 body {
     all: unset;
 }
-body > * {
-    all: unset;
-}
 input::placeholder {
     color: rgba(0,0,0,.4);
 }

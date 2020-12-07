@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+    <link href="../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
 </head>
 <body>
-<p>This is main page in template</p>
+    <nav>
+        <div class="nav-left">
+            <div>즐겨찾기</div>
+            <div>입점신청</div>
+        </div>
+        <div class="nav-right">
+            <div>로그인</div>
+            <div>회원가입</div>
+            <div>고객센터</div>
+        </div>
+    </nav>
+    <div class="main-wrapper">
+        <header>
+            <div class="category-bar">
+                <div class="menu-icon" alt="menu-icon"></div>
+            </div>
+            <div class="non-category-bar">
+                <div class="non-category-bar__search-row">
+                    <div class="search-row__logo">
+                        <div class="category-btn" alt="logo"></div>
+                    </div>
+                    <div class="search-row__search-bar"></div>
+                    <div class="search-row__mypage">
+                        <div><div class="my-coupang-icon"></div>마이쿠팡</div>
+                        <div><div class="my-coupang-title"></div>장바구니</div>
+                    </div>
+                </div>
+                <div class="non-category-bar__detail-row">
+                    <span>로켓배송</span>
+                    <span>로켓프레시</span>
+                    <span>크리스마스</span>
+                    <span>로켓직구</span>
+                    <span>골드박스</span>
+                    <span>정기배송</span>
+                    <span>이벤트/쿠폰</span>
+                    <span>기획적</span>
+                    <span>여행/티켓</span>
+                </div>
+            </div>
+        </header>
+
+        <p>This is main page in template</p>
+        <ol th:each="member : ${members}">
+            <li th:text="${member.email}"></li>
+        </ol>
+    </div>
 </body>
 </html>
