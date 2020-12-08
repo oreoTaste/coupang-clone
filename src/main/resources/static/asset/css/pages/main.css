@@ -57,12 +57,12 @@ nav > div > div:nth-child(2n) {
     display: inline-block;
     width: 174px;
     height: 41px;
-    background: url(https://image7.coupangcdn.com/image/coupang/common/logo_coupang_w350.png);
+    background: url("../../img/logo.png");
     background-size: 174px 41px;
 }
 
 .search-row__search-bar {
-    border: 2px solid #4285f4;
+    border: 2px solid var(--blue);
     width: 65%;
     height: 38px;
     margin: 0 20px;
@@ -70,7 +70,7 @@ nav > div > div:nth-child(2n) {
 .menu-icon {
     width: 110px;
     height: 110px;
-    background: url("../../img/header-icon.png");
+    background: url("../../img/icon/header-icon.png");
 }
 
 .search-row__mypage {
@@ -88,14 +88,14 @@ nav > div > div:nth-child(2n) {
 .search-row__mypage .my-coupang-icon {
     width: 30px;
     height: 30px;
-    background: url(../../img/header-icon.png);
+    background: url(../../img/icon/header-icon.png);
     background-position: -112px -42px;
     margin-bottom: 2px;
 }
 .search-row__mypage .my-coupang-title {
     width: 40px;
     height: 40px;
-    background: url(../../img/header-icon.png);
+    background: url(../../img/icon/header-icon.png);
     background-position: -112px 0px;
 }
 
@@ -107,4 +107,66 @@ nav > div > div:nth-child(2n) {
     height: 32px;
     justify-content: space-around;
     width: 45rem;
+}
+.main-banner {
+    height: 450px;
+}
+.main-banner__banners {
+    background: url(../../img/banner/banner1.jpg);
+    background-size: cover;
+    height: 450px;
+    background-position: center;
+    width: 150%;
+    margin-left: -25%;
+}
+
+.main-banner__joysticks {
+    position: relative;
+    margin-top: -405px;
+    right: -940px;
+    height: 360px;
+    width: 180px;
+    background: gray;
+}
+.main-banner__joysticks .joystick{
+    height: calc(1 / 6 * 100%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.joystick {
+    cursor: pointer;
+}
+.joystick:hover {
+    border: 2px solid var(--blue);
+    overflow: hidden;
+}
+.main-categories__header {
+    margin-top: 3em;
+    background: url(../../img/icon/font-icon.png);
+    width: 290px;
+    height: 55px;
+    background-position: 0px -100px;
+    background-size: 280%;
+}
+.main-category {
+    display: flex;
+
+}
+.main-category__title-col {
+    width: 15%;
+    background-size: contain;
+}
+.main-category__title-col.living {
+    background-image: url("../../img/title/best_title_home_decoration.png");
+    height: 42px;
+}
+
+.main-category__center-col {
+    width: 30%;
+
+}
+.main-category__items-col {
+    width: 55%;
 }

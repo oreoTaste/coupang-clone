@@ -46,11 +46,32 @@
                 </div>
             </div>
         </header>
+        <div class="main-banner">
+            <div class="main-banner__banners"></div>
+            <div class="main-banner__joysticks">
+                <div class="joystick joystick1"><img src="../static/asset/img/banner/banner1_sub.jpg" alt="banner1_sub"/></div>
+                <div class="joystick joystick2"><img src="../static/asset/img/banner/banner2_sub.jpg" alt="banner2_sub"/></div>
+                <div class="joystick joystick3"><img src="../static/asset/img/banner/banner3_sub.jpg" alt="banner3_sub"/></div>
+                <div class="joystick joystick4"><img src="../static/asset/img/banner/banner4_sub.jpg" alt="banner4_sub"/></div>
+                <div class="joystick joystick5"><img src="../static/asset/img/banner/banner5_sub.jpg" alt="banner5_sub"/></div>
+                <div class="joystick joystick6"><img src="../static/asset/img/banner/banner6_sub.jpg" alt="banner6_sub"/></div>
+            </div>
+        </div>
 
-        <p>This is main page in template</p>
+        <div class="main-categories">
+            <div class="main-categories__header"></div>
+            <div class="main-category">
+                <div class="main-category__title-col living">1</div>
+                <div class="main-category__center-col">2</div>
+                <div class="main-category__items-col">3</div>
+            </div>
+        </div>
         <ol th:each="member : ${members}">
             <li th:text="${member.email}"></li>
         </ol>
+
+        </div>
     </div>
+    <script src="../static/asset/js/main.js"></script>
 </body>
 </html>

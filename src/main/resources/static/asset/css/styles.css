@@ -6,8 +6,18 @@
 /* import page css */
 @import "pages/main.css";
 
+:root {
+    --blue: #4285f4;
+    --black: #373737;
+}
+.blue {
+    color: var(--blue);
+}
+.black {
+    color: var(--black);
+}
 * {
-box-sizing: border-box;
+    box-sizing: border-box;
 }
 body {
     all: unset;
