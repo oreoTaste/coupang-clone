@@ -144,6 +144,7 @@ nav > div > div:nth-child(2n) {
 }
 .main-categories__header {
     margin-top: 3em;
+    margin-bottom: 2%;
     background: url(../../img/icon/font-icon.png);
     width: 290px;
     height: 55px;
@@ -152,15 +153,26 @@ nav > div > div:nth-child(2n) {
 }
 .main-category {
     display: flex;
-
+    height: 600px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
 }
 .main-category__title-col {
     width: 15%;
     background-size: contain;
 }
-.main-category__title-col.living {
-    background-image: url("../../img/title/best_title_home_decoration.png");
-    height: 42px;
+.main-category__title-col {
+    padding: 4% 1% 1% 2%;
+    color: rgba(0,0,0,.5);
+}
+.main-category.living {
+    border-top: 1px solid rgba(181, 71, 48, 0.6);
+}
+.living .main-category__title-col .title {
+    background-image: url(../../img/title/best_title_home_decoration.png);
+    height: 75px;
+    width: 100%;
+    background-size: cover;
+    margin-bottom: 10%;
 }
 
 .main-category__center-col {
@@ -169,4 +181,75 @@ nav > div > div:nth-child(2n) {
 }
 .main-category__items-col {
     width: 55%;
+}
+footer {
+    height:370px;
+    left: 0;
+    top: 0;
+    padding: 0 5rem;
+    font-size: 0.8rem;
+    width: 1280px;
+    margin: 0 auto;
+    color: rgba(0,0,0,0.6);
+}
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6{
+    margin: 0;
+    display: inline-block;
+}
+footer div {
+    padding: 5px 0;
+    width: 100%;
+}
+
+footer .layer1 {
+    height:50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+footer .layer2,
+footer .layer3{
+    height: 160px;
+    padding: 3% 5% 1% 5%;
+    display: flex;
+    align-items: flex-start;
+}
+footer .layer2 div {
+    width: calc((100% - 19.3%) / 3);
+}
+footer .layer2 .layer2__logo {
+    width: 19.3%;
+    padding: 5px 1%;
+}
+.layer2__logo .category-btn {
+    width: 100%;
+    filter: brightness(0);
+    opacity: 0.4;
+}
+
+footer .layer3,
+footer .layer4 {
+    height: 80px;
+}
+
+footer .layer3{
+    padding-top: 0;
+    padding-bottom: 0;
+    background: url(../../img/icon/round-icon.png);
+    background-position: -12px -150px;
+    background-size: cover;
+}
+
+footer .layer4 {
+    height: 110px;
+    background: #333;
+    color: rgba(255,255,255,.4);
+    padding: 1% 5%;
 }

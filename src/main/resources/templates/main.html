@@ -60,18 +60,74 @@
 
         <div class="main-categories">
             <div class="main-categories__header"></div>
-            <div class="main-category">
-                <div class="main-category__title-col living">1</div>
+            <div class="main-category living">
+                <div class="main-category__title-col">
+                    <div class="title"></div>
+                    바로가기 >
+                </div>
                 <div class="main-category__center-col">2</div>
                 <div class="main-category__items-col">3</div>
             </div>
         </div>
-        <ol th:each="member : ${members}">
-            <li th:text="${member.email}"></li>
+        <!--
+        <ol th:each="product : ${products}">
+            <li th:text="${product.name}"></li>
+            <li th:text="${product.price}"></li>
         </ol>
+        -->
 
         </div>
     </div>
+    <footer>
+        <div class="layer1">
+            <span>인재채용</span>
+            <span>입점 / 제휴문의</span>
+            <span>공지사항</span>
+            <span>고객의 소리</span>
+            <span>이용약관</span>
+            <span><strong>개인정보 처리방침</strong></span>
+            <span>쿠팡페이 이용약관</span>
+            <span><strong>쿠팡페이 개인정보처리방침</strong></span>
+            <span>신뢰관리센터</span>
+            <span>제휴마케팅</span>
+            <span>광고안내</span>
+        </div>
+        <div class="layer2">
+            <div class="layer2__logo">
+                <div class="category-btn" alt="logo"></div>
+            </div>
+            <div class="layer2__company-info">
+                쿠팡(주) | 대표이사 : 김범석,고명주,박대준<br>
+                서울시 송파구 송파대로 570<br>
+                사업자 등록번호 : 120-88-00767<br>
+                통신판매업신고 : 2017-서울송파-0680<br>
+                사업자정보 확인 >
+            </div>
+            <div class="layer2__tel">
+                <h3>365고객센터</h3> | 전자금융거래분쟁처리담당<br>
+                <h1>1577-7011</h1><br>
+                서울시 송파구 송파대로 570<br>
+                email : help@coupang.com
+            </div>
+            <div class="layer2__banking">
+                <strong>우리은행 채무지급보증 안내</strong><br>
+                당사는 고객님이 현금 결제한 금액에 대해<br>
+                우리은행과 채무지급보증 계약을 체결하여<br>
+                안전거래를 보장하고 있습니다.<br>
+                서비스 가입사실 확인 >
+            </div>
+        </div>
+        <div class="layer3">
+            <div class="layer3__award-icons"></div>
+        </div>
+        <div class="layer4">
+            사이버몰 내 판매되는 상품 중에는 쿠팡에 등록한 개별 판매자가 판매하는 마켓플레이스(오픈마켓) 상품이 포함되어 있습니다.<br>
+            마켓플레이스(오픈마켓) 상품의 경우 쿠팡은 통신판매중개자이며 통신판매의 당사자가 아닙니다.<br>
+            쿠팡은 마켓플레이스(오픈마켓) 상품, 거래정보 및 거래 등에 대하여 책임을 지지 않습니다.<br>
+            쿠팡은 소비자 보호와 안전거래를 위해 신뢰관리센터(CM112@coupang.com)를 운영하고 있으며, 관련 분쟁이 발생할 경우 별도의 분쟁처리절차에 의거 분쟁이 처리됩니다.<br>
+            Copyright © Coupang Corp. 2010-2020 All Rights Reserved.
+        </div>
+    </footer>
     <script src="../static/asset/js/main.js"></script>
 </body>
 </html>
