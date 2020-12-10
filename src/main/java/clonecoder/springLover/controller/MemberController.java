@@ -3,7 +3,8 @@ package clonecoder.springLover.controller;
 import clonecoder.springLover.domain.Member;
 import clonecoder.springLover.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.ConstructorArgs;
+import org.apache.catalina.connector.Request;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("login")
-    public String login(Member member, Model model) throws Exception {
+    public String login(Member member, Model model, HttpServletRequest request) throws Exception {
         if(!memberService.login(member.getEmail(), member.getPassword())){
             throw new IllegalAccessException("등록되지 않은 회원입니다");
         }
-        model.addAttribute("members", memberService.findMembers());
+
+        request.getSession().setAttribute("email", memberService.findByEmail(member.getEmail()).getEmail());
         return "main";
     }
 

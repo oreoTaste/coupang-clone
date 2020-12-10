@@ -6,10 +6,12 @@
     <link href="../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
 </head>
 <body>
+    <input type="hidden" name="email" th:if="${session.containsKey('email')}" th:value="${session.email}"/>
     <nav>
         <div class="nav-left">
             <div>즐겨찾기</div>
             <div>입점신청</div>
+            <div><a href="/register/product">상품등록</a></div>
         </div>
         <div class="nav-right">
             <div>로그인</div>

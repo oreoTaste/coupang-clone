@@ -5,6 +5,7 @@
 
 /* import page css */
 @import "pages/main.css";
+@import "pages/product/register.css";
 
 :root {
     --blue: #4285f4;

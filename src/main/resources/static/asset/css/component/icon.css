@@ -59,3 +59,9 @@
 .agree-context__lines div > p{
     margin: 0.4rem 0.8rem;
 }
+
+.agree-context__line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

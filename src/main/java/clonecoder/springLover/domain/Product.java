@@ -1,5 +1,6 @@
 package clonecoder.springLover.domain;
 
+import clonecoder.springLover.controller.ProductForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +31,23 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="comment_id")
     private Comment comment;
+
+    // 생성 메서드
+    public Product create(ProductForm productForm) {
+        Product product = new Product();
+        product.setCategory(productForm.getCategory());
+        product.setProducer(productForm.getProducer());
+        product.setCategory(productForm.getCategory());
+        product.setComment(productForm.getComment());
+        product.setName(productForm.getName());
+        product.setOrigin(productForm.getOrigin());
+        product.setPrice(productForm.getPrice());
+        product.setId(productForm.getId());
+        product.setStock(productForm.getStock());
+        product.setModel(productForm.getModel());
+        product.setIs_rocket(productForm.getIs_rocket());
+        return product;
+    }
 
     // 비즈니스 로직
     // order 테이블에서 활용 (주문취소 시)

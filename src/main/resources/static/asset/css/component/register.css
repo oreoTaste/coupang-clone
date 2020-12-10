@@ -15,6 +15,9 @@
     height: 3rem;
     margin-top: 0.7rem;
 }
+.register-content__inputs h4 {
+    margin: 10px 0;
+}
 .register-content__inputs div label span:first-child{
     overflow: hidden;
     background: white;
