@@ -49,4 +49,4 @@ out/
 .vscode/
 
 ### Upload Folder ###
-upload/**
+**/upload/**
