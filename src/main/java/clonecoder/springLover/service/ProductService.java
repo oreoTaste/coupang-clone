@@ -27,4 +27,8 @@ public class ProductService {
     public List<Product> findProducts() {
         return productRepository.findAll();
     }
+
+    public List<Product> findProducts(int maxNum) {
+        return productRepository.findAll(maxNum);
+    }
 }

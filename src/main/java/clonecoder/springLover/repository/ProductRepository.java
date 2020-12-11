@@ -28,12 +28,17 @@ public class ProductRepository {
                 .getResultList();
     }
 
+    public List<Product> findAll(int num) {
+        TypedQuery<Product> query = em.createQuery("select p from Product p ORDER BY p.id DESC", Product.class);
+        return query.setMaxResults(num).getResultList();
+    }
+
     public Product findOne(Long id) {
         return em.find(Product.class, id);
     }
 
     public List<Product> findAllByString(ProductSearch productSearch) {
-        //language=JPAQL
+        //language=JPQL
         String jpql = "select p From Product p join p.category c";
         boolean isFirstCondition = true;
         //주문 상태 검색

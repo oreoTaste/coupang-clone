@@ -35,7 +35,7 @@ public class HomeController {
         }
         memberService.findByEmail(member.getEmail()).getId();
         request.getSession().setAttribute("id", memberService.findByEmail(member.getEmail()).getId());
-        List<Product> products = productService.findProducts();
+        List<Product> products = productService.findProducts(30);
         model.addAttribute("products", products);
         return "main";
     }

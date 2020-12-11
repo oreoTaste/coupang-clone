@@ -1,6 +1,6 @@
 const joysticks = document.querySelectorAll(".joystick"),
       bannerImg = document.querySelector(".main-banner__banners"),
-      prices = document.querySelectorAll(".price");
+      prices = document.querySelectorAll(".js-price");
 
 const changeImg = (e) => {
     const text = e.target.alt.slice(0, e.target.alt.indexOf("_")) + ".jpg";
