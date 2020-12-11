@@ -17,16 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("login")
-    public String login(Member member, Model model, HttpServletRequest request) throws Exception {
-        if(!memberService.login(member.getEmail(), member.getPassword())){
-            throw new IllegalAccessException("등록되지 않은 회원입니다");
-        }
-
-        request.getSession().setAttribute("email", memberService.findByEmail(member.getEmail()).getEmail());
-        return "main";
-    }
-
     @GetMapping("register")
     public String registerForm() {
         return "member/registerForm";

@@ -22,8 +22,8 @@ public class ProductController {
 
     @GetMapping("register/product")
     public String registerForm(HttpServletRequest request) throws Exception {
-        String email = (String) request.getSession().getAttribute("email");
-        Member member = memberService.findByEmail(email);
+        Long id = (Long) request.getSession().getAttribute("id");
+        Member member = memberService.findOne(id);
         if(member == null) {
             throw new IllegalAccessException("유효하지 않은 접근입니다");
         }
@@ -40,10 +40,15 @@ public class ProductController {
         String key = "" + System.currentTimeMillis();
         storageService.store(description, key + "/description", request);
         storageService.store(thumbnail, key + "/thumbnail", request);
+
+        if(productForm.getIs_rocket() == null) {
+            productForm.setIs_rocket("off");
+        }
         Product product = new Product().create(productForm);
-        product.setDescription(key + "/description");
-        product.setThumbnail(key + "/thumbnail");
+        product.setDescription("upload/" + key + "/description/" + description.getOriginalFilename());
+        product.setThumbnail("upload/" + key + "/thumbnail/" + thumbnail.getOriginalFilename());
+
         productService.saveProduct(product);
-        return "main";
+        return "redirect:../login";
     }
 }

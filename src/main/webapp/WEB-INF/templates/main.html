@@ -68,15 +68,18 @@
                     바로가기 >
                 </div>
                 <div class="main-category__center-col">2</div>
-                <div class="main-category__items-col">3</div>
+                <div class="main-category__items-col">
+                    <div class="main-category__items_col__products" th:each="product : ${products}">
+                        <div class="pic">
+                            <img th:attr="src=${product.thumbnail}, title=@{thumbnail},alt=@{thumbnail}"/>
+                        </div>
+                        <div class="name" th:text="${product.name}"></div>
+                        <div class="price" th:text="${product.price}"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--
-        <ol th:each="product : ${products}">
-            <li th:text="${product.name}"></li>
-            <li th:text="${product.price}"></li>
-        </ol>
-        -->
+
 
         </div>
     </div>

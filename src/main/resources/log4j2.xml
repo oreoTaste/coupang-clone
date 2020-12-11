@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Properties>
+        <Property name="spring">spring</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        </Console>
+
+        <RollingFile name="info_file">
+            <FileName>C:/log/info.log</FileName>
+            <FilePattern>C:/log/info_time-based-logs/%d{yyyy-MM-dd}.log.zip</FilePattern>
+            <PatternLayout
+                    pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+            <Policies>
+                <!--
+                10MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링
+                <SizeBasedTriggeringPolicy size="10MB" />
+                -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" /><!-- 일일 로그 파일 생성-->
+            </Policies>
+            <DefaultRolloverStrategy max="500" fileIndex="min" /><!-- 롤링 파일 500개 까지 생성 -->
+        </RollingFile>
+
+        <RollingFile name="debug_file">
+            <FileName>C:/log/debug.log</FileName>
+            <FilePattern>C:/log/debug_time-based-logs/%d{yyyy-MM-dd}.log.zip</FilePattern>
+            <PatternLayout
+                    pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+            <Policies>
+                <!--
+                10MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링
+                <SizeBasedTriggeringPolicy size="10MB" />
+                -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" /><!-- 일일 로그 파일 생성-->
+            </Policies>
+            <DefaultRolloverStrategy max="500" fileIndex="min" /><!-- 롤링 파일 500개 까지 생성 -->
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- 기본적인 요청 및 처리사항은 info file에 설정 -->
+        <Root level="info" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="info_file" />
+            <AppenderRef ref="debug_file" />
+        </Root>
+
+        <!-- 프로젝트 내부에서 찍는건 debug file에 설정 -->
+        <Logger name="clonecoder.springLover" level="debug" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="debug_file" />
+        </Logger>
+
+        <!-- 스프링 프레임워크에서 찍는건 debug file에 설정 -->
+        <logger name="clonecoder.springLover" level="debug" additivity="false" >
+            <AppenderRef ref="console" />
+            <AppenderRef ref="debug_file" />
+        </logger>
+
+    </Loggers>
+</Configuration>
