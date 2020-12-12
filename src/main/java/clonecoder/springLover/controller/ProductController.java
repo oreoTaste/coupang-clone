@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,8 +58,9 @@ public class ProductController {
     }
 
     @GetMapping("product/{id}")
-    public String showProduct(@PathVariable Long id, HttpServletRequest request) throws Exception {
-        LogManager.getLogger().error("entered Product url : " + id);
-        return "";
+    public String productDetail(@PathVariable Long id, HttpServletRequest request, Model model) throws Exception {
+        Product product = productService.findOne(id);
+        model.addAttribute("product", product);
+        return "product/detail";
     }
 }

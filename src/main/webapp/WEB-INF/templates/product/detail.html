@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${product.name}">상품명</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/searchHeader :: searchHeader" />
+    <div class="product-detail-header main-wrapper">
+        <div class="product-detail-header__pic">
+            <div>
+                <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
+            </div>
+        </div>
+        <div class="product-detail-header__infos">
+            <div class="product-detail-header__infos__producer" th:text="${product.producer}">제조사</div>
+            <div class="product-detail-header__infos__name" th:text="${product.name}">상품명</div>
+            <div class="product-detail-header__infos__price">
+                <div class="hidden js-original-price" th:text="${product.price}">상품가격</div>
+                <div class="js-price">0</div>
+            <img class="product-detail-header__infos__is-rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+            </div>
+            <div class="product-detail-header__infos__buy">
+                <div class="buy-quantity">
+                    <input class="buy-quantity__input js-quantity" type="text" value="1"/>
+                    <div class="quantity">
+                        <div class="js-quantity-up">+</div>
+                        <div class="js-quantity-down">-</div>
+                    </div>
+                </div>
+                <button class="">장바구니 담기</button>
+                <button class="">바로 구매 > </button>
+            </div>
+            <li class="product-detail-header__product-id" th:text="'쿠팡상품번호: '+${product.id}"></li>
+        </div>
+    </div>
+
+    <div class="product-detail-body main-wrapper">
+        <div class="product-detail-tabs">
+            <div class="active">상품상세</div>
+            <div class="">상품평</div>
+            <div class="">상품문의</div>
+            <div class="">배송/교환/반품 안내</div>
+        </div>
+        <div class="product-detail-content">
+            <img th:src="'../'+${product.description}" alt="description"/>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+    <script src="../static/asset/js/detail.js"></script>
+    <script src="../static/asset/js/searchHeader.js"></script>
+</body>
+
+</html>

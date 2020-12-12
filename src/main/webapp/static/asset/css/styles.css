@@ -6,10 +6,12 @@
 /* import page css */
 @import "pages/main.css";
 @import "pages/product/register.css";
+@import "pages/product/detail.css";
 
 :root {
     --blue: #4285f4;
     --black: #373737;
+    --red : #b92000;
 }
 .blue {
     color: var(--blue);

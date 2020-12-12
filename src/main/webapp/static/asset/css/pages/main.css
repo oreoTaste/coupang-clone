@@ -57,7 +57,7 @@ nav > div > div:nth-child(2n) {
     height: 56px;
 }
 
-.category-btn {
+.main-logo-btn {
     display: inline-block;
     width: 174px;
     height: 41px;
@@ -281,7 +281,7 @@ footer .layer2 .layer2__logo {
     width: 19.3%;
     padding: 5px 1%;
 }
-.layer2__logo .category-btn {
+.layer2__logo .main-logo-btn {
     width: 100%;
     filter: brightness(0);
     opacity: 0.4;
