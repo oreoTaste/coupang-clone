@@ -33,8 +33,9 @@ public class HomeController {
         if(!memberService.login(member.getEmail(), member.getPassword())){
             throw new IllegalAccessException("등록되지 않은 회원입니다");
         }
-        memberService.findByEmail(member.getEmail()).getId();
-        request.getSession().setAttribute("id", memberService.findByEmail(member.getEmail()).getId());
+        Member realMember = memberService.findByEmail(member.getEmail());
+        request.getSession().setAttribute("id", realMember.getId());
+        request.getSession().setAttribute("email", realMember.getEmail());
         List<Product> products = productService.findProducts(30);
         model.addAttribute("products", products);
         return "main";

@@ -63,4 +63,12 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/detail";
     }
+
+    @GetMapping("product/checkout/{id}")
+    public String checkout(@PathVariable Long id, HttpServletRequest request) {
+
+            LogManager.getLogger().error(">>> entered product/checkout w/ id: " + id);
+        return "";
+    }
+
 }

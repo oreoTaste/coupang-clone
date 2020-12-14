@@ -201,6 +201,7 @@ nav > div > div:nth-child(2n) {
     height: 50%;
     width: 33.33%;
     display: inline-block;
+    overflow: hidden;
 }
 .main-category__items_col__products:nth-child(6n+1),
 .main-category__items_col__products:nth-child(6n+2),
@@ -223,6 +224,10 @@ nav > div > div:nth-child(2n) {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+.main-category__items_col__products .name{
+    overflow: hidden;
+    max-height: 3.2rem;
 }
 .main-category__items_col__products .price {
     font-weight: 600;

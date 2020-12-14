@@ -10,34 +10,39 @@
 </head>
 <body>
     <div th:replace="fragments/searchHeader :: searchHeader" />
-    <div class="product-detail-header main-wrapper">
-        <div class="product-detail-header__pic">
-            <div>
-                <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
-            </div>
-        </div>
-        <div class="product-detail-header__infos">
-            <div class="product-detail-header__infos__producer" th:text="${product.producer}">제조사</div>
-            <div class="product-detail-header__infos__name" th:text="${product.name}">상품명</div>
-            <div class="product-detail-header__infos__price">
-                <div class="hidden js-original-price" th:text="${product.price}">상품가격</div>
-                <div class="js-price">0</div>
-            <img class="product-detail-header__infos__is-rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
-            </div>
-            <div class="product-detail-header__infos__buy">
-                <div class="buy-quantity">
-                    <input class="buy-quantity__input js-quantity" type="text" value="1"/>
-                    <div class="quantity">
-                        <div class="js-quantity-up">+</div>
-                        <div class="js-quantity-down">-</div>
-                    </div>
+    <form th:action="'/order/'+${product.id}">
+        <div class="product-detail-header main-wrapper">
+            <div class="product-detail-header__pic">
+                <div>
+                    <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
                 </div>
-                <button class="">장바구니 담기</button>
-                <button class="">바로 구매 > </button>
+                <div class="hidden magnified-product">
+                    <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
+                </div>
             </div>
-            <li class="product-detail-header__product-id" th:text="'쿠팡상품번호: '+${product.id}"></li>
+            <div class="product-detail-header__infos">
+                <div class="product-detail-header__infos__producer" th:text="${product.producer}">제조사</div>
+                <div class="product-detail-header__infos__name" th:text="${product.name}">상품명</div>
+                <div class="product-detail-header__infos__price">
+                    <div class="hidden js-original-price" th:text="${product.price}">상품가격</div>
+                    <div class="js-price">0</div>
+                    <img class="product-detail-header__infos__is-rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+                </div>
+                <div class="product-detail-header__infos__buy">
+                    <div class="buy-quantity">
+                        <input class="buy-quantity__input js-quantity" type="text" value="1"/>
+                        <div class="quantity">
+                            <div class="js-quantity-up">+</div>
+                            <div class="js-quantity-down">-</div>
+                        </div>
+                    </div>
+                        <button class="">장바구니 담기</button>
+                        <button class="directOrder">바로 구매 > </button>
+                </div>
+                <li class="product-detail-header__product-id" th:text="'쿠팡상품번호: '+${product.id}" th:value="${product.id}"></li>
+            </div>
         </div>
-    </div>
+    </form>
 
     <div class="product-detail-body main-wrapper">
         <div class="product-detail-tabs">
@@ -47,6 +52,7 @@
             <div class="">배송/교환/반품 안내</div>
         </div>
         <div class="product-detail-content">
+            <div class="product-detail-content__spreader">상품정보 더보기</div>
             <img th:src="'../'+${product.description}" alt="description"/>
         </div>
     </div>
@@ -58,3 +64,7 @@
 </body>
 
 </html>
+<!--
+// https://login.coupang.com/login/login.pang?rtnUrl=https%3A%2F%2Fcheckout.coupang.com%2Fdirect%2Fcheckout%2F1608119450139%3Fitem%255B%255D%3D71368770480%253A1
+// https://login.coupang.com/login/login.pang?rtnUrl=https%3A%2F%2Fwww.coupang.com%2Fnp%2Fpost%2Flogin%3Fr%3D
+-->
