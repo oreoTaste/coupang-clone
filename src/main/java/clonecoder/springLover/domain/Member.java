@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,10 +29,10 @@ public class Member {
     private List<Address> addressList;
 
     @OneToMany(mappedBy="member")
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     // 생성메서드 : 신규회원
     public static Member createMember(String email, String name, String tel, String password) {

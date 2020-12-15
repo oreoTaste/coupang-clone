@@ -2,11 +2,13 @@ package clonecoder.springLover.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 public class OrderProduct {
     @Id
     @GeneratedValue
@@ -26,7 +28,7 @@ public class OrderProduct {
     private Product product;
 
     // 생성 메서드
-    public OrderProduct createOrderProduct(Product product, int price, int stock) {
+    public static OrderProduct createOrderProduct(Product product, int price, int stock) {
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setPrice(price);
         orderProduct.setProduct(product);

@@ -33,7 +33,7 @@ public class Product {
     private Comment comment;
 
     // 생성 메서드
-    public Product create(ProductForm productForm) {
+    public static Product create(ProductForm productForm) {
         Product product = new Product();
         product.setCategory(productForm.getCategory());
         product.setProducer(productForm.getProducer());

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="order_product_id")
-    private List<OrderProduct> orderProductList;
+    private List<OrderProduct> orderProductList = new ArrayList<>();
 
     private OrderStatus status;
 
@@ -43,12 +44,13 @@ public class Order {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-        delivery.setOrder(this);
     }
 
     // 생성 메서드
     public static Order createOrder(Member member, Delivery delivery, OrderProduct... orderProducts) {
         Order order = new Order();
+        System.out.println(">> member: " + member);
+        System.out.println(">> order: " + order);
         order.setMember(member);
         order.setDelivery(delivery);
         for(OrderProduct orderProduct : orderProducts) {
