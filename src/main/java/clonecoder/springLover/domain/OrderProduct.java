@@ -1,5 +1,6 @@
 package clonecoder.springLover.domain;
 
+import clonecoder.springLover.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,7 +29,7 @@ public class OrderProduct {
     private Product product;
 
     // 생성 메서드
-    public static OrderProduct createOrderProduct(Product product, int price, int stock) {
+    public static OrderProduct createOrderProduct(Product product, int price, int stock) throws NotEnoughStockException {
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setPrice(price);
         orderProduct.setProduct(product);

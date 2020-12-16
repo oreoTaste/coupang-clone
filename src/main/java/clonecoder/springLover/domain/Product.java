@@ -1,6 +1,7 @@
 package clonecoder.springLover.domain;
 
 import clonecoder.springLover.controller.ProductForm;
+import clonecoder.springLover.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,7 +57,10 @@ public class Product {
     }
 
     // orderProduct에서 활용 (생성메서드에서)
-    public void removeStock(int quantity) {
+    public void removeStock(int quantity) throws NotEnoughStockException {
+        if(this.stock < quantity) {
+            throw new NotEnoughStockException("재고 수량이 부족합니다");
+        }
         this.stock -= quantity;
     }
 

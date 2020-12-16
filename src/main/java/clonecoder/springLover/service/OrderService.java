@@ -20,7 +20,7 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public Long checkout(Long memberId, Long productId, int count, Address address) {
+    public Long checkout(Long memberId, Long productId, int count, Address address) throws Exception{
         // 엔티티조회
         Member member = memberRepository.findOne(memberId);
         Product product = productRepository.findOne(productId);
@@ -46,4 +46,8 @@ public class OrderService {
     }
 
 
+    public void cancel(Long orderId) {
+        Order foundOrder = orderRepository.findOne(orderId);
+        foundOrder.cancel();
+    }
 }
