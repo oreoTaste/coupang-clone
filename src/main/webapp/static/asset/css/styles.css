@@ -2,11 +2,14 @@
 @import "component/index.css";
 @import "component/register.css";
 @import "component/icon.css";
+@import "component/simpleHeader.css";
 
 /* import page css */
 @import "pages/main.css";
 @import "pages/product/register.css";
 @import "pages/product/detail.css";
+@import "pages/order/directCheckout.css";
+@import "pages/address/registerForm.css";
 
 :root {
     --blue: #4285f4;

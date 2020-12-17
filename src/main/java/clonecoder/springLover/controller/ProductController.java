@@ -3,6 +3,7 @@ package clonecoder.springLover.controller;
 import clonecoder.springLover.domain.Member;
 import clonecoder.springLover.domain.Product;
 import clonecoder.springLover.service.MemberService;
+import clonecoder.springLover.service.OrderService;
 import clonecoder.springLover.service.ProductService;
 import clonecoder.springLover.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductController {
 
     private final ProductService productService;
+    private final OrderService orderService;
     private final MemberService memberService;
     private final StorageService storageService;
 
@@ -64,11 +66,21 @@ public class ProductController {
         return "product/detail";
     }
 
-    @GetMapping("product/checkout/{id}")
-    public String checkout(@PathVariable Long id, HttpServletRequest request) {
+    @GetMapping("product/checkout/productId={productId}&count={count}")
+    public String checkout(@PathVariable Long productId,
+                           @PathVariable int count,
+                           Model model,
+                           HttpServletRequest request) {
+        Long memberId = (Long) request.getSession().getAttribute("id");
+        Member member = memberService.findOne(memberId);
+        model.addAttribute("member", member);
 
-            LogManager.getLogger().error(">>> entered product/checkout w/ id: " + id);
-        return "";
+        Product product = productService.findOne(productId);
+        model.addAttribute("product", product);
+
+        model.addAttribute("count", count);
+
+        return "order/directCheckout";
     }
 
 }

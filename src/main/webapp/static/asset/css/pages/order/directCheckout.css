@@ -1,0 +1,76 @@
+.direct-checkout-header {
+    border-bottom: 2px solid rgba(0,0,0,.5);
+}
+.direct-checkout-header h1 {
+    margin: 0.7rem 0;
+    font-weight: 500;
+}
+.direct-checkout-buyer h2,
+.direct-checkout-receiver h2,
+.direct-checkout-product h2,
+.direct-checkout-purchase h2,
+.direct-checkout-cash-receipt h2 {
+    margin: 1.5rem 0 0.5rem 0;
+    font-weight: 500;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table tr td {
+    border: 1px solid rgba(0,0,0,.2);
+}
+.classic-table tr td:first-child {
+    border-left: 0;
+    font-weight: bold;
+    background: rgba(0,0,0,.05);
+    width: 9rem;
+    text-align: end;
+    padding: 10px;
+}
+.classic-table tr td:not(:first-child) {
+    border-right: 0;
+    text-align: start;
+    width: calc(100% - 10rem);
+    padding: 5px 10px;
+}
+.two-by-one-table {
+    font-size: 1rem;
+}
+.two-by-one-table tr:first-child td{
+    font-weight: bold;
+    background: rgba(0,0,0,.05);
+    padding: 0.6rem;
+}
+.two-by-one-table tr:not(:first-child) td{
+    padding: 0.6rem;
+}
+.two-by-one-table tr:not(:first-child) td div:first-child{
+    display: inline-block;
+    margin-right: 10rem;
+}
+.two-by-one-table tr:not(:first-child) td div:not(:first-child){
+    display: inline-block;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,.5)
+}
+.cash-receipt-box h3 {
+    margin: 0 0 1.5rem 0;
+}
+.cash-receipt-box {
+    border: 1px solid rgba(0,0,0,.2);
+    padding: 1rem;
+}
+.direct-checkout-product .js-price::after,
+.direct-checkout-purchase .js-price::after {
+    content: "원";
+}
+.checkout-content {
+    border-top: 2px solid rgba(0,0,0,.2);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.address-not-found {
+    height: 8rem;
+    line-height: 8rem;
+    text-align: center;
+}

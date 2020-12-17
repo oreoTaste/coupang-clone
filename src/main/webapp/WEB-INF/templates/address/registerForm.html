@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>배송지 추가!</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div class="register-address-header">
+        <h3>배송지 추가</h3>
+        <div class="register-address-input">
+            <input id="js-juso" type="text" placeholder="도로명 주소를 입력해주세요"/>
+            <button id="js-getAddressBtn">Q</button>
+        </div>
+    </div>
+    <div class="register-address-content">
+        <div class="register-address-content__title">
+            <div class="js-totalCount"></div>
+            <div class="js-curPage"></div>
+        </div>
+        <div class="register-address-content__search-result">
+        </div>
+    </div>
+
+    <button class="js-juso-previous">이전페이지</button>
+    <button class="js-juso-next">다음페이지</button>
+    <script src="../../static/asset/js/address/registerForm.js"></script>
+</body>
+</html>

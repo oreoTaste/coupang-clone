@@ -26,7 +26,7 @@ public class Member {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private List<Address> addressList;
+    private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<Order> orderList = new ArrayList<>();

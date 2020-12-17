@@ -10,7 +10,7 @@
 </head>
 <body>
     <div th:replace="fragments/searchHeader :: searchHeader" />
-    <form th:action="'/order/'+${product.id}">
+    <form id="detailForm" th:action="'/product/checkout/productId='+${product.id}">
         <div class="product-detail-header main-wrapper">
             <div class="product-detail-header__pic">
                 <div>
