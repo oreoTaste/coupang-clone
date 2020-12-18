@@ -46,10 +46,9 @@ public class AddressServiceTest {
     }
 
     @Test
-    @Commit
     public void 멤버관련_주소등록() throws Exception {
         // given
-        Member member = Member.createMember("email", "name", "tel", "password");
+        Member member = Member.createMember("email!!!", "name:)", "tel", "password");
         Long memberId = memberService.join(member);
 
         Address address = new Address();

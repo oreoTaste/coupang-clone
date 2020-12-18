@@ -46,7 +46,7 @@
                     <td>배송주소</td>
                     <td>
                         <span th:if="${#arrays.length(member.addressList) ne 0}"
-                              th:text="${member.addressList.get(0).city + '' + member.addressList.get(0).street}">
+                              th:text="${'[' + member.addressList.get(0).zipcode + '] ' + member.addressList.get(0).street + ' ' + member.addressList.get(0).detail}">
                             배송주소
                         </span>
                         <span th:if="${#arrays.length(member.addressList) eq 0}" th:text="'저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.'">배송주소</span>

@@ -7,10 +7,12 @@ import clonecoder.springLover.domain.Product;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class AddressController {
 
     private final MemberService memberService;
     private final AddressService addressService;
+    private final EntityManager em;
 
     @GetMapping("register/address")
     public String registerForm(HttpServletRequest request) {
@@ -28,7 +31,7 @@ public class AddressController {
     }
 
     @PostMapping("register/address")
-    @ResponseBody
+    @Transactional
     public String register(HttpServletRequest request, AddressForm addressForm, Model model) {
         Member member = memberService.checkValidity(request);
 
@@ -36,11 +39,12 @@ public class AddressController {
         addressService.save(address);
         member.setAddress(address);
 
-//        AddressSearch addressSearch = new AddressSearch();
-//        addressSearch.setMemberId(member.getId());
-//        List<Address> addressList = addressService.findAddress(addressSearch);
-//        model.addAttribute("addressList", addressList);
-        return "주소를 정상적으로 등록했습니다";
+        AddressSearch addressSearch = new AddressSearch();
+        addressSearch.setMemberId(member.getId());
+        List<Address> addressList = addressService.findAddress(addressSearch);
+
+        model.addAttribute("addressList", addressList);
+        return "address/showList";
     }
 
 }
