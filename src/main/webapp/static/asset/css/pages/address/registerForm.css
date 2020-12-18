@@ -1,6 +1,7 @@
 .register-address-header {
     width: 100%;
 }
+/* 주소 노출부 */
 .register-address-header h3{
     margin: 0;
     padding: 0.5rem;
@@ -8,6 +9,95 @@
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0,.2);
 }
+.register-address-profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 27rem;
+}
+.register-address-profile input {
+    width: 100%;
+    height: 100%;
+    border: 0px;
+}
+/* double-line인 경우 */
+.register-address-profile > div.register-address-profile__address {
+    height: 8rem;
+}
+.register-address-profile > div.register-address-profile__address > div > label > span:first-child {
+    padding: 3rem 1.1rem;
+}
+.register-address-profile__address:not(.double-line) > div > label > span:nth-child(2) > span:nth-child(2) {
+    border-top: 1px solid rgba(0,0,0,.3);
+}
+.register-address-profile__address.double-line > div > label > span:nth-child(2) > span:nth-child(2) {
+    display: none;
+}
+/* double-line 아닌 경우 */
+.register-address-profile > button {
+    height: 3.5rem;
+    background: var(--blue);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 5%;
+}
+.register-address-profile > div {
+    width: 100%;
+    overflow: hidden;
+    height: 4rem;
+    padding: 0 5%;
+}
+.register-address-profile__address {
+    height: 8rem;
+}
+
+.register-address-profile > div > div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.3);
+}
+.register-address-profile > div > div > label {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+.register-address-profile > div > div > label > span:first-child {
+    height: 100%;
+    width: 4rem;
+    padding: 0.95rem 1.1rem;
+    overflow: hidden;
+    display: inline-block;
+}
+.register-address-profile > div > div > label > span:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: calc(100% - 4rem);
+    padding: 0;
+    margin: 0;
+    border-left: 1px solid rgba(0,0,0,.3);
+}
+.register-address-profile > div > div > label > span:nth-child(2) > input{
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.register-address-profile > div > div > label > span:nth-child(2) span {
+    width: 100%;
+    height: 100%;
+}
+.register-address-profile > div > div > label > span:nth-child(2) > input {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+    border: 0px;
+}
+
+/* 주소 검색부 */
 .register-address-input {
     background: rgba(0,0,0,.1);
     padding: 3% 5%;

@@ -9,6 +9,21 @@
     transform: translate(-1px, 0px);
 }
 
+/* 주소등록 페이지 */
+.register-address-profile .address__profile-icon{
+    transform: translate(29px, 27px) scale(1.5);
+}
+.register-address-profile .address__address-icon {
+    transform: translate(-6px, 27px) scale(1.5);
+}
+.register-address-profile .address__tel-icon {
+    transform: translate(-35px, 27px) scale(1.5);
+}
+.register-address-profile .address__ask-icon {
+    transform: translate(-63px, 26px) scale(1.5);
+}
+
+
 #email-icon {
     transform: translate(-1px, 0px);
 }

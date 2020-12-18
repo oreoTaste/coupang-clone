@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,7 @@ public class Member {
     private String password;
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
@@ -51,6 +52,8 @@ public class Member {
     }
 
     public void setAddress(Address address) {
-        addressList.add(address);
+        this.addressList.add(address);
+        address.setMember(this);
     }
+
 }
