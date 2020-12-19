@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+    <link href="../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/simpleHeader :: simpleHeader" />
+    <header class="cart-header">
+        <h1>장바구니</h1>
+        <h5>옵션선택</h5>
+    </header>
+    <div class="main-wrapper" th:each="cart : ${myCart}">
+        <div th:text="${cart.product.name}">상품명</div>
+        <div th:text="${cart.product.price}">가격</div>
+        <div th:text="${cart.count}">개수</div>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</body>
+</html>

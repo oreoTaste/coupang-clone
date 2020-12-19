@@ -10,6 +10,7 @@ const originalPrice = document.querySelector(".js-original-price"),
       id = document.querySelector(".product-detail-header__product-id"),
       detailForm = document.querySelector("#detailForm"),
       directOrder = document.querySelector(".directOrder"),
+      shoppingCart = document.querySelector("#shoppingCart"),
       url = "";
 
 // url(form링크) 초기값 세팅하기
@@ -85,6 +86,23 @@ const handleOrder = (e) => {
         window.location = "/";
     }
 }
+const setMovement = (e) => {
+    e.preventDefault();
+    fetch("/order/shoppingCart/id=" + id.value + "&quantity=" + productQuantity.value, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        }).then((response) => {
+            alert("장바구니에 등록되었습니다");
+        });
+}
+const setShoppingCart = () => {
+    shoppingCart.addEventListener("click", setMovement);
+}
 function init() {
     setFormData();
     setComma();
@@ -92,6 +110,7 @@ function init() {
     setMagnifier();
     setSpreader();
     setDirectOrder();
+    setShoppingCart();
 
 }
 

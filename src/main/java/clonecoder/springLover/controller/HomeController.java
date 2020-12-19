@@ -23,8 +23,8 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("login")
-    public String login(Member member, Model model, HttpServletRequest request) throws Exception {
+    @RequestMapping("/main")
+    public String main(Member member, Model model, HttpServletRequest request) throws Exception {
         // 다른 페이지에서 넘어온 경우(member값이 없는 경우) : member 채워주기
         if(member.getEmail() == null) {
             Long id = (Long) request.getSession().getAttribute("id");

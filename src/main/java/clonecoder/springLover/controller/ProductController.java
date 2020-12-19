@@ -1,17 +1,17 @@
 package clonecoder.springLover.controller;
 
+import clonecoder.springLover.domain.Address;
 import clonecoder.springLover.domain.Member;
+import clonecoder.springLover.domain.Order;
 import clonecoder.springLover.domain.Product;
-import clonecoder.springLover.service.MemberService;
-import clonecoder.springLover.service.OrderService;
-import clonecoder.springLover.service.ProductService;
-import clonecoder.springLover.service.StorageService;
+import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Request;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +26,7 @@ public class ProductController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final StorageService storageService;
+    private final AddressService addressService;
 
     @GetMapping("register/product")
     public String registerForm(HttpServletRequest request) throws Exception {
@@ -64,23 +65,6 @@ public class ProductController {
         Product product = productService.findOne(id);
         model.addAttribute("product", product);
         return "product/detail";
-    }
-
-    @GetMapping("product/checkout/productId={productId}&count={count}")
-    public String checkout(@PathVariable Long productId,
-                           @PathVariable int count,
-                           Model model,
-                           HttpServletRequest request) {
-        Long memberId = (Long) request.getSession().getAttribute("id");
-        Member member = memberService.findOne(memberId);
-        model.addAttribute("member", member);
-
-        Product product = productService.findOne(productId);
-        model.addAttribute("product", product);
-
-        model.addAttribute("count", count);
-
-        return "order/directCheckout";
     }
 
 }

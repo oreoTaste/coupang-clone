@@ -6,10 +6,10 @@
     <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
 </head>
 <body>
-    <form action="/login" method="post">
+    <form action="/main" method="post">
         <div class="index-wrapper">
             <div class="index-wrapper__center">
-                <img th:src="@{/static/asset/img/logo.png}" alt="">
+                <div class="main-logo-btn" alt="logo" onclick="location.href='/'"></div>
                 <div class="index-wrapper__center__inputs">
                     <div class="email-form">
                         <label for="email" >

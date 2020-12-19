@@ -3,16 +3,21 @@
 @import "component/register.css";
 @import "component/icon.css";
 @import "component/simpleHeader.css";
+@import "component/margin.css";
+@import "component/font.css";
+@import "component/button.css";
 
 /* import page css */
 @import "pages/main.css";
 @import "pages/product/register.css";
 @import "pages/product/detail.css";
 @import "pages/order/directCheckout.css";
+@import "pages/order/after.css";
 @import "pages/address/registerForm.css";
 
 :root {
     --blue: #4285f4;
+    --deep-blue: #3d82f8;
     --black: #373737;
     --red : #b92000;
 }

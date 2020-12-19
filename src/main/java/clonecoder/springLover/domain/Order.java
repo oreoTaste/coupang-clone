@@ -2,8 +2,12 @@ package clonecoder.springLover.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,9 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    private Timestamp date;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -24,10 +31,10 @@ public class Order {
     @JoinColumn(name="delivery_id")
     private Delivery delivery;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="order_product_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderProduct> orderProductList = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
 
@@ -49,14 +56,14 @@ public class Order {
     // 생성 메서드
     public static Order createOrder(Member member, Delivery delivery, OrderProduct... orderProducts) {
         Order order = new Order();
-        System.out.println(">> member: " + member);
-        System.out.println(">> order: " + order);
         order.setMember(member);
         order.setDelivery(delivery);
+        order.setDate(new Timestamp(System.currentTimeMillis()));
+        order.setStatus(OrderStatus.ORDER);
+
         for(OrderProduct orderProduct : orderProducts) {
             order.addOrderProducts(orderProduct);
         }
-        order.setStatus(OrderStatus.ORDER);
         return order;
     }
 

@@ -1,0 +1,6 @@
+.blue-font {
+    color: var(--blue);
+}
+.font-600 {
+    font-weight: 600;
+}

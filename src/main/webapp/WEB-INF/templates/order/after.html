@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>바로 결제하기</title>
+    <link href="../../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/searchHeader :: searchHeader" />
+
+    <div class="main-wrapper">
+        <div class="order-after__header margin-1-1rem">
+            <!--
+            <h1>주문완료</h1>
+            <div>
+                01옵션선택 > 02장바구니 > 03주문/결제 > <span class="font-600">04주문완료</span>
+            </div>
+            -->
+        </div>
+        <hr class="margin-0-1rem"/>
+        <div class="order-after__content">
+            <h1><span class="blue-font">주문이 완료</span>되었습니다. 감사합니다!</h1>
+            <div>
+                <h4 th:text="'주문일 : ' + ${#dates.format(order.date,'yyyy-MM-dd HH:mm:ss')}">주문일</h4>
+                <h4 th:text="'주문번호 : ' + ${order.id}">주문번호</h4>
+            </div>
+            <input type="submit" onclick="location.href='/login'" class="blue-button" value="계속쇼핑하기>"/>
+        </div>
+        <hr class="margin-0-1rem"/>
+        <div class="side-by-side margin-0-1rem">
+            <div class="side-by-side__loaf">
+                <h2>받는사람 정보</h2>
+                <div class="side-by-side__loaf__content">
+                    <div>이름</div>
+                    <div th:text="${order.member.name}"></div>
+                    <div>휴대폰</div>
+                    <div th:text="${order.member.tel}"></div>
+                    <div>연락처</div>
+                    <div th:text="${order.member.tel}"></div>
+                    <div>배송주소</div>
+                    <div th:text="${order.delivery.address.street} + ' ' + ${order.delivery.address.detail}"></div>
+                    <div>배송요청사항</div>
+                    <div th:text="${order.delivery.address.ask}"></div>
+                </div>
+            </div>
+            <div class="side-by-side__loaf">
+                <h2>결제 정보</h2>
+                <div class="side-by-side__loaf__content">
+                    <div>이름</div>
+                    <div th:text="${order.member.name}"></div>
+                    <div>휴대폰</div>
+                    <div th:text="${order.member.tel}"></div>
+                    <div>연락처</div>
+                    <div th:text="${order.member.tel}"></div>
+                    <div>배송주소</div>
+                    <div th:text="${order.delivery.address.street} + ' ' + ${order.delivery.address.detail}"></div>
+                    <div>배송요청사항</div>
+                    <div th:text="${order.delivery.address.ask}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+    <script th:src="@{/static/asset/js/order/after.js}">
+    </script>
+</body>
+</html>
+<!--
+http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&confmKey=devU01TX0FVVEgyMDIwMTIxNzE3MTY1MDExMDU2NTE=&resultType=json&keyword=%EB%8B%B9%EC%82%B0%EB%A1%9C%20214%27
+-->

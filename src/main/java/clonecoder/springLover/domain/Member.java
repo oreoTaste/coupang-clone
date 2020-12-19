@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@ToString
 public class Member {
     @Id
     @GeneratedValue
@@ -28,6 +27,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cart> cartList = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<Order> orderList = new ArrayList<>();
@@ -55,5 +57,33 @@ public class Member {
         this.addressList.add(address);
         address.setMember(this);
     }
+
+    public boolean adjustCart(Long productId, int quantity) {
+        for(Cart cart : this.cartList) {
+            if(cart.getProduct().getId() == productId) {
+                cart.setCount(cart.getCount() + quantity);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", emoticon='" + emoticon + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                ", addressList=" + addressList.size() +
+                ", cartList=" + cartList.size() +
+                ", orderList=" + orderList.size() +
+                ", comments=" + comments +
+                '}';
+    }
+
 
 }

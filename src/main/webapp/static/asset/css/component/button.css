@@ -1,0 +1,11 @@
+.blue-button {
+    background: var(--deep-blue);
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border: 0;
+    font-weight: 600;
+    border-radius: 0.2rem;
+}
+.main-logo-btn {
+    cursor: pointer;
+}

@@ -1,0 +1,49 @@
+.order-after__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem 0;
+    background: url(/static/asset/img/label/process-label.gif);
+    width: calc(100% - 3rem);
+    height: 3rem;
+    background-position: 0rem 7rem;
+    background-size: cover;
+}
+.order-after__header h1 {
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+}
+.order-after__content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.order-after__content > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+.side-by-side {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.side-by-side .side-by-side__loaf{
+    width: 48%;
+}
+.side-by-side__loaf__content {
+    background: rgba(0,0,0,.1);
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+.side-by-side__loaf__content > div {
+    margin: 0.4rem 0;
+}
+.side-by-side__loaf__content > div:nth-child(2n) {
+    width: 60%;
+}
+.side-by-side__loaf__content > div:nth-child(2n+1) {
+    width: 40%;
+}

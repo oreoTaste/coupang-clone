@@ -101,6 +101,7 @@ nav > div > div:nth-child(2n) {
     height: 40px;
     background: url(../../img/icon/header-icon.png);
     background-position: -112px 0px;
+    cursor: pointer;
 }
 
 .search-row__logo img {
