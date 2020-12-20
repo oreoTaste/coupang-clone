@@ -3,9 +3,11 @@
 @import "component/register.css";
 @import "component/icon.css";
 @import "component/simpleHeader.css";
+@import "component/searchHeader.css";
 @import "component/margin.css";
 @import "component/font.css";
 @import "component/button.css";
+@import "component/price_quantity.css";
 
 /* import page css */
 @import "pages/main.css";
@@ -14,6 +16,7 @@
 @import "pages/order/directCheckout.css";
 @import "pages/order/after.css";
 @import "pages/address/registerForm.css";
+@import "pages/cart/show.css";
 
 :root {
     --blue: #4285f4;

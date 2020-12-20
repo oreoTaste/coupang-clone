@@ -1,7 +1,10 @@
+import {setCart} from './component/searchHeader.js';
+import {makeCommas, deleteCommas} from './component/price_quantity.js';
+
 const joysticks = document.querySelectorAll(".joystick"),
       bannerImg = document.querySelector(".main-banner__banners"),
-      prices = document.querySelectorAll(".js-price"),
-      id = document.querySelector("#idStorage");
+      id = document.querySelector("#idStorage"),
+      prices = document.querySelectorAll(".js-price");
 //      email = document.querySelector("#emailStorage");
 
 // 배너 변경관련
@@ -11,10 +14,6 @@ const setBanner = () => {
 const changeImg = (e) => {
     const text = e.target.src.slice(0, e.target.src.indexOf("_")) + ".jpg";
     bannerImg.style.background = "url(" + text + ")";
-}
-// 1000단위 콤마 관련
-const makeCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 // 로그인하기전 바로결제하기 상품이 있는지 확인
 const checkIfOrdered = () => {
@@ -28,11 +27,13 @@ const setSession = () => {
     sessionStorage.setItem("id", id.value);
 }
 
+
 function init() {
+    setCart();
+    prices.forEach(el => el.innerText = makeCommas(el.innerText));
     setSession();
     checkIfOrdered();
     setBanner();
-    prices.forEach(el => el.innerText = makeCommas(el.innerText));
 
 }
 

@@ -58,10 +58,20 @@ public class Member {
         address.setMember(this);
     }
 
-    public boolean adjustCart(Long productId, int quantity) {
+    public boolean plusQuantityCart(Long productId, int quantity) {
         for(Cart cart : this.cartList) {
             if(cart.getProduct().getId() == productId) {
                 cart.setCount(cart.getCount() + quantity);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean adjustQuantityCart(Long productId, int quantity) {
+        for(Cart cart : this.cartList) {
+            if(cart.getProduct().getId() == productId) {
+                cart.setCount(quantity);
                 return true;
             }
         }

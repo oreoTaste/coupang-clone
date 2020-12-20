@@ -1,3 +1,5 @@
+import {setCart} from './component/searchHeader.js';
+
 const originalPrice = document.querySelector(".js-original-price"),
       price = document.querySelector(".js-price"),
       productQuantity = document.querySelector(".js-quantity"),
@@ -5,13 +7,13 @@ const originalPrice = document.querySelector(".js-original-price"),
       downButton = document.querySelector(".js-quantity-down"),
       thumbnailPic = document.querySelector(".product-detail-header__pic"),
       magnifiedPic = document.querySelector(".magnified-product"),
-      detailBody = document.querySelector(".product-detail-body");
+      detailBody = document.querySelector(".product-detail-body"),
       spreader = document.querySelector(".product-detail-content__spreader"),
       id = document.querySelector(".product-detail-header__product-id"),
       detailForm = document.querySelector("#detailForm"),
       directOrder = document.querySelector(".directOrder"),
-      shoppingCart = document.querySelector("#shoppingCart"),
-      url = "";
+      shoppingCart = document.querySelector("#shoppingCart");
+let url = "";
 
 // url(form링크) 초기값 세팅하기
 const setFormData = () => {
@@ -97,13 +99,15 @@ const setMovement = (e) => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         }).then((response) => {
-            alert("장바구니에 등록되었습니다");
+            setCart();
         });
 }
 const setShoppingCart = () => {
     shoppingCart.addEventListener("click", setMovement);
+
 }
 function init() {
+    setCart();
     setFormData();
     setComma();
     setButton();
@@ -111,7 +115,6 @@ function init() {
     setSpreader();
     setDirectOrder();
     setShoppingCart();
-
 }
 
 init();

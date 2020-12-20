@@ -8,6 +8,31 @@
 .icon-wrapper img {
     transform: translate(-1px, 0px);
 }
+/* 더하기 빼기 아이콘 (장바구니에서 사용) */
+span.plus {
+    background: url(/static/asset/img/icon/calculate-icon.png);
+    width: 18px;
+    height: 18px;
+    margin: 0 1rem;
+    background-size: cover;
+    background-position: 0rem 0px;
+}
+span.minus {
+    background: url(/static/asset/img/icon/calculate-icon.png);
+    width: 18px;
+    height: 18px;
+    margin: 0 1rem;
+    background-size: cover;
+    background-position: -18px 0px;
+}
+span.equals {
+    background: url(/static/asset/img/icon/calculate-icon.png);
+    width: 18px;
+    height: 18px;
+    margin: 0 1rem;
+    background-size: cover;
+    background-position: 18px 0px;
+}
 
 /* 주소등록 페이지 */
 .register-address-profile .address__profile-icon{

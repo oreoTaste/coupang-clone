@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>장바구니</title>
@@ -7,15 +7,102 @@
 </head>
 <body>
     <div th:replace="fragments/simpleHeader :: simpleHeader" />
-    <header class="cart-header">
-        <h1>장바구니</h1>
-        <h5>옵션선택</h5>
-    </header>
-    <div class="main-wrapper" th:each="cart : ${myCart}">
-        <div th:text="${cart.product.name}">상품명</div>
-        <div th:text="${cart.product.price}">가격</div>
-        <div th:text="${cart.count}">개수</div>
+    <div class="main-wrapper">
+        <header class="cart-header">
+        </header>
+        <div class="cart-type">
+            <div class="cart-type__general selected">일반구매(0)</div>
+            <div class="cart-type__regular unselected">정기구매(0)</div>
+        </div>
+        <header class="cart-content-header">
+            <div class="check-box">
+                <input type="checkbox"/>
+            </div>
+            <div class="thumbnail">
+                전체선택
+            </div>
+            <div class="main-content">
+                상품정보
+            </div>
+            <div class="total-cost">
+                상품금액
+            </div>
+            <div class="delivery-cost">
+                배송비
+            </div>
+        </header>
+        <div class="cart-content">
+            <div class="cart-content__top">
+                <h1>로켓상품</h1><p>무료배송(19,800원 이상 구매가능)</p>
+            </div>
+            <div class="cart-content__item" th:each="rocket : ${rocketList}">
+                <div class="check-box">
+                    <input type="checkbox" alt="checkbox"/>
+                </div>
+                <div class="thumbnail" alt="thumbnail" >
+                    <img th:src="'/' + ${rocket.product.thumbnail}"/>
+                </div>
+                <div class="main-content">
+                    <div class="product-info" th:value="${rocket.product.id}" th:text="${rocket.product.name}">상품명</div>
+                    <div>
+                        <div>예상배송시간</div>
+                        <div class="js-price cart-price" th:text="${rocket.product.price}">가격</div>
+                        <div class="js-count">
+                            <span class="minus"></span>
+                            <div class="js-quantity cart-quantity" th:text="${rocket.count}"></div>
+                            <span class="plus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-cost js-price"></div>
+                <div class="delivery-cost js-price" th:if="${rocket.product.is_rocket eq 'on'}" th:text="0"></div>
+                <div class="delivery-cost js-price" th:if="${rocket.product.is_rocket ne 'on'}" th:text="2500"></div>
+            </div>
+            <div class="cart-content__summary">
+                상품가격&nbsp<span class="summary__item-cost js-price">0</span>
+                <span class="plus"></span>
+                배송비<span class="hidden summary__delivery-cost">0</span>&nbsp<strong class="summary__delivery-cost">무료</strong>
+                <span class="equals"></span>
+                주문금액&nbsp<strong class="summary__total-cost js-price">0</strong>
+            </div>
+        </div>
+        <div class="cart-content">
+            <div class="cart-content__top">
+                <h1>판매자배송 상품</h1>
+            </div>
+            <div class="cart-content__item" th:each="normal : ${normalList}">
+                <div class="check-box">
+                    <input type="checkbox" alt="checkbox"/>
+                </div>
+                <div class="thumbnail" alt="thumbnail" >
+                    <img th:src="'/' + ${normal.product.thumbnail}"/>
+                </div>
+                <div class="main-content">
+                    <div class="product-info" th:value="${normal.product.id}" th:text="${normal.product.name}">상품명</div>
+                    <div>
+                        <div>예상배송시간</div>
+                        <div class="js-price cart-price" th:text="${normal.product.price}">가격</div>
+                        <div class="js-count">
+                            <span class="minus"></span>
+                            <div class="js-quantity cart-quantity" th:text="${normal.count}"></div>
+                            <span class="plus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-cost js-price"></div>
+                <div class="delivery-cost js-price" th:if="${normal.product.is_rocket eq 'on'}" th:text="0"></div>
+                <div class="delivery-cost js-price" th:if="${normal.product.is_rocket ne 'on'}" th:text="2500"></div>
+            </div>
+            <div class="cart-content__summary">
+                상품가격&nbsp<span class="summary__item-cost js-price">0</span>
+                <span class="plus"></span>
+                배송비&nbsp<span class="summary__delivery-cost js-price">0</span>
+                <span class="equals"></span>
+                주문금액&nbsp<strong class="summary__total-cost js-price">0</strong>
+            </div>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
+    <script type="module" src="../static/asset/js/cart/show.js"></script>
 </body>
 </html>

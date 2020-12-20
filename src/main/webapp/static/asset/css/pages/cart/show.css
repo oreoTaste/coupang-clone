@@ -1,0 +1,174 @@
+.cart-header{
+    background: url(/static/asset/img/label/process-label.gif);
+    height: 3rem;
+    background-position: 0px 3.2rem;
+    background-size: cover;
+    transform: scale(1);
+    margin: 2rem 0;
+}
+.cart-type {
+    display: inline-block;
+    height: 3.5rem;
+    font-size: 0px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+.cart-type div {
+    display: inline-block;
+    width: 50%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    height: 100%;
+    text-align: center;
+    line-height: 3.5rem;
+    border: 2.5px solid black;
+}
+.cart-type div:nth-child(2) {
+    margin-left: -2.5px;
+}
+.cart-type div.selected {
+    background: rgb(255,255,255);
+    color: var(--blue);
+    border: 2.5px solid var(--deep-blue);
+    border-bottom: 0;
+}
+.cart-type div.unselected {
+    background: rgba(0,0,0,0.05);
+    border: 2.5px solid transparent;
+    border-bottom: 2.5px solid var(--deep-blue);
+}
+.cart-content__top {
+    padding: 0 2.5rem;
+}
+.cart-content__top > * {
+    display: inline-block;
+    margin-right: 2rem;
+}
+.cart-content-header,
+.cart-content__item {
+    font-size: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 3px solid rgba(0,0,0,.1);
+    height: 10rem;
+    display: flex;
+    align-items: center;
+}
+.cart-content-header {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    height: 3rem;
+    background: rgba(0,0,0,.02);
+    font-weight: 600;
+    color: rgba(0,0,0,.7);
+}
+.cart-content-header > * {
+    display: flex!important;
+    align-items: center;
+}
+.cart-content-header > div,
+.cart-content__item > div {
+    display: inline-block;
+    height: 100%;
+    font-size: 1rem;
+}
+.cart-content-header > .check-box,
+.cart-content__item > .check-box {
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cart-content-header > .thumbnail,
+.cart-content__item > .thumbnail {
+    width: 10rem;
+    height: 100%;
+    padding: 0.5rem;
+}
+.cart-content__item > .thumbnail img {
+    height: 100%;
+    width: 100%;
+}
+.cart-content-header > .main-content ,
+.cart-content__item > .main-content {
+    width: calc(100% - 20% - 10rem - 2rem);
+    border-right : 1px solid rgba(0,0,0,.1);
+}
+.cart-content-header > .main-content{
+    border-right : 0;
+}
+.cart-content__item > .main-content > div {
+    height: 50%;
+    overflow: hidden;
+    line-height: 5;
+}
+.cart-content__item > .main-content > div:first-child {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: rgba(0,0,0,0.9);
+}
+.cart-content__item > .main-content > div:last-child {
+    display: flex;
+    flex-direction: row;
+    color: rgba(0,0,0,.7);
+}
+.cart-content__item > .main-content > div:last-child > div {
+    width: 50%;
+}
+.cart-content__item > .main-content > div:last-child > div:not(:first-child) {
+    padding: 0 5%;
+    text-align: end;
+    width: 25%;
+}
+.cart-content__item > .main-content > div:last-child > div.js-count{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-content-header > .total-cost,
+.cart-content__item > .total-cost {
+    width: 10%;
+    border-right : 1px solid rgba(0,0,0,.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0,0,0,.7);
+}
+.cart-content-header > .total-cost{
+    border-right: 0;
+}
+.cart-content-header > .delivery-cost ,
+.cart-content__item > .delivery-cost {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0,0,0,.7);
+}
+.cart-content__item:nth-last-child(2) {
+    border-bottom: 0px;
+}
+.cart-content__summary {
+    border-top: 1px solid rgba(0,0,0,.2);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    height: 5rem;
+    background: rgba(0,0,0,.05);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 4rem;
+    font-size: 0.9rem;
+}
+.cart-content__summary .js-price::after {
+    content: "원";
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.cart-content__summary  .summary__item-cost,
+.cart-content__summary  .summary__delivery-cost,
+.cart-content__summary  .summary__total-cost {
+    font-size: 1.2rem;
+}
+.js-count .plus,
+.js-count .minus {
+    margin: 0;
+}

@@ -57,7 +57,7 @@ public class ProductController {
         product.setThumbnail("upload/" + key + "/thumbnail/" + thumbnail.getOriginalFilename());
 
         productService.saveProduct(product);
-        return "redirect:../login";
+        return "redirect:../main";
     }
 
     @GetMapping("product/{id}")

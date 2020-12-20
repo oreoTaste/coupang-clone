@@ -1,0 +1,6 @@
+.js-quantity::after {
+    content: "개";
+}
+.js-price::after {
+    content: "원";
+}

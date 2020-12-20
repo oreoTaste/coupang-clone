@@ -36,13 +36,11 @@ public class CartServiceTest {
         productService.saveProduct(product);
 
         // when
-        Long cartId = cartService.save(member.getId(), product.getId(), 1);
-        Cart cart = cartService.findOne(cartId);
+        cartService.save(member.getId(), product.getId(), 1);
         List<Cart> myCart = cartService.findMyCart(member.getId());
 
         // then
         assertEquals("장바구니 상품의 종류는 1개이다", 1, myCart.size());
-        assertEquals("장바구니 상품의 개수는 1개이다", 1, cart.getCount());
         assertEquals("원래 상품의 재고는 그대로다", 10, product.getStock());
     }
 
@@ -57,10 +55,9 @@ public class CartServiceTest {
         productService.saveProduct(product);
 
         // when
-        Long cartId = cartService.save(member.getId(), product.getId(), 1);
-        Cart cart = cartService.findOne(cartId);
-        cartService.clear(cart);
+        cartService.save(member.getId(), product.getId(), 1);
         List<Cart> myCart = cartService.findMyCart(member.getId());
+        cartService.clear(myCart.get(0));
 
         // then
         assertEquals("장바구니 상품의 종류는 0개이다", 0, myCart.size());

@@ -61,10 +61,6 @@ table tr td {
     border: 1px solid rgba(0,0,0,.2);
     padding: 1rem;
 }
-.direct-checkout-product .js-price::after,
-.direct-checkout-purchase .js-price::after {
-    content: "원";
-}
 .checkout-content {
     border-top: 2px solid rgba(0,0,0,.2);
     border-bottom: 1px solid rgba(0,0,0,.1);
