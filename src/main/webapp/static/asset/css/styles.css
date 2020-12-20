@@ -47,3 +47,6 @@ a {
     all: unset;
     cursor: pointer;
 }
+.hidden {
+    display: none;
+}

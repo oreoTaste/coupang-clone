@@ -1,4 +1,4 @@
-import {setCart} from './component/searchHeader.js';
+import {setCart} from '../component/searchHeader.js';
 
 const originalPrice = document.querySelector(".js-original-price"),
       price = document.querySelector(".js-price"),
@@ -61,6 +61,7 @@ const handlePosition = (e) => {
 const showBlock = (e) => {
     e.preventDefault();
     magnifiedPic.classList.remove("hidden");
+    console.log("removed hidden")
 }
 const hideBlock = (e) => {
     magnifiedPic.classList.add("hidden");
