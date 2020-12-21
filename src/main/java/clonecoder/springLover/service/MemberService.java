@@ -55,7 +55,7 @@ public class MemberService {
         Long memberId = (Long) request.getSession().getAttribute("id");
         Member foundMember = findOne(memberId);
         if(foundMember == null) {
-            throw new IllegalStateException("로그인 이후 주소를 등록할 수 있습니다.");
+            throw new IllegalArgumentException("올바른 로그인 정보가 필요합니다.");
         }
         return foundMember;
     }

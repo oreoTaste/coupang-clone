@@ -9,8 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,20 +28,21 @@ public class HomeController {
     }
 
     @RequestMapping("/main")
-    public String main(Member member, Model model, HttpServletRequest request) throws Exception {
-        // 다른 페이지에서 넘어온 경우(member값이 없는 경우) : member 채워주기
-//        if(member.getEmail() == null) {
-//            Long id = (Long) request.getSession().getAttribute("id");
-//            member = memberService.findOne(id);
-//        }
-//        if(!memberService.login(member.getEmail(), member.getPassword())){
-//            throw new IllegalAccessException("등록되지 않은 회원입니다");
-//        }
-//        Member realMember = memberService.findByEmail(member.getEmail());
-//        request.getSession().setAttribute("id", realMember.getId());
-//        request.getSession().setAttribute("email", realMember.getEmail());
+    public String main(Member member, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Product> products = productService.findProducts(30);
         model.addAttribute("products", products);
+
+        if(request.getSession().getAttribute("id") == null) {
+            if(member.getEmail() == null) {
+                // 로그인 없이 진입할 경우 그냥 통과
+                CookieForm.setTempIdToCookie(request, response);
+                return "main";
+            }
+            // 로그인 한 경우 session에 값추가
+            Member realMember = memberService.findByEmail(member.getEmail());
+            request.getSession().setAttribute("id", realMember.getId());
+            request.getSession().setAttribute("email", realMember.getEmail());
+        }
         return "main";
     }
 
