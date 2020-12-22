@@ -38,3 +38,7 @@
 .search-row__logo img {
     width: 174px;
 }
+
+.search-row__search-bar {
+    outline: none;
+}

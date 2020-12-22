@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ProductController {
         Long id = (Long) request.getSession().getAttribute("id");
         Member member = memberService.findOne(id);
         if (member == null) {
-            throw new IllegalAccessException("유효하지 않은 접근입니다");
+            throw new IllegalAccessException("유효한 회원만 상품을 등록할 수 있습니다.");
         }
         return "product/registerForm";
     }
@@ -65,6 +66,18 @@ public class ProductController {
         Product product = productService.findOne(id);
         model.addAttribute("product", product);
         return "product/detail";
+    }
+
+    @GetMapping("search")
+    public String search(String keyword,
+                         HttpServletRequest request,
+                         Model model) throws Exception {
+        Long count = productService.countByKeyword(keyword);
+        List<Product> products = productService.findByKeyword(keyword);
+        model.addAttribute("count", count);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("products", products);
+        return "product/searchList";
     }
 
 }

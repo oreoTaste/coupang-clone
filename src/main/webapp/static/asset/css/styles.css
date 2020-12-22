@@ -17,6 +17,7 @@
 @import "pages/order/after.css";
 @import "pages/address/registerForm.css";
 @import "pages/cart/show.css";
+@import "pages/product/searchList.css";
 
 :root {
     --blue: #4285f4;

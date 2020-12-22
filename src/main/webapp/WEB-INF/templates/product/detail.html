@@ -25,8 +25,14 @@
                 <div class="product-detail-header__infos__name" th:text="${product.name}">상품명</div>
                 <div class="product-detail-header__infos__price">
                     <div class="hidden js-original-price" th:text="${product.price}">상품가격</div>
-                    <div class="js-price">0</div>
-                    <img class="product-detail-header__infos__is-rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+
+                    <div class="price">
+                        <span class="percent">10%</span>
+                        <span class="higher-price js-price" th:text="${product.price / 0.9}">가격</span>
+                        <span class="lower-price js-price" th:text="${product.price}">가격</span>
+                        <img class="price__rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+                    </div>
+
                 </div>
                 <div class="product-detail-header__infos__buy">
                     <div class="buy-quantity">

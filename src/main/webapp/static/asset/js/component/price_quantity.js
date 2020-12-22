@@ -9,7 +9,7 @@ init();
 // import해서 사용하는 경우
 // 1000단위 콤마 관련
 const makeCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",").split(".")[0];
 }
 const deleteCommas = (x) => {
     return x.replace(',', '');

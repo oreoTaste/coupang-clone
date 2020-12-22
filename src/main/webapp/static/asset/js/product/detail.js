@@ -1,7 +1,9 @@
 import {setCart} from '../component/searchHeader.js';
+import {makeCommas, deleteCommas} from '../component/price_quantity.js';
 
 const originalPrice = document.querySelector(".js-original-price"),
-      price = document.querySelector(".js-price"),
+      prices = document.querySelectorAll(".js-price"),
+      lowerPrice = document.querySelector(".lower-price"),
       productQuantity = document.querySelector(".js-quantity"),
       upButton = document.querySelector(".js-quantity-up"),
       downButton = document.querySelector(".js-quantity-down"),
@@ -22,10 +24,7 @@ const setFormData = () => {
 }
 // 천단위 콤마
 const setComma = () => {
-    price.innerText = makeCommas(originalPrice.innerText);
-}
-const makeCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    [...prices].forEach(el => el.innerText = makeCommas(el.innerText));
 }
 
 // +, - 버튼 컨트롤
@@ -37,14 +36,14 @@ const handleUp = () => {
     const originalQuantity = Number(productQuantity.value);
     if(productQuantity.value < 100) {
         productQuantity.value = originalQuantity + 1;
-        price.innerText = makeCommas(Number(originalPrice.innerText) * productQuantity.value)
+        lowerPrice.innerText = makeCommas(Number(originalPrice.innerText) * productQuantity.value);
         detailForm.action = url + "&count=" + productQuantity.value;
     }
 }
 const handleDown = () => {
     if(productQuantity.value > 1) {
         productQuantity.value -= 1;
-        price.innerText = makeCommas(Number(originalPrice.innerText) * productQuantity.value)
+        lowerPrice.innerText = makeCommas(Number(originalPrice.innerText) * productQuantity.value)
         detailForm.action = url + "&count=" + productQuantity.value;
     }
 }

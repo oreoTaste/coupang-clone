@@ -172,9 +172,7 @@ nav > div > div:nth-child(2n) {
 .main-category__items_col__products:nth-child(6n+3) {
     border-bottom: 1px solid rgba(0,0,0,.2);
 }
-.main-category__items_col__products .pic,
-.main-category__items_col__products .name,
-.main-category__items_col__products .price {
+.main-category__items_col__products > a > * {
     text-decoration: none;
     color: black;
     font-size: 1rem;
@@ -193,17 +191,24 @@ nav > div > div:nth-child(2n) {
     overflow: hidden;
     max-height: 3.2rem;
 }
-.main-category__items_col__products .price {
+.main-category__items_col__products > a > .price > .higher-price{
+    color: rgba(0,0,0,.6);
+    text-decoration: line-through;
+}
+.main-category__items_col__products > a > .price > .higher-price::after{
+    content: "";
+    display: block;
+}
+.main-category__items_col__products > a > .price > .lower-price{
+    color: var(--red);
     font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -1px;
 }
-.main-category__items_col__products .price span:first-child::after {
-    content: "원";
-    font-weight: 500;
-    font-size: 0.75em;
+.main-category__items_col__products > a > .price > .price__rocket {
+    width: 5rem;
 }
-.main-category__items_col__products .price__rocket{
-    width: 60px;
-}
+
 footer {
     height:370px;
     left: 0;

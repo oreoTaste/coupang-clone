@@ -43,8 +43,12 @@
                             <img th:attr="src=${product.thumbnail}, alt=@{thumbnail}"/>
                         </div>
                         <div class="name" th:text="${product.name}"></div>
+
+
                         <div class="price">
-                            <span class="js-price" th:text="${product.price}">가격</span>
+                            <span class="percent">10%</span>
+                            <span class="higher-price js-price" th:text="${product.price / 0.9}">가격</span>
+                            <span class="lower-price js-price" th:text="${product.price}">가격</span>
                             <img class="price__rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
                         </div>
                         </a>

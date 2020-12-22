@@ -32,24 +32,24 @@
     word-break: break-all;
     padding: 1% 0;
 }
-.product-detail-header__infos__price {
-    border-bottom: 1px solid rgba(0,0,0,.3);
+.product-detail-header__infos__price > .price > .higher-price{
+    color: rgba(0,0,0,.6);
+    text-decoration: line-through;
 }
-.product-detail-header__infos__price .js-price{
-    font-size: 1.2rem;
-    font-weight: 600;
+.product-detail-header__infos__price > .price > .higher-price::after{
+    content: "";
+    display: block;
+}
+.product-detail-header__infos__price > .price > .lower-price{
     color: var(--red);
-    display: inline-block;
-}
-.product-detail-header__infos__price .js-price::after {
-    content: "원";
     font-weight: 600;
-    font-size: 0.75em;
-    color: var(--red);
+    font-size: 1.25rem;
+    letter-spacing: -1px;
 }
-.product-detail-header__infos__is-rocket {
-    width: 15%;
+.product-detail-header__infos__price > .price > .price__rocket {
+    width: 5rem;
 }
+
 .product-detail-header__infos__buy {
     display: flex;
 }

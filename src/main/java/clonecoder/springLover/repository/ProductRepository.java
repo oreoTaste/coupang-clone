@@ -37,11 +37,12 @@ public class ProductRepository {
         return em.find(Product.class, id);
     }
 
-    public List<Product> findAllByString(ProductSearch productSearch) {
+    public Long countAllByString(ProductSearch productSearch) {
         //language=JPQL
-        String jpql = "select p From Product p join p.category c";
+        String jpql = "select count(p) From Product p";
+
         boolean isFirstCondition = true;
-        //주문 상태 검색
+        //제품명 검색
         if (productSearch.getName() != null) {
             if (isFirstCondition) {
                 jpql += " where";
@@ -49,25 +50,36 @@ public class ProductRepository {
             } else {
                 jpql += " and";
             }
-            jpql += " p.name = :name";
+            jpql += " p.name like :name";
         }
-        //회원 이름 검색
-        if (StringUtils.hasText(productSearch.getSmallCategory())) {
+
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+        if (productSearch.getName() != null) {
+            query = query.setParameter("name", "%" + productSearch.getName() + "%");
+        }
+        return query.getSingleResult();
+    }
+
+    public List<Product> findAllByString(ProductSearch productSearch) {
+        //language=JPQL
+        String jpql = "select p From Product p";
+
+        boolean isFirstCondition = true;
+        //제품명 검색
+        if (productSearch.getName() != null) {
             if (isFirstCondition) {
                 jpql += " where";
                 isFirstCondition = false;
             } else {
                 jpql += " and";
             }
-            jpql += " c.small like :small";
+            jpql += " p.name like :name";
         }
+
         TypedQuery<Product> query = em.createQuery(jpql, Product.class)
                 .setMaxResults(1000); //최대 1000건
         if (productSearch.getName() != null) {
-            query = query.setParameter("name", productSearch.getName());
-        }
-        if (StringUtils.hasText(productSearch.getSmallCategory())) {
-            query = query.setParameter("small", productSearch.getSmallCategory());
+            query = query.setParameter("name", "%" + productSearch.getName() + "%");
         }
         return query.getResultList();
     }
