@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,19 +28,29 @@ public class OrderController {
     private final AddressService addressService;
 
     @GetMapping("product/checkout/productId={productId}&count={count}")
-    public String checkoutForm(@PathVariable Long productId,
-                           @PathVariable int count,
+    public String checkoutForm(@PathVariable String productId,
+                           @PathVariable String count,
                            Model model,
                            HttpServletRequest request) {
         Long memberId = (Long) request.getSession().getAttribute("id");
         Member member = memberService.findOne(memberId);
         model.addAttribute("member", member);
 
-        Product product = productService.findOne(productId);
-        model.addAttribute("product", product);
+        List<Product> productList = new ArrayList<>();
+        List<Integer> countList = new ArrayList<>();
 
-        model.addAttribute("count", count);
+        String[] splitProductId = productId.split(",");
+        for(String id : splitProductId) {
+            Product product = productService.findOne(Long.parseLong(id));
+            productList.add(product);
+        }
+        model.addAttribute("productList", productList);
 
+        String[] splitCount = count.split(",");
+        for(String cnt : splitCount) {
+            countList.add(Integer.parseInt(cnt));
+        }
+        model.addAttribute("countList", countList);
         return "order/directCheckout";
     }
 
@@ -48,15 +62,27 @@ public class OrderController {
                            HttpServletRequest request,
                            Model model) throws Exception {
 
-        Member member = memberService.checkValidity(request);
-        Address address = addressService.getAddress(addressId);
-        System.out.println(addressId);
-        System.out.println(productId);
-        System.out.println(count);
-        System.out.println(member);
-        Long orderId = orderService.checkout(member.getId(), productId, count, address);
-        Order order = orderService.findOne(orderId);
-        model.addAttribute("order", order);
+//        Member member = memberService.checkValidity(request);
+//        Address address = addressService.getAddress(addressId);
+//        System.out.println(addressId);
+//        System.out.println(productId);
+//        System.out.println(count);
+//        System.out.println(member);
+//        Long orderId = orderService.checkout(member.getId(), productId, count, address);
+//        Order order = orderService.findOne(orderId);
+//        model.addAttribute("order", order);
+        return "OK";
+    }
+    @GetMapping("checkout/after")
+    @Transactional
+    public String checkoutAfter(Long addressId,
+                                Long productId,
+                                int count,
+                                HttpServletRequest request,
+                                Model model) throws Exception {
+
+
         return "order/after";
     }
+
 }

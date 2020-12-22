@@ -1,10 +1,13 @@
+.cart-wrapper {
+    padding: 3%;
+}
 .cart-header{
     background: url(/static/asset/img/label/process-label.gif);
     height: 3rem;
     background-position: 0px 3.2rem;
     background-size: cover;
     transform: scale(1);
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 .cart-type {
     display: inline-block;
@@ -77,6 +80,11 @@
     justify-content: center;
     align-items: center;
 }
+.cart-content-header > .check-box > .check-all,
+.cart-content__item > .check-box > .check-to-buy {
+    width: 1rem;
+    height: 1rem;
+}
 .cart-content-header > .thumbnail,
 .cart-content__item > .thumbnail {
     width: 10rem;
@@ -101,6 +109,7 @@
     line-height: 5;
 }
 .cart-content__item > .main-content > div:first-child {
+    cursor: pointer;
     border-bottom: 1px solid rgba(0,0,0,.1);
     font-weight: 600;
     font-size: 1.2rem;
@@ -144,7 +153,7 @@
     align-items: center;
     color: rgba(0,0,0,.7);
 }
-.cart-content__item:nth-last-child(2) {
+.cart-content__item:nth-of-type(2) {
     border-bottom: 0px;
 }
 .cart-content__summary {
@@ -162,6 +171,38 @@
     content: "원";
     font-size: 0.8rem;
     font-weight: 500;
+}
+.cart-grand-summary {
+    margin-top: 2rem;
+    width: 100%;
+    height: 6rem;
+    line-height: 5.5rem;
+    text-align: center;
+    font-size: 1rem;
+    border: 5px solid rgba(0,0,0,0.2);
+}
+.cart-grand-summary > .emphasize::after,
+.cart-grand-summary > .red-emphasize::after {
+    content: "원";
+    font-size: 0.7rem;
+    color: black;
+    font-weight: 500;
+}
+.cart-grand-summary .emphasize,
+.cart-grand-summary .red-emphasize {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.cart-grand-summary .red-emphasize {
+    color: red;
+}
+.cart-wrapper .buttons {
+    margin-top: 3rem;
+    justify-content: center!important;
+    gap: 1rem;
+}
+.cart-wrapper .buttons button{
+    width: 10rem;
 }
 .cart-content__summary  .summary__item-cost,
 .cart-content__summary  .summary__delivery-cost,

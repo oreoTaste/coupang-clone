@@ -70,3 +70,12 @@ table tr td {
     line-height: 8rem;
     text-align: center;
 }
+.checkout-buttons {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.checkout-buttons .blue-button {
+    width: 8rem;
+}

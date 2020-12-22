@@ -8,126 +8,128 @@
 <body>
     <div th:replace="fragments/simpleHeader :: simpleHeader" />
     <div class="main-wrapper">
-        <form action="/checkout" method="post">
-            <div class="direct-checkout-header">
-                <h1>주문/결제</h1>
+        <div class="direct-checkout-header">
+            <h1>주문/결제</h1>
+        </div>
+        <div class="direct-checkout-buyer">
+            <h2>구매자 정보</h2>
+            <table class="classic-table checkout-content">
+                <tr>
+                    <td>이름</td>
+                    <td><span th:text="${member.name}">이름</span></td>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td><span th:text="${member.email}">이메일</span></td>
+                </tr>
+                <tr>
+                    <td>휴대폰 번호</td>
+                    <td><span th:text="${member.tel}">휴대폰 번호</span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) eq 0}">
+            <h2>받는사람 정보 <input id="registerAddress" type="button" value="배송지 추가"/></h2>
+            <div class="address-not-found checkout-content">
+                저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.
             </div>
-            <div class="direct-checkout-buyer">
-                <h2>구매자 정보</h2>
-                <table class="classic-table checkout-content">
-                    <tr>
-                        <td>이름</td>
-                        <td><span th:text="${member.name}">이름</span></td>
-                    </tr>
-                    <tr>
-                        <td>이메일</td>
-                        <td><span th:text="${member.email}">이메일</span></td>
-                    </tr>
-                    <tr>
-                        <td>휴대폰 번호</td>
-                        <td><span th:text="${member.tel}">휴대폰 번호</span></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) eq 0}">
-                <h2>받는사람 정보 <input id="registerAddress" type="button" value="배송지 추가"/></h2>
-                <div class="address-not-found checkout-content">
-                    저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.
-                </div>
-            </div>
+        </div>
 
-            <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) ne 0}">
-                <h2>받는사람 정보</h2>
-                <input type="hidden" name="addressId" th:value="${member.addressList.get(0).id}"/>
-                <table class="classic-table checkout-content">
-                    <tr>
-                        <td>이름</td>
-                        <td><span th:text="${member.addressList.get(0).receiverName}">이름</span></td>
-                    </tr>
-                    <tr>
-                        <td>배송주소</td>
-                        <td>
-                            <span th:if="${#arrays.length(member.addressList) ne 0}"
-                                  th:text="${'[' + member.addressList.get(0).zipcode + '] ' + member.addressList.get(0).street + ' ' + member.addressList.get(0).detail}">
-                                배송주소
-                            </span>
-                            <span th:if="${#arrays.length(member.addressList) eq 0}" th:text="'저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.'">배송주소</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>연락처</td>
-                        <td><span th:text="${member.addressList.get(0).receiverTel}">연락처</span></td>
-                    </tr>
-                    <tr>
-                        <td>배송 요청사항</td>
-                        <td><span th:text="${member.addressList.get(0).ask}"></span></td>
-                    </tr>
-                </table>
+        <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) ne 0}">
+            <h2>받는사람 정보</h2>
+            <input type="hidden" class="addressId" th:data-id="${member.addressList.get(0).id}"/>
+            <table class="classic-table checkout-content">
+                <tr>
+                    <td>이름</td>
+                    <td><span th:text="${member.addressList.get(0).receiverName}">이름</span></td>
+                </tr>
+                <tr>
+                    <td>배송주소</td>
+                    <td>
+                        <span th:if="${#arrays.length(member.addressList) ne 0}"
+                              th:text="${'[' + member.addressList.get(0).zipcode + '] ' + member.addressList.get(0).street + ' ' + member.addressList.get(0).detail}">
+                            배송주소
+                        </span>
+                        <span th:if="${#arrays.length(member.addressList) eq 0}" th:text="'저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.'">배송주소</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>연락처</td>
+                    <td><span th:text="${member.addressList.get(0).receiverTel}">연락처</span></td>
+                </tr>
+                <tr>
+                    <td>배송 요청사항</td>
+                    <td><span th:text="${member.addressList.get(0).ask}"></span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="direct-checkout-product">
+            <h2>배송 1건 중 1건</h2>
+            <table class="two-by-one-table checkout-content">
+                <tr>
+                    <td>내일 도착 예정</td>
+                </tr>
+                <tr th:each="product, iterStat : ${productList}">
+                    <td>
+                        <div class="hidden productId"
+                             th:data-id="${product.id}" th:data-count="${countList[{iterStat.index}]}">상품명</div>
+                        <div th:text="${product.name}">상품명</div>
+                        <div th:text="'수량 ' + ${countList[{iterStat.index}]} + '개 / 배송비 ' ">수량</div>
+                        <div class="js-price delivery-price" th:if="${product.is_rocket eq 'on'}" th:text="@{0}"></div>
+                        <div class="js-price delivery-price" th:if="${product.is_rocket eq 'off'}" th:text="@{2500}"></div>
+                        <div class="hidden product-price" th:text="${product.price * countList[iterStat.index]}"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="direct-checkout-purchase">
+            <h2>결제정보</h2>
+            <table class="classic-table checkout-content">
+                <tr>
+                    <td>총상품가격</td>
+                    <td><span class="js-product-price js-price">10000</span></td>
+                </tr>
+                <tr>
+                    <td>할인쿠폰</td>
+                    <td><span>0원</span></td>
+                </tr>
+                <tr>
+                    <td>배송비</td>
+                    <td>
+                        <div class="js-delivery-price js-price">0</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>쿠팡캐시</td>
+                    <td>0원</td>
+                </tr>
+                <tr>
+                    <td>총결제금액</td>
+                    <td><span class="js-total-cost js-price"></span></td>
+                </tr>
+                <tr>
+                    <td>결제방법</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="direct-checkout-cash-receipt">
+            <h2>현금영수증</h2>
+            <div class="cash-receipt-box">
+                <h3 th:text="'휴대폰 번호 : ' + ${member.tel} + ' (소득공제)'">휴대폰 번호</h3>
+                <div>* 해외구매대행 / 로켓직구 구매금액은 현금영수증 발행이 제외됩니다.</div>
+                <div>* 쿠팡캐시 결제시 현금성 적립액에 한하여 현금영수증이 발행됩니다.</div>
             </div>
-            <div class="direct-checkout-product">
-                <h2>배송 1건 중 1건</h2>
-                <input type="hidden" name="productId" th:value="${product.id}"/>
-                <input type="hidden" name="count" th:value="${count}"/>
-                <table class="two-by-one-table checkout-content">
-                    <tr>
-                        <td>내일 도착 예정</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div th:text="${product.name}">상품명</div>
-                            <div th:text="'수량 ' + ${count} + '개 / 배송비 ' ">수량</div>
-                            <div class="js-price" th:if="${product.is_rocket eq 'on'}" th:text="@{0}"></div>
-                            <div class="js-price" th:if="${product.is_rocket eq 'off'}" th:text="@{2500}"></div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="direct-checkout-purchase">
-                <h2>결제정보</h2>
-                <table class="classic-table checkout-content">
-                    <tr>
-                        <td>총상품가격</td>
-                        <td><span class="js-product-price js-price" th:text="${product.price * count}">이름</span></td>
-                    </tr>
-                    <tr>
-                        <td>할인쿠폰</td>
-                        <td><span>0원</span></td>
-                    </tr>
-                    <tr>
-                        <td>배송비</td>
-                        <td>
-                            <div class="js-delivery-price js-price" th:if="${product.is_rocket eq 'on'}" th:text="@{0}"></div>
-                            <div class="js-delivery-price js-price" th:if="${product.is_rocket eq 'off'}" th:text="@{2500}"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>쿠팡캐시</td>
-                        <td>0원</td>
-                    </tr>
-                    <tr>
-                        <td>총결제금액</td>
-                        <td><span class="js-total-cost js-price"></span></td>
-                    </tr>
-                    <tr>
-                        <td>결제방법</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="direct-checkout-cash-receipt">
-                <h2>현금영수증</h2>
-                <div class="cash-receipt-box">
-                    <h3 th:text="'휴대폰 번호 : ' + ${member.tel} + ' (소득공제)'">휴대폰 번호</h3>
-                    <div>* 해외구매대행 / 로켓직구 구매금액은 현금영수증 발행이 제외됩니다.</div>
-                    <div>* 쿠팡캐시 결제시 현금성 적립액에 한하여 현금영수증이 발행됩니다.</div>
-                </div>
-            </div>
-            <button>주문완료</button>
-            </form>
+        </div>
+        <div class="checkout-buttons">
+            <button id="payment" class="blue-button">결제하기</button>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
 
-    <script th:src="@{/static/asset/js/directCheckout.js}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script type="module" th:src="@{/static/asset/js/order/directCheckout.js}">
     </script>
 </body>
 </html>
