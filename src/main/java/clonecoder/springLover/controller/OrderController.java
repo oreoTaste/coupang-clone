@@ -1,9 +1,6 @@
 package clonecoder.springLover.controller;
 
-import clonecoder.springLover.domain.Address;
-import clonecoder.springLover.domain.Member;
-import clonecoder.springLover.domain.Order;
-import clonecoder.springLover.domain.Product;
+import clonecoder.springLover.domain.*;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +22,7 @@ public class OrderController {
     private final OrderService orderService;
     private final MemberService memberService;
     private final AddressService addressService;
+    private final CartService cartService;
 
     @GetMapping("product/checkout/productId={productId}&count={count}")
     public String checkoutForm(@PathVariable String productId,
@@ -56,32 +53,43 @@ public class OrderController {
 
     @PostMapping("checkout")
     @Transactional
-    public String checkout(Long addressId,
-                           Long productId,
-                           int count,
-                           HttpServletRequest request,
+    @ResponseBody
+    public String checkout(HttpServletRequest request,
                            Model model) throws Exception {
+        String exAddressId = request.getParameter("exAddressId");
+        String exProductId = request.getParameter("exProductId");
 
-//        Member member = memberService.checkValidity(request);
-//        Address address = addressService.getAddress(addressId);
-//        System.out.println(addressId);
-//        System.out.println(productId);
-//        System.out.println(count);
-//        System.out.println(member);
-//        Long orderId = orderService.checkout(member.getId(), productId, count, address);
-//        Order order = orderService.findOne(orderId);
-//        model.addAttribute("order", order);
-        return "OK";
+        System.out.println("exAddressId: " + exAddressId);
+
+        List<Long> idList = new ArrayList<>();
+        List<Integer> cntList = new ArrayList<>();
+        String[] split = exProductId.split(",");
+        for(String part : split) {
+            idList.add(Long.parseLong(part.split(":")[0]));
+            cntList.add(Integer.parseInt(part.split(":")[1]));
+        }
+
+        Member member = memberService.checkValidity(request);
+        Address address = addressService.getAddress(Long.parseLong(exAddressId));
+        Long orderId = orderService.checkout(member.getId(), idList, cntList, address);
+        return orderId.toString();
     }
-    @GetMapping("checkout/after")
+    @GetMapping("checkout/after/{orderId}")
     @Transactional
-    public String checkoutAfter(Long addressId,
-                                Long productId,
-                                int count,
+    public String checkoutAfter(@PathVariable Long orderId,
                                 HttpServletRequest request,
                                 Model model) throws Exception {
 
+        Member member = memberService.checkValidity(request);
+        Order order = orderService.findOne(orderId);
+        model.addAttribute("order", order);
 
+        Stream<Long> productIdStream = order.getOrderProductList().stream().map((e) -> {
+            return e.getProduct().getId();
+        });
+        List<Long> productIdList = productIdStream.collect(Collectors.toList());
+
+        cartService.clear(member, productIdList);
         return "order/after";
     }
 

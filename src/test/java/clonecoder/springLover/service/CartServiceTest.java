@@ -13,6 +13,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -24,6 +25,7 @@ public class CartServiceTest {
     @Autowired CartService cartService;
     @Autowired MemberService memberService;
     @Autowired ProductService productService;
+    @Autowired EntityManager em;
 
     @Test
     @Transactional
@@ -60,7 +62,7 @@ public class CartServiceTest {
         cartService.clear(myCart.get(0));
 
         // then
-        assertEquals("장바구니 상품의 종류는 0개이다", 0, myCart.size());
+        assertEquals("장바구니 상품의 종류는 0개이다", 0, cartService.findMyCart(member.getId()).size());
     }
 
 }

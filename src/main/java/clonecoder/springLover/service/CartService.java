@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Transactional(readOnly = true)
 @Service
@@ -49,6 +51,20 @@ public class CartService {
     }
 
     @Transactional
+    public void clear(Member member, List<Long> productIdList) {
+        List<Cart> cartList = cartRepository.findAllByString(member.getId());
+        for(Cart cart : cartList) {
+            for(int i = 0; i < productIdList.size(); i++) {
+                if(cart.getProduct().getId().equals(productIdList.get(i))) {
+                    System.out.println(cart.getProduct().getId() + "<-cart's productId & productId->" + productIdList.get(i));
+                    cartRepository.delete(cart);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Transactional
     public void setQuantity(Long cartId, int quantity) {
         Cart cart = cartRepository.findOne(cartId);
         cart.setCount(quantity);
@@ -63,4 +79,6 @@ public class CartService {
         // 이미 카트에 있어서, 상품 개수만 조정하기
         member.adjustQuantityCart(productId, quantity);
     }
+
+
 }

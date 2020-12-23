@@ -17,20 +17,29 @@ const originalPrice = document.querySelector(".js-original-price"),
       shoppingCart = document.querySelector("#shoppingCart");
 let url = "";
 
-// url(form링크) 초기값 세팅하기
+/*-----------------초기화 설정 시작-------------------*/
+function initialize() {
+    // 장바구니 상품수 카운트
+    setCart();
+    // form 재설정
+    setFormData();
+    // 천단위 세팅
+    setComma();
+}
 const setFormData = () => {
     url = detailForm.action;
     detailForm.action = url + "&count=1";
 }
-// 천단위 콤마
 const setComma = () => {
     [...prices].forEach(el => el.innerText = makeCommas(el.innerText));
 }
+/*-----------------초기화 설정 끝-------------------*/
 
-// +, - 버튼 컨트롤
-const setButton = () => {
+/*-----------------버튼 설정 시작-------------------*/
+function setButton() {
     upButton.addEventListener("click", handleUp);
     downButton.addEventListener("click", handleDown);
+    spreader.addEventListener("click", handlerSpreader);
 }
 const handleUp = () => {
     const originalQuantity = Number(productQuantity.value);
@@ -47,15 +56,17 @@ const handleDown = () => {
         detailForm.action = url + "&count=" + productQuantity.value;
     }
 }
+const handlerSpreader = (e) => {
+    e.target.setAttribute("style", "display: none");
+    detailBody.setAttribute("style", "height: auto");
+}
+/*-----------------버튼 설정 끝-------------------*/
 
-// 확대기능
-const setMagnifier = () => {
+/*-----------------확대기능 설정 시작-------------------*/
+function setMagnifier() {
     thumbnailPic.firstElementChild.addEventListener("mouseover", showBlock);
     thumbnailPic.firstElementChild.addEventListener("mouseleave", hideBlock);
     thumbnailPic.firstElementChild.addEventListener("mousemove", handlePosition);
-}
-const handlePosition = (e) => {
-    magnifiedPic.firstElementChild.setAttribute("style", "object-position: -" + e.offsetX + "px -" + e.offsetY + "px");
 }
 const showBlock = (e) => {
     e.preventDefault();
@@ -65,17 +76,22 @@ const showBlock = (e) => {
 const hideBlock = (e) => {
     magnifiedPic.classList.add("hidden");
 }
+const handlePosition = (e) => {
+    magnifiedPic.firstElementChild.setAttribute("style", "object-position: -" + e.offsetX + "px -" + e.offsetY + "px");
+}
+/*-----------------확대기능 설정 끝-------------------*/
 
-// 펼치기 기능
-const setSpreader = () => {
-    spreader.addEventListener("click", handlerSpreader);
+/*-----------------주문기능 설정 시작-------------------*/
+// 1. 장바구니 담기 기능
+function setShoppingCart() {
+    shoppingCart.addEventListener("click", addToShoppingCart);
 }
-const handlerSpreader = (e) => {
-    e.target.setAttribute("style", "display: none");
-    detailBody.setAttribute("style", "height: auto");
+const addToShoppingCart = (e) => {
+    e.preventDefault();
+    pushCart();
 }
-// 바로 주문 기능
-const setDirectOrder = () => {
+// 2. 바로 주문 기능 (장바구니담기 + 바로주문)
+function setDirectOrder() {
     directOrder.addEventListener("click", handleOrder);
 }
 const handleOrder = (e) => {
@@ -87,9 +103,11 @@ const handleOrder = (e) => {
         }
         window.location = "/";
     }
-}
-const setMovement = (e) => {
     e.preventDefault();
+    pushCart();
+    document.querySelector("#detailForm").submit();
+}
+const pushCart = () => {
     fetch("/order/shoppingCart/id=" + id.value + "&quantity=" + productQuantity.value, {
             method: 'POST',
             mode: 'cors',
@@ -98,23 +116,16 @@ const setMovement = (e) => {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
-        }).then((response) => {
-            setCart();
-        });
+    }).then((response) => {
+        setCart();
+    });
 }
-const setShoppingCart = () => {
-    shoppingCart.addEventListener("click", setMovement);
-
-}
+/*-----------------주문기능 설정 시작-------------------*/
 function init() {
-    setCart();
-    setFormData();
-    setComma();
+    initialize();
     setButton();
     setMagnifier();
-    setSpreader();
     setDirectOrder();
     setShoppingCart();
 }
-
 init();

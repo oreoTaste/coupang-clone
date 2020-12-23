@@ -4,11 +4,13 @@ import clonecoder.springLover.controller.ProductForm;
 import clonecoder.springLover.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 public class Product {
     @Id
     @Column(name = "product_id")

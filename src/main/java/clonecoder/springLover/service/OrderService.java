@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -20,10 +21,12 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public Long checkout(Long memberId, Long productId, int count, Address address) throws Exception{
+    public Long checkout(Long memberId,
+                         List<Long> productId,
+                         List<Integer> count,
+                         Address address) throws Exception{
         // 엔티티조회
         Member member = memberRepository.findOne(memberId);
-        Product product = productRepository.findOne(productId);
 
         // 배송관련
         Delivery delivery = new Delivery();
@@ -31,8 +34,12 @@ public class OrderService {
         delivery.setStatus(DeliveryStatus.READY);
 
         // 주문관련
-        OrderProduct orderProduct = OrderProduct.createOrderProduct(product, product.getPrice(), count);
-        Order order = Order.createOrder(member, delivery, orderProduct);
+        List<OrderProduct> orderProductList = new ArrayList<>();
+        for(int i = 0; i < productId.size(); i++) {
+            Product product = productRepository.findOne(productId.get(i));
+            orderProductList.add(OrderProduct.createOrderProduct(product, product.getPrice(), count.get(0)));
+        }
+        Order order = Order.createOrder(member, delivery, orderProductList.stream().toArray(OrderProduct[]::new));
         orderRepository.save(order);
         return order.getId();
     }

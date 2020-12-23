@@ -40,20 +40,19 @@ const goToCheckout = () => {
     let exProductId = [];
     [...productIds].forEach(el => {
         exProductId.push(el.getAttribute("data-id") + ":" + el.getAttribute("data-count"));
-    })
+    });
+
     // 결제에 대한 주문처리
     $.when($.ajax({
         type: "post",
         url: "/checkout/",
         data: {
             "exAddressId" : exAddressId,
-            "exProductId" : exProductId
+            "exProductId" : exProductId.toString()
         },
-        // 주문처리 후, 결제완료 페이지
+        // 주문처리 후, 결제완료 페이지 (orderId)
     })).done((resp) => {
-        if(resp == "OK") {
-            window.location.href = "/checkout/after/" + exAddressId + "/" + exProductId;
-        }
+        window.location.href = "/checkout/after/" + resp;
     });
 }
 const triggerPayment = () => {
@@ -70,7 +69,7 @@ const triggerPayment = () => {
         buyer_postcode : '123-456',
         m_redirect_url : '/main'
     }, function(rsp) {
-        if ( rsp.success ) {
+        if (rsp.success) {
             var msg = '결제가 완료되었습니다.';
             msg += '고유ID : ' + rsp.imp_uid;
             msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -81,7 +80,10 @@ const triggerPayment = () => {
             msg += '에러내용 : ' + rsp.error_msg;
         }
         alert(msg);
-        goToCheckout();
+
+        if(rsp.success) {
+            goToCheckout();
+        }
     });
 }
 const setPayment = () => {

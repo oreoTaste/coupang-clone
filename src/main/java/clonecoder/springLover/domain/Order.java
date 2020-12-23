@@ -44,11 +44,6 @@ public class Order {
         member.getOrderList().add(this);
     }
 
-    public void setOrderProduct(OrderProduct orderProduct) {
-        orderProductList.add(orderProduct);
-        orderProduct.setOrder(this);
-    }
-
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
     }
@@ -69,6 +64,7 @@ public class Order {
 
     private void addOrderProducts(OrderProduct orderProduct) {
         orderProductList.add(orderProduct);
+        orderProduct.setOrder(this);
     }
 
     // 비즈니스 로직
