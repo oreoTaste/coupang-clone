@@ -10,12 +10,6 @@
 
     <div class="main-wrapper">
         <div class="order-after__header margin-1-1rem">
-            <!--
-            <h1>주문완료</h1>
-            <div>
-                01옵션선택 > 02장바구니 > 03주문/결제 > <span class="font-600">04주문완료</span>
-            </div>
-            -->
         </div>
         <hr class="margin-0-1rem"/>
         <div class="order-after__content">
@@ -24,7 +18,7 @@
                 <h4 th:text="'주문일 : ' + ${#dates.format(order.date,'yyyy-MM-dd HH:mm:ss')}">주문일</h4>
                 <h4 th:text="'주문번호 : ' + ${order.id}">주문번호</h4>
             </div>
-            <input type="submit" onclick="location.href='/login'" class="blue-button" value="계속쇼핑하기>"/>
+            <input type="submit" onclick="location.href='/main'" class="blue-button" value="계속쇼핑하기>"/>
         </div>
         <hr class="margin-0-1rem"/>
         <div class="side-by-side margin-0-1rem">
@@ -61,7 +55,7 @@
         </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
-    <script th:src="@{/static/asset/js/order/after.js}">
+    <script type="module" th:src="@{/static/asset/js/order/after.js}">
     </script>
 </body>
 </html>

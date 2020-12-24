@@ -40,9 +40,11 @@ public class CookieForm {
 
     public static String getTempIdFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie: cookies) {
-            if(cookie.getName().equals("tempId")) {
-                return cookie.getValue();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("tempId")) {
+                    return cookie.getValue();
+                }
             }
         }
         return "";
@@ -99,13 +101,36 @@ public class CookieForm {
 
     public static List<CookieForm> getCartFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie: cookies) {
-            if(cookie.getName().equals("bm_sv")) {
-                String value = cookie.getValue();
-                return parseCookie(value);
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("bm_sv")) {
+                    String value = cookie.getValue();
+                    return parseCookie(value);
+                }
             }
         }
-        return null;
+        return new ArrayList<CookieForm>();
+    }
+
+    public static List<CookieForm> getCartFromCookieAndRemove(HttpServletRequest request,
+                                                              HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JSESSIONID")) {
+                    continue;
+                }
+                if (cookie.getName().equals("bm_sv")) {
+                    String value = cookie.getValue();
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    return parseCookie(value);
+                }
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+        return new ArrayList<CookieForm>();
     }
 
     public static void adjustCartToCookie(HttpServletRequest request,

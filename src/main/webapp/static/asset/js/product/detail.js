@@ -1,4 +1,4 @@
-import {setCart} from '../component/searchHeader.js';
+import {checkCart, setCart, setGoToLogin, setGoToLogout} from '../component/searchHeader.js';
 import {makeCommas, deleteCommas} from '../component/price_quantity.js';
 
 const originalPrice = document.querySelector(".js-original-price"),
@@ -20,11 +20,14 @@ let url = "";
 /*-----------------초기화 설정 시작-------------------*/
 function initialize() {
     // 장바구니 상품수 카운트
-    setCart();
+    checkCart();
     // form 재설정
     setFormData();
     // 천단위 세팅
     setComma();
+    // 로그인 로그아웃 버튼 설정
+    setGoToLogin();
+    setGoToLogout();
 }
 const setFormData = () => {
     url = detailForm.action;
@@ -89,13 +92,14 @@ function setShoppingCart() {
 const addToShoppingCart = (e) => {
     e.preventDefault();
     pushCart();
+    alert("장바구니에 추가되었습니다");
 }
 // 2. 바로 주문 기능 (장바구니담기 + 바로주문)
 function setDirectOrder() {
     directOrder.addEventListener("click", handleOrder);
 }
 const handleOrder = (e) => {
-    if(!sessionStorage.getItem("id")) {
+    if(!sessionStorage.getItem("login")) {
         e.preventDefault();
         const items = sessionStorage.getItem("products");
         if(!items) {

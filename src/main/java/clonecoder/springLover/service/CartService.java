@@ -22,6 +22,14 @@ public class CartService {
     private final CartRepository cartRepository;
 
     @Transactional
+    public void save(Long memberId, List<Long> productIdList, List<Integer> countList) throws Exception {
+        for(int i = 0; i < productIdList.size(); i++) {
+            save(memberId, productIdList.get(i), countList.get(i));
+        }
+    }
+
+
+    @Transactional
     public void save(Long memberId, Long productId, int count) throws Exception{
         // 엔티티조회
         Member member = memberRepository.findOne(memberId);
@@ -33,7 +41,6 @@ public class CartService {
             Cart savedCart = Cart.createCart(member, product, count);
             cartRepository.save(savedCart);
         }
-
 //        return savedCart.getId();
     }
 

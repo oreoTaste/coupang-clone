@@ -14,16 +14,18 @@
         <div class="search-nav" th:text="'전체 > ' + ${keyword} + '(' + ${count} + ')'"></div>
         <div class="search-content">
             <div class="search-item" th:each="product : ${products}">
-                <div class="search-item__thumbnail">
-                    <img th:src="${product.thumbnail}" alt="thumbnail"/>
-                </div>
-                <h3 class="search-item__name" th:text="${product.name}">상품명</h3>
-                <div class="price">
-                    <span class="percent">10%</span>
-                    <span class="higher-price js-price" th:text="${product.price / 0.9}">가격</span>
-                    <span class="lower-price js-price" th:text="${product.price}">가격</span>
-                    <img class="price__rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
-                </div>
+                <a th:href="'/product/' + ${product.id}">
+                    <div class="search-item__thumbnail">
+                        <img th:src="${product.thumbnail}" alt="thumbnail"/>
+                    </div>
+                    <h3 class="search-item__name" th:text="${product.name}">상품명</h3>
+                    <div class="price">
+                        <span class="percent">10%</span>
+                        <span class="higher-price js-price" th:text="${product.price / 0.9}">가격</span>
+                        <span class="lower-price js-price" th:text="${product.price}">가격</span>
+                        <img class="price__rocket" th:if="${product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

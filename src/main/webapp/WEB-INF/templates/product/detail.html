@@ -10,8 +10,8 @@
 </head>
 <body>
     <div th:replace="fragments/searchHeader :: searchHeader" />
-    <form id="detailForm" th:action="'ct.id}">
-        <div class="product-detail-head/product/checkout/productId='+${produer main-wrapper">
+    <form id="detailForm" th:action="'/product/checkout/productId='+${product.id}">
+        <div class="product-detail-header main-wrapper">
             <div class="product-detail-header__pic">
                 <div>
                     <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
@@ -65,6 +65,7 @@
 
     <div th:replace="fragments/footer :: footer" />
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="module" src="../static/asset/js/product/detail.js"></script>
 </body>
 

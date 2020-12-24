@@ -6,10 +6,9 @@
     <link href="../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
 </head>
 <body>
-    <input id="idStorage" type="hidden" name="id" th:if="${session.containsKey('id')}" th:value="${session.id}"/>
-    <!--
-    <input id="emailStorage" type="hidden" name="email" th:if="${session.containsKey('email')}" th:value="${session.email}"/>
-    -->
+    <input id="loginStorage" type="hidden" name="login"
+           th:value="${session.login eq 1} ? 'true' : 'false'"/>
+
     <div th:replace="fragments/searchHeader :: searchHeader" />
     <div class="main-wrapper">
         <div class="main-banner">
@@ -62,6 +61,7 @@
     </div>
 
     <div th:replace="fragments/footer :: footer" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="module" src="../static/asset/js/main.js"></script>
 </body>
 </html>

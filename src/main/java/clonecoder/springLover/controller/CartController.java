@@ -6,18 +6,12 @@ import clonecoder.springLover.domain.Product;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,7 +25,14 @@ public class CartController {
     @ResponseBody
     public int countMyCart(HttpServletRequest request, Model model) throws Exception {
         try {
+            System.out.println("++++++++++++++++++++++++++++++");
+            System.out.println("cart/count 진입");
+            System.out.println(request.getSession().getAttribute("id"));
             Member member = memberService.checkValidity(request);
+            System.out.println("++++++++++++++++++++++++++++++");
+            System.out.println("무사히 빠져나옴");
+            System.out.println(request.getSession().getAttribute("id"));
+            System.out.println(member.getName());
             List<Cart> myCart = cartService.findMyCart(member.getId());
             return myCart.size();
         } catch (Exception e) {

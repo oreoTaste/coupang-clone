@@ -8,8 +8,9 @@
             <div><a href="/register/product">상품등록</a></div>
         </div>
         <div class="nav-right">
-            <div>로그인</div>
-            <div>회원가입</div>
+            <div class="goToLogin" th:if="${session.login ne 1}">로그인</div>
+            <div th:if="${session.login ne 1}">회원가입</div>
+            <div class="goToLogout"  th:if="${session.login eq 1}">로그아웃</div>
             <div>고객센터</div>
         </div>
     </nav>

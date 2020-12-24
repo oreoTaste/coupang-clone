@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,33 +25,40 @@ public class OrderController {
     private final AddressService addressService;
     private final CartService cartService;
 
+    // 주문 결제 폼
     @GetMapping("product/checkout/productId={productId}&count={count}")
     public String checkoutForm(@PathVariable String productId,
                            @PathVariable String count,
                            Model model,
                            HttpServletRequest request) {
-        Long memberId = (Long) request.getSession().getAttribute("id");
-        Member member = memberService.findOne(memberId);
-        model.addAttribute("member", member);
 
-        List<Product> productList = new ArrayList<>();
-        List<Integer> countList = new ArrayList<>();
+        try {
+            Member member = memberService.checkValidity(request);
+            model.addAttribute("member", member);
 
-        String[] splitProductId = productId.split(",");
-        for(String id : splitProductId) {
-            Product product = productService.findOne(Long.parseLong(id));
-            productList.add(product);
+            List<Product> productList = new ArrayList<>();
+            List<Integer> countList = new ArrayList<>();
+
+            String[] splitProductId = productId.split(",");
+            for(String id : splitProductId) {
+                Product product = productService.findOne(Long.parseLong(id));
+                productList.add(product);
+            }
+            model.addAttribute("productList", productList);
+
+            String[] splitCount = count.split(",");
+            for(String cnt : splitCount) {
+                countList.add(Integer.parseInt(cnt));
+            }
+            model.addAttribute("countList", countList);
+
+        } catch (Exception e) {
+            return "redirect:/";
         }
-        model.addAttribute("productList", productList);
-
-        String[] splitCount = count.split(",");
-        for(String cnt : splitCount) {
-            countList.add(Integer.parseInt(cnt));
-        }
-        model.addAttribute("countList", countList);
         return "order/directCheckout";
     }
 
+    // 결제 확인후 오더접수(출고전)
     @PostMapping("checkout")
     @Transactional
     @ResponseBody
@@ -74,6 +82,8 @@ public class OrderController {
         Long orderId = orderService.checkout(member.getId(), idList, cntList, address);
         return orderId.toString();
     }
+    
+    // 접수완료 폼 띄우면서 재고정산
     @GetMapping("checkout/after/{orderId}")
     @Transactional
     public String checkoutAfter(@PathVariable Long orderId,
