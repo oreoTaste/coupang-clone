@@ -2,7 +2,6 @@ const check_for_all = document.querySelector("#check-all"),
     check_agreement = document.querySelectorAll(".check_agreement"),
     all = [...check_agreement],
     agree = document.querySelector("#agree");
-    
 
 const handleCheckAll = (e) => {
     if(e.target.checked) {

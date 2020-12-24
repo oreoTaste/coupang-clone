@@ -1,4 +1,4 @@
-import {checkCart, setCart, setGoToLogin, setGoToLogout} from '../component/searchHeader.js';
+import {checkCart, setGoButtons} from '../component/searchHeader.js';
 import {makeCommas, deleteCommas} from '../component/price_quantity.js';
 
 const originalPrice = document.querySelector(".js-original-price"),
@@ -26,8 +26,7 @@ function initialize() {
     // 천단위 세팅
     setComma();
     // 로그인 로그아웃 버튼 설정
-    setGoToLogin();
-    setGoToLogout();
+    setGoButtons();
 }
 const setFormData = () => {
     url = detailForm.action;
@@ -121,7 +120,7 @@ const pushCart = () => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
     }).then((response) => {
-        setCart();
+        checkCart();
     });
 }
 /*-----------------주문기능 설정 시작-------------------*/
