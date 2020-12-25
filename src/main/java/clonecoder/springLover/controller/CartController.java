@@ -98,11 +98,11 @@ public class CartController {
         try {
             Member member = memberService.checkValidity(request);
 
-            cartService.save(member.getId(), productId, quantity);
-            return "OK";
-        } catch(Exception e) {
-            CookieForm.setCartToCookie(request, response, productId, quantity);
-            return "OK";
+                cartService.save(member.getId(), productId, quantity);
+                return "OK";
+            } catch(Exception e) {
+                CookieForm.setCartToCookie(request, response, productId, quantity);
+                return "OK";
         }
     }
 

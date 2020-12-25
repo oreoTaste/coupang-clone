@@ -49,18 +49,27 @@ public class Order {
     }
 
     // 생성 메서드
-    public static Order createOrder(Member member, Delivery delivery, OrderProduct... orderProducts) {
+    public static Order createDefaultOrder(Member member, Delivery delivery, OrderProduct... orderProducts) {
+        return createOrder(OrderStatus.ORDER, member, delivery, orderProducts);
+    }
+
+    public static Order createPayedOrder(Member member, Delivery delivery, OrderProduct... orderProducts) {
+        return createOrder(OrderStatus.PAID, member, delivery, orderProducts);
+    }
+
+    public static Order createOrder(OrderStatus orderStatus, Member member, Delivery delivery, OrderProduct... orderProducts) {
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
         order.setDate(new Timestamp(System.currentTimeMillis()));
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(orderStatus);
 
         for(OrderProduct orderProduct : orderProducts) {
             order.addOrderProducts(orderProduct);
         }
         return order;
     }
+
 
     private void addOrderProducts(OrderProduct orderProduct) {
         orderProductList.add(orderProduct);

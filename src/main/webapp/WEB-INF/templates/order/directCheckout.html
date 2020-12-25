@@ -29,7 +29,7 @@
             </table>
         </div>
         <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) eq 0}">
-            <h2>받는사람 정보 <input id="registerAddress" type="button" value="배송지 추가"/></h2>
+            <h2>받는사람 정보 <input class="register-address" type="button" value="배송지 추가"/></h2>
             <div class="address-not-found checkout-content">
                 저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.
             </div>

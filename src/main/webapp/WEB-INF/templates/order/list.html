@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>바로 결제하기</title>
+    <link href="../../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/searchHeader :: searchHeader" />
+    <div th:replace="fragments/mycoupangLeftMenu :: mycoupangLeftMenu" />
+    <!------------------------- 컨텐츠 시작 ------------------------->
+    <div class="main-wrapper">
+        <div class="mycoupang-wrapper">
+            <div class="mycoupang-wrapper__content">
+                <div class="no-result" th:if="${orders.isEmpty()}" th:text="'주문 내역이 없습니다.'">
+                </div>
+                <div class="mycoupang-wrapper__content__group round" th:each="order : ${orders}">
+                    <section class="top">
+                        <span th:text="${#dates.format(order.date,'yyyy.MM.dd')} + ' 주문 '"></span>
+<!--                        <span th:if="${#strings.equals(order.status, 'ORDER')}" th:text="주문상태"></span>-->
+<!--                        <span th:if="${#strings.equals(order.status, 'PAID')}" th:text="결제상태"></span>-->
+<!--                        <span th:if="${#strings.equals(order.status, 'CANCEL')}" th:text="취소상태"></span>-->
+                        <span th:text="${#strings.equals(order.status, 'ORDER') ?
+                                        '(주문상태)' :
+                                        (#strings.equals(order.status, 'PAID')?
+                                        '(결제상태)' :
+                                        '(취소상태)')}"></span>
+                    </section>
+                    <section class="product" th:each="orderProduct : ${order.orderProductList}">
+                        <div class="product__pic">
+                            <img th:src="${orderProduct.product.thumbnail}"></img>
+                        </div>
+                        <div class="product__info">
+                            <div>
+                                <img class="price__rocket" th:if="${orderProduct.product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
+                                <span th:text="${orderProduct.product.name}"></span>
+                            </div>
+                            <div>
+                                <span class="hidden productId" th:text="${orderProduct.product.id}"></span>
+                                <span class="js-price" th:text="${orderProduct.price}"></span>
+                                ·
+                                <span class="js-quantity" th:text="${orderProduct.stock}"></span>
+                                <button class="white-button save-to-cart">장바구니 담기</button>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button class="white-button">배송조회</button>
+                            <button class="white-button">교환신청</button>
+                            <button class="white-button">반품신청</button>
+                            <button class="white-button">구매후기 쓰기</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------- 컨텐츠 끝 ------------------------->
+
+    <div th:replace="fragments/footer :: footer" />
+    <script type="module" th:src="@{/static/asset/js/order/list.js}">
+    </script>
+</body>
+</html>

@@ -4,3 +4,8 @@
 .font-600 {
     font-weight: 600;
 }
+.hover-blue {
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 600;
+}

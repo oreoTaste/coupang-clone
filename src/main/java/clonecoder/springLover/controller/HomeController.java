@@ -1,11 +1,15 @@
 package clonecoder.springLover.controller;
 
 import clonecoder.springLover.domain.Member;
+import clonecoder.springLover.domain.Order;
+import clonecoder.springLover.domain.OrderSearch;
 import clonecoder.springLover.domain.Product;
 import clonecoder.springLover.service.CartService;
 import clonecoder.springLover.service.MemberService;
+import clonecoder.springLover.service.OrderService;
 import clonecoder.springLover.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +32,24 @@ public class HomeController {
     private final MemberService memberService;
     private final ProductService productService;
     private final CartService cartService;
+    private final OrderService orderService;
 
     @GetMapping("/")
     public String home() {
         return "index";
     }
+
+    @GetMapping("/mycoupang")
+    public String mycoupang(HttpServletRequest request,
+                            Model model) {
+        String email = (String) request.getSession().getAttribute("email");
+        OrderSearch orderSearch = new OrderSearch();
+        orderSearch.setMemberEmail(email);
+        List<Order> orders = orderService.findOrders(orderSearch);
+        model.addAttribute("orders", orders);
+        return "order/list";
+    }
+
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request,
@@ -70,6 +87,7 @@ public class HomeController {
         Member emailMember = memberService.findByEmail(member.getEmail());
         if(emailMember.getPassword().equals(member.getPassword())) {
             request.getSession().setAttribute("id", emailMember.getId());
+            request.getSession().setAttribute("email", emailMember.getEmail());
             request.getSession().setAttribute("login", 1);
             return afterLogin(request, response, emailMember.getId());
 

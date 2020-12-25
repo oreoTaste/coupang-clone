@@ -1,0 +1,48 @@
+/*------------------------ content 시작------------------------*/
+.mycoupang-wrapper__content__group.sharp{
+    border: 0;
+    padding: 0;
+}
+.mycoupang-wrapper__content__group > .address-list {
+    margin: 2rem 0;
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box {
+    border: 1px solid rgba(0,0,0,.2);
+    margin-left: 1rem;
+    padding: 1rem;
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box:not(:first-child) {
+    margin-top: -1px;
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box > * {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box .white-button {
+    width: 7rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,.2);
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box > .address-receiver {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.mycoupang-wrapper__content__group > .address-list > .address-box > .address-buttons {
+    display: flex;
+    gap: 1rem;
+}
+.mycoupang-wrapper__content__group > .address-list > button {
+    border: 1px solid rgba(0,0,0,.2);
+    margin: 1rem 0 0 1rem;
+    width: calc(100% - 1rem);
+    padding: 1rem;
+    background: transparent;
+    color: var(--button-blue);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/*------------------------ content 끝------------------------*/

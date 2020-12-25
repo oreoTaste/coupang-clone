@@ -1,11 +1,13 @@
 import {makeCommas, deleteCommas} from "../component/price_quantity.js";
+import {setAddressRegistration} from "../component/buttons.js";
+
 const prices = document.querySelectorAll(".js-price"),
       totalCost = document.querySelector(".js-total-cost"),
       productPrices = document.querySelectorAll(".product-price"),
       productPrice = document.querySelector(".js-product-price"),
       deliveryPrices = document.querySelectorAll(".delivery-price"),
       deliveryPrice = document.querySelector(".js-delivery-price"),
-      registerAddress = document.querySelector("#registerAddress"),
+      registerAddress = document.querySelector(".registerAddress"),
       productIds = document.querySelectorAll(".productId"),
       addressId = document.querySelector(".addressId"),
       payment = document.querySelector("#payment");
@@ -26,14 +28,6 @@ const setTotalCost = () => {
     deliveryPrice.innerText = makeCommas(dp);
 
     totalCost.innerText = makeCommas(dp + pp);
-}
-// 주소 등록하기
-const setAddressRegisteration = () => {
-    if(registerAddress) {
-        registerAddress.addEventListener("click", () => {
-            window.open('/register/address/','주소등록','width=400,height=500,location=no,status=no,scrollbars=no');
-        });
-    }
 }
 const goToCheckout = () => {
     const exAddressId = addressId.getAttribute("data-id");
@@ -94,7 +88,7 @@ function init() {
     IMP.init("imp94521535");
     setComma();
     setTotalCost();
-    setAddressRegisteration();
+    setAddressRegistration();
     setPayment();
 }
 

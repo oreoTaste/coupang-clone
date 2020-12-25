@@ -1,9 +1,6 @@
 package clonecoder.springLover.repository;
 
-import clonecoder.springLover.domain.Address;
-import clonecoder.springLover.domain.AddressSearch;
-import clonecoder.springLover.domain.Order;
-import clonecoder.springLover.domain.OrderSearch;
+import clonecoder.springLover.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -20,6 +17,10 @@ public class AddressRepository {
     public Long save(Address address) {
         em.persist(address);
         return address.getId();
+    }
+
+    public void delete(Address address){
+        em.remove(address);
     }
 
     public Address findOne(Long id) {

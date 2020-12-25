@@ -15,13 +15,16 @@
 @import "pages/product/detail.css";
 @import "pages/order/directCheckout.css";
 @import "pages/order/after.css";
+@import "pages/order/list.css";
 @import "pages/address/registerForm.css";
+@import "pages/address/list.css";
 @import "pages/cart/show.css";
 @import "pages/product/searchList.css";
 
 :root {
     --blue: #4285f4;
     --deep-blue: #3d82f8;
+    --button-blue: #0073e9;
     --black: #373737;
     --red : #b92000;
 }

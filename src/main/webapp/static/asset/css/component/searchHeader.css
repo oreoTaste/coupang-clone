@@ -1,5 +1,6 @@
 .goToLogout,
-.goToLogin {
+.goToLogin,
+.goToMyCoupang {
     cursor: pointer;
 }
 .menu-icon {

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>배송지 추가!</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <article class="showingPart">
+        <div class="register-address-header">
+            <h3>배송지 수정</h3>
+        </div>
+        <form action="/change/address" method="post">
+            <input type="hidden" name="zipcode" id="zipcode"/>
+            <input type="hidden" name="city" id="city"/>
+            <input type="hidden" name="id" th:value="${address.id}"/>
+            <div class="register-address-profile">
+                <div class="register-address-profile__name">
+                    <div>
+                        <label for="name" >
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img class="address__profile-icon" th:src="@{/static/asset/img/icon/profile-icon.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <input type="text" name="receiverName" id="name" required placeholder="수령자 성함"
+                                       th:value="${address.receiverName}"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="register-address-profile__address">
+                    <div>
+                        <label for="rough-address">
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img class="address__address-icon" th:src="@{/static/asset/img/icon/profile-icon.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <span>
+                                    <input type="text" name="street" id="rough-address" required placeholder="우편번호 검색"
+                                           th:value="${address.street}"/>
+                                </span>
+                                <span>
+                                    <input type="text" name="detail" id="detail-address" required placeholder="상세주소를 입력해주세요"
+                                           th:value="${address.detail}"/>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="register-address-profile__tel">
+                    <div>
+                        <label for="tel" >
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img class="address__tel-icon" th:src="@{/static/asset/img/icon/profile-icon.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <input type="text" name="receiverTel" id="tel" required placeholder="휴대번호"
+                                       th:value="${address.receiverTel}"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="register-address-profile__ask">
+                    <div>
+                        <label for="ask" >
+                            <span>
+                                <div class="icon-wrapper">
+                                    <img class="address__ask-icon" th:src="@{/static/asset/img/icon/profile-icon.svg}" alt="svg"/>
+                                </div>
+                            </span>
+                            <span>
+                                <input type="text" name="ask" id="ask" placeholder="배송시 요청사항을 입력해주세요"
+                                       th:value="${address.ask}"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <button>저장</button>
+            </div>
+        </form>
+    </article>
+    <article class="searchPart hidden">
+        <div class="register-address-header">
+            <h3>배송지 추가</h3>
+            <div class="register-address-input">
+                <input id="js-juso" type="text" placeholder="도로명 주소를 입력해주세요"/>
+                <button id="js-getAddressBtn">Q</button>
+            </div>
+        </div>
+        <div class="register-address-content">
+            <div class="register-address-content__title">
+                <div class="js-totalCount"></div>
+                <div class="js-curPage"></div>
+            </div>
+            <div class="register-address-content__search-result">
+            </div>
+        </div>
+
+        <button class="js-juso-previous">이전페이지</button>
+        <button class="js-juso-next">다음페이지</button>
+    </article>
+    <script src="../../static/asset/js/address/registerForm.js"></script>
+</body>
+</html>

@@ -31,7 +31,6 @@ public class OrderController {
                            @PathVariable String count,
                            Model model,
                            HttpServletRequest request) {
-
         try {
             Member member = memberService.checkValidity(request);
             model.addAttribute("member", member);
@@ -79,7 +78,7 @@ public class OrderController {
 
         Member member = memberService.checkValidity(request);
         Address address = addressService.getAddress(Long.parseLong(exAddressId));
-        Long orderId = orderService.checkout(member.getId(), idList, cntList, address);
+        Long orderId = orderService.cardCheckout(member.getId(), idList, cntList, address);
         return orderId.toString();
     }
     

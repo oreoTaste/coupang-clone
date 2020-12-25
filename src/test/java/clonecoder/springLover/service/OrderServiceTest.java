@@ -47,7 +47,7 @@ public class OrderServiceTest {
         address.setStreet("my street");
         em.persist(address);
         // when
-        Long orderId = orderService.checkout(member.getId(), productIdList, countList, address);
+        Long orderId = orderService.cardCheckout(member.getId(), productIdList, countList, address);
         Order foundOrder = orderService.findOne(orderId);
         List<OrderProduct> orderProductList = foundOrder.getOrderProductList();
 
@@ -80,7 +80,7 @@ public class OrderServiceTest {
         em.persist(address);
 
         // when
-        orderService.checkout(member.getId(), productList, countList, address);
+        orderService.cardCheckout(member.getId(), productList, countList, address);
 
         // then
         fail("100개 물품 중에 101개 물품을 주문하면은 에러가 발생합니다");
@@ -106,7 +106,7 @@ public class OrderServiceTest {
         address.setStreet("happy road");
         em.persist(address);
 
-        Long orderId = orderService.checkout(member.getId(), productList, countList, address);
+        Long orderId = orderService.cardCheckout(member.getId(), productList, countList, address);
 
         // when
         orderService.cancel(orderId);

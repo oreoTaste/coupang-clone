@@ -24,6 +24,44 @@ public class AddressController {
     private final AddressService addressService;
     private final EntityManager em;
 
+    @GetMapping("delete/address/{id}")
+    @ResponseBody
+    public String deleteAddress(@PathVariable Long id,
+                                HttpServletRequest request) {
+        Member member = memberService.checkValidity(request);
+        if(addressService.removeAddress(member, id)) {
+            return "OK";
+        }
+        return "Not OK";
+    }
+
+
+    @GetMapping("change/address/{id}")
+    public String changeForm(@PathVariable Long id,
+                             HttpServletRequest request,
+                             Model model) {
+        Member member = memberService.checkValidity(request);
+        List<Address> addressList = member.getAddressList();
+        for(Address address : addressList) {
+            if(address.getId().equals(id)) {
+                Address realAddress = addressService.getAddress(id);
+                model.addAttribute("address", realAddress);
+                break;
+            }
+        }
+        return "address/changeForm";
+    }
+
+    @PostMapping("change/address")
+    @ResponseBody
+    public String changeAddress(HttpServletRequest request, Address address, Model model) {
+        Member member = memberService.checkValidity(request);
+        if(addressService.changeAddress(member, address)) {
+            return "OK";
+        }
+        return "Not OK";
+    }
+
     @GetMapping("register/address")
     public String registerForm(HttpServletRequest request) {
         memberService.checkValidity(request);
@@ -46,5 +84,15 @@ public class AddressController {
         model.addAttribute("addressList", addressList);
         return "address/showList";
     }
+
+
+    @GetMapping("address/list")
+    public String listAddress(HttpServletRequest request,
+                              Model model) {
+        Member member = memberService.checkValidity(request);
+        model.addAttribute("addressList", member.getAddressList());
+        return "address/list";
+    }
+
 
 }
