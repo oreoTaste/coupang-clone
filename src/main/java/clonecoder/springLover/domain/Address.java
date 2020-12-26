@@ -6,30 +6,32 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter @Setter
+@Embeddable
 public class Address {
+
     @Id
     @GeneratedValue
     @Column(name = "address_id")
     private Long id;
-
     private String city;
     private String street;
     private String detail;
     private String zipcode;
     private String ask;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    protected Address() { }
+    public Address(AddressForm addressForm) {
+        this.setStreet(addressForm.getStreet());
+        this.setCity(addressForm.getCity());
+        this.setAsk(addressForm.getAsk());
+        this.setDetail(addressForm.getDetail());
+        this.setZipcode(addressForm.getZipcode());
+        this.setReceiverName(addressForm.getReceiverName());
+        this.setReceiverTel(addressForm.getReceiverTel());
+    }
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Delivery> delivery;
-
-    @Column(name = "receiver_name")
     private String receiverName;
-    @Column(name = "receiver_tel")
     private String receiverTel;
 
     // 생성 메서드
@@ -54,8 +56,6 @@ public class Address {
                 ", detail='" + detail + '\'' +
                 ", zipcode='" + zipcode + '\'' +
                 ", ask='" + ask + '\'' +
-                ", memberId=" + member.getId() +
-                ", delivery(1개만)=" + delivery.get(0) +
                 ", receiverName='" + receiverName + '\'' +
                 ", receiverTel='" + receiverTel + '\'' +
                 '}';

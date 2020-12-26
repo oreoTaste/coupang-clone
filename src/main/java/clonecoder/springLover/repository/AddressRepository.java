@@ -31,12 +31,12 @@ public class AddressRepository {
         //language=JPAQL
         String jpql = "select a From Address a"
                 + " left join a.member m";
-//                + " on a.id = m.addressList.id";
+                + " on a.id = m.addressList.id";
 
         // 딜러버리 정보(주문정보)가 있는 경우
         if (addressSearch.getDeliveryId() != null) {
             jpql += " left join a.delivery d";
-//                 + " on a.id = d.address.id";
+                 + " on a.id = d.address.id";
         }
 
         jpql += " where m.id = :memberId";
