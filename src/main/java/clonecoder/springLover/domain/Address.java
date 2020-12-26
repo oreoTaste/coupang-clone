@@ -6,30 +6,27 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Getter @Setter
-@Embeddable
 public class Address {
-
     @Id
     @GeneratedValue
     @Column(name = "address_id")
     private Long id;
+
     private String city;
     private String street;
     private String detail;
     private String zipcode;
     private String ask;
 
-    protected Address() { }
-    public Address(AddressForm addressForm) {
-        this.setStreet(addressForm.getStreet());
-        this.setCity(addressForm.getCity());
-        this.setAsk(addressForm.getAsk());
-        this.setDetail(addressForm.getDetail());
-        this.setZipcode(addressForm.getZipcode());
-        this.setReceiverName(addressForm.getReceiverName());
-        this.setReceiverTel(addressForm.getReceiverTel());
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id")
+    private List<Delivery> delivery;
 
     private String receiverName;
     private String receiverTel;
@@ -56,6 +53,8 @@ public class Address {
                 ", detail='" + detail + '\'' +
                 ", zipcode='" + zipcode + '\'' +
                 ", ask='" + ask + '\'' +
+                ", memberId=" + member.getId() +
+                ", delivery(1개만)=" + delivery.get(0) +
                 ", receiverName='" + receiverName + '\'' +
                 ", receiverTel='" + receiverTel + '\'' +
                 '}';

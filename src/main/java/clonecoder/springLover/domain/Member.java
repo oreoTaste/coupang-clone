@@ -25,12 +25,7 @@ public class Member {
     private String password;
     private String type;
 
-    @Embedded
-    private Address mainAddress;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "MEMBER_ADDRESS_LIST"
-            , joinColumns = @JoinColumn(name="member_id"))
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -60,10 +55,7 @@ public class Member {
 
     public void setAddress(Address address) {
         this.addressList.add(address);
-        if(this.mainAddress == null) {
-            this.mainAddress = address;
-        }
-//        address.setMember(this);
+        address.setMember(this);
     }
 
     public boolean plusQuantityCart(Long productId, int quantity) {
@@ -96,7 +88,6 @@ public class Member {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
-                ", mainAddress=" + mainAddress +
                 ", addressList(1번째항목)=" + addressList.get(0) +
                 ", cartList=" + cartList +
                 ", orderList=" + orderList +
