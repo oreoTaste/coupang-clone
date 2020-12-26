@@ -63,7 +63,6 @@ public class CartService {
         for(Cart cart : cartList) {
             for(int i = 0; i < productIdList.size(); i++) {
                 if(cart.getProduct().getId().equals(productIdList.get(i))) {
-                    System.out.println(cart.getProduct().getId() + "<-cart's productId & productId->" + productIdList.get(i));
                     cartRepository.delete(cart);
                     break;
                 }

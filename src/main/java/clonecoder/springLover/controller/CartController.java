@@ -25,14 +25,7 @@ public class CartController {
     @ResponseBody
     public int countMyCart(HttpServletRequest request, Model model) throws Exception {
         try {
-            System.out.println("++++++++++++++++++++++++++++++");
-            System.out.println("cart/count 진입");
-            System.out.println(request.getSession().getAttribute("id"));
             Member member = memberService.checkValidity(request);
-            System.out.println("++++++++++++++++++++++++++++++");
-            System.out.println("무사히 빠져나옴");
-            System.out.println(request.getSession().getAttribute("id"));
-            System.out.println(member.getName());
             List<Cart> myCart = cartService.findMyCart(member.getId());
             return myCart.size();
         } catch (Exception e) {

@@ -14,8 +14,8 @@
             <h3>배송지 수정</h3>
         </div>
         <form action="/change/address" method="post">
-            <input type="hidden" name="zipcode" id="zipcode"/>
-            <input type="hidden" name="city" id="city"/>
+            <input type="hidden" name="zipcode" id="zipcode" th:value="${address.zipcode}"/>
+            <input type="hidden" name="city" id="city" th:value="${address.city}"/>
             <input type="hidden" name="id" th:value="${address.id}"/>
             <div class="register-address-profile">
                 <div class="register-address-profile__name">

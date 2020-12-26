@@ -3,10 +3,7 @@ package clonecoder.springLover.domain;
 import clonecoder.springLover.controller.AddressForm;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,9 +24,8 @@ public class Address {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Delivery> delivery;
 
     @Column(name = "receiver_name")
     private String receiverName;
@@ -59,7 +55,7 @@ public class Address {
                 ", zipcode='" + zipcode + '\'' +
                 ", ask='" + ask + '\'' +
                 ", memberId=" + member.getId() +
-                ", delivery=" + delivery +
+                ", delivery(1개만)=" + delivery.get(0) +
                 ", receiverName='" + receiverName + '\'' +
                 ", receiverTel='" + receiverTel + '\'' +
                 '}';

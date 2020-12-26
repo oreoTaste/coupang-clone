@@ -19,9 +19,9 @@
                         <div class="address-box" th:each="address : ${addressList}">
                             <div class="address-id hidden" th:text="${address.id}">주소지 id</div>
                             <div class="address-receiver" th:text="${address.receiverName}">수령자 성함</div>
-                            <div class="address-address" th:text="${address.street + ' [' + address.detail + ']'}">주소지 & 세부주소</div>
-                            <div class="address-tel js-tel" th:text="${address.receiverTel}">전화번호</div>
+                            <div class="address-address" th:text="${address.street + ' ' + address.detail}">주소지 & 세부주소</div>
                             <div class="address-postbox" th:text="${address.zipcode}">우편번호</div>
+                            <div class="address-tel js-tel" th:text="${address.receiverTel}">전화번호</div>
                             <div class="address-ask" th:text="${address.ask}">요청사항</div>
                             <div class="address-buttons">
                                 <button class="white-button change-address">수정</button>

@@ -5,13 +5,13 @@
         <div class="nav-left">
             <div>즐겨찾기</div>
             <div>입점신청</div>
-            <div class="goToLogin" th:if="${session.login ne 1}">상품등록</div>
+            <div class="go-to-login" th:if="${session.login ne 1}">상품등록</div>
             <div th:if="${session.login eq 1}"><a href="/register/product">상품등록</a></div>
         </div>
         <div class="nav-right">
-            <div class="goToLogin" th:if="${session.login ne 1}">로그인</div>
-            <div th:if="${session.login ne 1}">회원가입</div>
-            <div class="goToLogout"  th:if="${session.login eq 1}">로그아웃</div>
+            <div class="go-to-login" th:if="${session.login ne 1}">로그인</div>
+            <div class="go-to-register" th:if="${session.login ne 1}">회원가입</div>
+            <div class="go-to-logout"  th:if="${session.login eq 1}">로그아웃</div>
             <div>고객센터</div>
         </div>
     </nav>
@@ -29,8 +29,8 @@
                             <input type="text" name="keyword" class="search-row__search-bar"/>
                         <div class="search-row__mypage">
 
-                            <div class="goToLogin" th:if="${session.login ne 1}"><div class="my-coupang-icon"></div>마이쿠팡</div>
-                            <div class="goToMyCoupang" th:if="${session.login eq 1}"><div class="my-coupang-icon"></div>마이쿠팡</div>
+                            <div class="go-to-login" th:if="${session.login ne 1}"><div class="my-coupang-icon"></div>마이쿠팡</div>
+                            <div class="go-to-mycoupang" th:if="${session.login eq 1}"><div class="my-coupang-icon"></div>마이쿠팡</div>
                             <div><div class="my-coupang-title" id="cart" onclick="location.href='/cart/show'"></div><label for="cart">장바구니</label></div>
                         </div>
                     </div>

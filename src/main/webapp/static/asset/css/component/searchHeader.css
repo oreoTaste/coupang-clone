@@ -1,6 +1,7 @@
-.goToLogout,
-.goToLogin,
-.goToMyCoupang {
+.go-to-logout,
+.go-to-login,
+.go-to-mycoupang,
+.go-to-register{
     cursor: pointer;
 }
 .menu-icon {

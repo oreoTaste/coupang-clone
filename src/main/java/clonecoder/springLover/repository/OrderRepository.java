@@ -49,6 +49,9 @@ public class OrderRepository {
             }
             jpql += " m.email like :email";
         }
+
+        jpql += " order by o.date desc";
+
         TypedQuery<Order> query = em.createQuery(jpql, Order.class)
                 .setMaxResults(1000); //최대 1000건
         if (orderSearch.getOrderStatus() != null) {

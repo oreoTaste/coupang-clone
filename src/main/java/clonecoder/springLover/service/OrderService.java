@@ -56,11 +56,12 @@ public class OrderService {
             Product product = productRepository.findOne(productId.get(i));
             orderProductList.add(OrderProduct.createOrderProduct(product, product.getPrice(), count.get(0)));
         }
+
         Order order = null;
         if(orderStatus == OrderStatus.ORDER) {
-            order = Order.createPayedOrder(member, delivery, orderProductList.stream().toArray(OrderProduct[]::new));
-        } else if(orderStatus == OrderStatus.PAID) {
             order = Order.createDefaultOrder(member, delivery, orderProductList.stream().toArray(OrderProduct[]::new));
+        } else if(orderStatus == OrderStatus.PAID) {
+            order = Order.createPayedOrder(member, delivery, orderProductList.stream().toArray(OrderProduct[]::new));
         }
         orderRepository.save(order);
         return order.getId();

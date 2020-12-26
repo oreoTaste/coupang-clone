@@ -22,7 +22,7 @@ public class Delivery {
     @OneToOne(mappedBy="delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Order order;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 

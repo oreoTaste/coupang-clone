@@ -1,5 +1,17 @@
-// import해서 사용하는 경우
-// 장바구니 카운트 표기
+/*---------------------------- 장바구니 관련 설정 시작 ----------------------------*/
+export const checkCart = () => {
+    if(sessionStorage.getItem("login") == "true") { // 로그인 상태에서 장바구니 상품 수 받아오기
+        setCart();
+    } else { // 로그아웃 상태에서 장바구니 상품 수 처리하기
+        const {bm_sv} = getCookieTempInfo();
+        // 로그아웃 상태에서 장바구니가 비어있다면 0으로 세팅
+        if(bm_sv == undefined) {
+            setCart(0);
+        } else {
+            setCart();
+        }
+    }
+}
 export const setCart = (num) => {
     if(num == null) {
         fetch("/cart/count").then((response) => {
@@ -11,17 +23,19 @@ export const setCart = (num) => {
         document.querySelector(".my-coupang-title").innerText = num;
     }
 }
+/*---------------------------- 장바구니 관련 설정 끝 ----------------------------*/
 
+/*-------------------- 버튼 설정 시작 --------------------*/
 export const setGoButtons = () => {
     setGoToLogin();
     setGoToLogout();
     setGoToMyCoupang();
+    setGoToRegister();
 }
-
 export const setGoToLogout = () => {
     console.log("setGoToLogout")
-    if(document.querySelector(".goToLogout")) {
-        document.querySelectorAll(".goToLogout")
+    if(document.querySelector(".go-to-logout")) {
+        document.querySelectorAll(".go-to-logout")
             .forEach(el => el.addEventListener("click", () => {
                 console.log("setGoToLogout")
                 window.location.href="/logout";
@@ -31,8 +45,8 @@ export const setGoToLogout = () => {
 export const setGoToLogin = () => {
     console.log("setGoToLogin")
 
-    if(document.querySelector(".goToLogin")) {
-        document.querySelectorAll(".goToLogin")
+    if(document.querySelector(".go-to-login")) {
+        document.querySelectorAll(".go-to-login")
             .forEach(el => el.addEventListener("click", () => {
                 console.log("setGoToLogin")
                 window.location.href="/";
@@ -41,15 +55,27 @@ export const setGoToLogin = () => {
 }
 export const setGoToMyCoupang = () => {
     console.log("setGoToMyCoupang")
-    if(document.querySelector(".goToMyCoupang")) {
-        document.querySelectorAll(".goToMyCoupang")
+    if(document.querySelector(".go-to-mycoupang")) {
+        document.querySelectorAll(".go-to-mycoupang")
             .forEach(el => el.addEventListener("click", () => {
                 console.log("setGoToMyCoupang")
                 window.location.href="/mycoupang";
             }));
     }
 }
+export const setGoToRegister = () => {
+    console.log("setGoToRegister")
+    if(document.querySelector(".go-to-register")) {
+        document.querySelectorAll(".go-to-register")
+            .forEach(el => el.addEventListener("click", () => {
+                console.log("setGoToRegister")
+                window.location.href="/register";
+            }));
+    }
+}
+/*-------------------- 버튼 설정 끝 --------------------*/
 
+/*-------------------- 쿠키 설정 읽기 시작 --------------------*/
 export const getCookieTempInfo = () => {
     let tempInfo = {};
     const pieces = document.cookie.split(";");
@@ -64,16 +90,4 @@ export const getCookieTempInfo = () => {
     }
     return tempInfo;
 }
-export const checkCart = () => {
-    if(sessionStorage.getItem("login") == "true") { // 로그인 상태에서 장바구니 상품 수 받아오기
-        setCart();
-    } else { // 로그아웃 상태에서 장바구니 상품 수 처리하기
-        const {bm_sv} = getCookieTempInfo();
-        // 로그아웃 상태에서 장바구니가 비어있다면 0으로 세팅
-        if(bm_sv == undefined) {
-            setCart(0);
-        } else {
-            setCart();
-        }
-    }
-}
+/*-------------------- 쿠키 설정 읽기 끝 --------------------*/

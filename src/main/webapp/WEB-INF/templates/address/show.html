@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
 </head>
 <body>
-    <div th:each="address : ${addressList}">
+    <div>
         <div th:text="${address.street + ' [' + address.detail + ']'}">주소지 & 세부주소</div>
         <div th:text="${address.zipcode}">우편번호</div>
         <div th:text="${address.ask}">요청사항</div>
