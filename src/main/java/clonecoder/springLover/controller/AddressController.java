@@ -70,27 +70,33 @@ public class AddressController {
 
     @PostMapping("register/address")
     @Transactional
+    @ResponseBody
     public String register(HttpServletRequest request, AddressForm addressForm, Model model) {
         Member member = memberService.checkValidity(request);
 
-        Address address = Address.createAddress(addressForm);
+        Address address = new Address(addressForm);
         addressService.save(address);
         member.setAddress(address);
 
-        AddressSearch addressSearch = new AddressSearch();
-        addressSearch.setMemberId(member.getId());
-        List<Address> addressList = addressService.findAddress(addressSearch);
+        if(member.getMainAddressId() == null) {
+            member.setMainAddressId(address.getId());
+        }
 
-        model.addAttribute("addressList", addressList);
-        return "address/showList";
+//        AddressSearch addressSearch = new AddressSearch();
+//        addressSearch.setMemberId(member.getId());
+//        List<Address> addressList = addressService.findAddress(addressSearch);
+//
+//        model.addAttribute("addressList", addressList);
+//        return "address/showList";
+        return "OK";
     }
 
-
     @GetMapping("address/list")
+    @Transactional
     public String listAddress(HttpServletRequest request,
                               Model model) {
-        Member member = memberService.checkValidity(request);
-        model.addAttribute("addressList", member.getAddressList());
+        List<Address> myAddress = addressService.getMyAddress(request);
+        model.addAttribute("addressList", myAddress);
         return "address/list";
     }
 

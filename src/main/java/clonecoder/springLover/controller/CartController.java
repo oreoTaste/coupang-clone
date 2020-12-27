@@ -6,6 +6,7 @@ import clonecoder.springLover.domain.Product;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ public class CartController {
     }
 
     @GetMapping("cart/show")
+    @Transactional
     public String showMyCart(Model model,
                              HttpServletRequest request,
                              HttpServletResponse response) throws Exception {
@@ -43,7 +45,16 @@ public class CartController {
         Member member = null;
         try {
             member = memberService.checkValidity(request);
+            System.out.println("++++++++++++++++++++++++++");
+            System.out.println("showMyCart");
+            System.out.println(request.getSession().getAttribute("id"));
+            System.out.println(member);
+            System.out.println("++++++++++++++++++++++++++");
             List<Cart> myCart = cartService.findMyCart(member.getId());
+            System.out.println("++++++++++++++++++++++++++");
+            System.out.println("mycart");
+            System.out.println(myCart);
+            System.out.println("++++++++++++++++++++++++++");
 
             for(Cart cart : myCart) {
                 if(cart.getProduct().getIs_rocket().equals("on")) {

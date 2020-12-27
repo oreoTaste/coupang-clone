@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -27,6 +28,16 @@ public class AddressService {
         return addressRepository.findOne(addressId);
     }
 
+    @Transactional
+    public List<Address> getMyAddress(HttpServletRequest request) {
+        Member member = memberService.checkValidity(request);
+        System.out.println("+++++++++++++++++++++");
+        System.out.println("getMyAddress");
+        System.out.println(member.getAddressList());
+        List<Address> addressList = member.getAddressList();
+        return addressList;
+    }
+
     public List<Address> findAddress(AddressSearch addressSearch) {
         return addressRepository.findAllByString(addressSearch);
     }
@@ -39,14 +50,7 @@ public class AddressService {
         for(Address foundAddress : addressList) {
             if(foundAddress.getId().equals(addressId)) {
                 Address addressFromId = getAddress(addressId);
-                addressFromId.setAsk(address.getAsk());
-                addressFromId.setCity(address.getCity());
-                addressFromId.setDelivery(address.getDelivery());
-                addressFromId.setDetail(address.getDetail());
-                addressFromId.setReceiverName(address.getReceiverName());
-                addressFromId.setReceiverTel(address.getReceiverTel());
-                addressFromId.setStreet(address.getStreet());
-                addressFromId.setZipcode(address.getZipcode());
+                addressFromId.setAddress(address);
                 return true;
             }
         }

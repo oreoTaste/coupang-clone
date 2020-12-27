@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class Member {
-    @Id
+@Id
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
@@ -24,6 +24,7 @@ public class Member {
     private String email;
     private String password;
     private String type;
+    private Long mainAddressId;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
@@ -88,10 +89,6 @@ public class Member {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
-                ", addressList(1번째항목)=" + addressList.get(0) +
-                ", cartList=" + cartList +
-                ", orderList=" + orderList +
-                ", comments=" + comments +
                 '}';
     }
 }
