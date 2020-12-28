@@ -27,12 +27,7 @@ public class Member {
     private String type;
     private Long mainAddressId;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "MEMBER_ADDRESS_LIST",
-                     joinColumns = @JoinColumn(name="member_id"))
-    @OrderColumn(name = "address_id")
-    @Column(name = "address_list")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -62,7 +57,7 @@ public class Member {
 
     public void setAddress(Address address) {
         this.addressList.add(address);
-//        address.setMember(this);
+        address.setMember(this);
     }
 
     public List<Address> getAddressList() {
@@ -89,21 +84,21 @@ public class Member {
         return false;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Member{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", emoticon='" + emoticon + '\'' +
-//                ", tel='" + tel + '\'' +
-//                ", email='" + email + '\'' +
-//                ", password='" + password + '\'' +
-//                ", type='" + type + '\'' +
-//                ", addressList=" + addressList.size() +
-//                ", cartList=" + cartList.size() +
-//                ", orderList=" + orderList.size() +
-//                ", comments=" + comments +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", emoticon='" + emoticon + '\'' +
+                ", tel='" + tel + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                ", addressList=" + addressList.size() +
+                ", cartList=" + cartList.size() +
+                ", orderList=" + orderList.size() +
+                ", comments=" + comments +
+                '}';
+    }
 
 }

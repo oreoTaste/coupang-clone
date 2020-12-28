@@ -21,9 +21,8 @@ public class Delivery {
     @OneToOne(mappedBy="delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Order order;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "address_id")
-    @Embedded
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     // 연관관계 메서드

@@ -83,25 +83,12 @@ public class AddressService {
         Member member = memberService.checkValidity(request);
 //        Hibernate.initialize(member.getAddressList());
         Address address = new Address(addressForm);
+        save(address);
         member.setAddress(address);
-//        save(address);
 
         if(member.getMainAddressId() == null) {
-            System.out.println("++++++++++++++++++++++++++++++++++++");
-            System.out.println("registerAddress");
-            System.out.println(member.getMainAddressId());
-            System.out.println(address);
-            for(Address address1:member.getAddressList()) {
-                System.out.println(address1);
-            }
-            System.out.println("++++++++++++++++++++++++++++++++++++");
             member.setMainAddressId(address.getId());
         }
-        System.out.println("++++++++++++++++++++++++++++++++++++");
-        System.out.println("registerAddress");
-        System.out.println(member.getMainAddressId());
-        System.out.println(address.getId());
-        System.out.println("++++++++++++++++++++++++++++++++++++");
         return true;
     }
 }
