@@ -25,9 +25,9 @@ public class Address extends AddressForm{
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private List<Delivery> delivery;
+
+    @OneToOne(mappedBy = "address", orphanRemoval = true)
+    private Delivery delivery;
 
     // 생성자
     public Address() {}

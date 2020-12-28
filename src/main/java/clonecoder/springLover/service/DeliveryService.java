@@ -1,14 +1,14 @@
 package clonecoder.springLover.service;
 
-import clonecoder.springLover.domain.Delivery;
-import clonecoder.springLover.domain.Evaluation;
-import clonecoder.springLover.domain.EvaluationSearch;
+import clonecoder.springLover.domain.*;
 import clonecoder.springLover.repository.DeliveryRepository;
 import clonecoder.springLover.repository.EvaluationRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -16,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeliveryService {
     private final DeliveryRepository deliveryRepository;
-
+    private final MemberService memberService;
+    
     @Transactional
     public Long saveDelivery(Delivery delivery) {
         return deliveryRepository.save(delivery);
@@ -34,4 +35,18 @@ public class DeliveryService {
         return deliveryRepository.findAllByString(delivery);
     }
 
+    public Integer countCurrentDeliveries(HttpServletRequest request) {
+        Member member = memberService.checkValidity(request);
+        Hibernate.initialize(member.getOrderList());
+        List<Order> orderList = member.getOrderList();
+        int cnt = 0;
+        for(Order order: orderList) {
+            Delivery delivery = order.getDelivery();
+            if(delivery.getStatus().equals(DeliveryStatus.READY) ||
+            delivery.getStatus().equals(DeliveryStatus.INDELIVERY)) {
+                cnt += 1;
+            }
+        }
+        return cnt;
+    }
 }

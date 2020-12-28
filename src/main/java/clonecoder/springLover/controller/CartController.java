@@ -26,8 +26,7 @@ public class CartController {
     @ResponseBody
     public int countMyCart(HttpServletRequest request, Model model) throws Exception {
         try {
-            Member member = memberService.checkValidity(request);
-            List<Cart> myCart = cartService.findMyCart(member.getId());
+            List<Cart> myCart = cartService.findMyCart(request);
             return myCart.size();
         } catch (Exception e) {
             List<CookieForm> cartFromCookie = CookieForm.getCartFromCookie(request);
@@ -45,16 +44,7 @@ public class CartController {
         Member member = null;
         try {
             member = memberService.checkValidity(request);
-            System.out.println("++++++++++++++++++++++++++");
-            System.out.println("showMyCart");
-            System.out.println(request.getSession().getAttribute("id"));
-            System.out.println(member);
-            System.out.println("++++++++++++++++++++++++++");
             List<Cart> myCart = cartService.findMyCart(member.getId());
-            System.out.println("++++++++++++++++++++++++++");
-            System.out.println("mycart");
-            System.out.println(myCart);
-            System.out.println("++++++++++++++++++++++++++");
 
             for(Cart cart : myCart) {
                 if(cart.getProduct().getIs_rocket().equals("on")) {
@@ -100,13 +90,11 @@ public class CartController {
                                     HttpServletResponse response) throws Exception {
 
         try {
-            Member member = memberService.checkValidity(request);
-
-                cartService.save(member.getId(), productId, quantity);
-                return "OK";
-            } catch(Exception e) {
-                CookieForm.setCartToCookie(request, response, productId, quantity);
-                return "OK";
+            cartService.save(request, productId, quantity);
+            return "OK";
+        } catch(Exception e) {
+            CookieForm.setCartToCookie(request, response, productId, quantity);
+            return "OK";
         }
     }
 
@@ -118,13 +106,8 @@ public class CartController {
                              HttpServletResponse response) throws Exception {
 
         try {
-            Member member = memberService.checkValidity(request);
-            List<Cart> myCart = cartService.findMyCart(member.getId());
-            for (Cart cart : myCart) {
-                if (cart.getProduct().getId() == productId) {
-                    cartService.adjust(member.getId(), productId, quantity);
-                    return "OK";
-                }
+            if(cartService.adjust(request, productId, quantity)) {
+                return "OK";
             }
         } catch (Exception e) {
             CookieForm.adjustCartToCookie(request, response, productId, quantity);

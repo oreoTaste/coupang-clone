@@ -1,6 +1,7 @@
 import {checkCart, setGoButtons} from '../component/searchHeader.js';
 import {makeCommas, deleteCommas} from "../component/price_quantity.js";
 import {setAddressRegistration} from "../component/buttons.js";
+import {setDeliveryStatus} from "../component/mycoupang.js";
 
 function setSaveToCart() {
 
@@ -30,6 +31,7 @@ function init() {
     // 가격 태그 콤마 찍기
     document.querySelectorAll(".js-price").forEach(el => el.innerText = makeCommas(el.innerText));
     setAddressRegistration();
+    setDeliveryStatus();
 }
 
 init();

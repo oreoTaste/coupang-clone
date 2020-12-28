@@ -3,6 +3,7 @@ package clonecoder.springLover.controller;
 import clonecoder.springLover.domain.*;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,13 +28,25 @@ public class OrderController {
 
     // 주문 결제 폼
     @GetMapping("product/checkout/productId={productId}&count={count}")
+    @Transactional
     public String checkoutForm(@PathVariable String productId,
-                           @PathVariable String count,
-                           Model model,
-                           HttpServletRequest request) {
+                               @PathVariable String count,
+                               Model model,
+                               HttpServletRequest request) {
         try {
+
             Member member = memberService.checkValidity(request);
             model.addAttribute("member", member);
+
+            Hibernate.initialize(member.getAddressList());
+            List<Address> addressList = member.getAddressList();
+            // 메인 주소 정보만 추출
+            Optional<Address> mainAddress = addressList.stream().filter((e) -> {
+                return e.getId().equals(member.getMainAddressId());
+            }).findAny();
+            if(mainAddress.isPresent()) {
+                model.addAttribute("address", mainAddress.get());
+            }
 
             List<Product> productList = new ArrayList<>();
             List<Integer> countList = new ArrayList<>();
@@ -54,7 +67,7 @@ public class OrderController {
         } catch (Exception e) {
             return "redirect:/";
         }
-        return "order/directCheckout";
+        return "order/checkout";
     }
 
     // 결제 확인후 오더접수(출고전)
@@ -77,7 +90,7 @@ public class OrderController {
         }
 
         Member member = memberService.checkValidity(request);
-        Address address = addressService.getAddress(Long.parseLong(exAddressId));
+        Address address = addressService.findAddress(request, Long.parseLong(exAddressId));
         Long orderId = orderService.cardCheckout(member.getId(), idList, cntList, address);
         return orderId.toString();
     }
@@ -89,7 +102,6 @@ public class OrderController {
                                 HttpServletRequest request,
                                 Model model) throws Exception {
 
-        Member member = memberService.checkValidity(request);
         Order order = orderService.findOne(orderId);
         model.addAttribute("order", order);
 
@@ -98,7 +110,7 @@ public class OrderController {
         });
         List<Long> productIdList = productIdStream.collect(Collectors.toList());
 
-        cartService.clear(member, productIdList);
+        cartService.clear(request, productIdList);
         return "order/after";
     }
 

@@ -1,11 +1,13 @@
 package clonecoder.springLover.service;
 
+import clonecoder.springLover.controller.AddressForm;
 import clonecoder.springLover.domain.Address;
 import clonecoder.springLover.domain.AddressSearch;
 import clonecoder.springLover.domain.Member;
 import clonecoder.springLover.repository.AddressRepository;
 import clonecoder.springLover.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,50 +26,73 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address getAddress(Long addressId) {
-        return addressRepository.findOne(addressId);
+    public Address findAddress(HttpServletRequest request, Long addressId) {
+        Member member = memberService.checkValidity(request);
+        Hibernate.initialize(member.getAddressList());
+        List<Address> addressList = member.getAddressList();
+        for(Address address : addressList) {
+            if(address.getId().equals(addressId)) {
+                return addressRepository.findOne(addressId);
+            }
+        }
+        return null;
     }
 
-    @Transactional
-    public List<Address> getMyAddress(HttpServletRequest request) {
+    public List<Address> findMyAddress(HttpServletRequest request) {
         Member member = memberService.checkValidity(request);
-        System.out.println("+++++++++++++++++++++");
-        System.out.println("getMyAddress");
-        System.out.println(member.getAddressList());
+        Hibernate.initialize(member.getAddressList());
+//        member.getAddressList().size(); 이런식으로도 가능
         List<Address> addressList = member.getAddressList();
         return addressList;
     }
 
-    public List<Address> findAddress(AddressSearch addressSearch) {
+    public List<Address> searchAddress(AddressSearch addressSearch) {
         return addressRepository.findAllByString(addressSearch);
     }
 
     @Transactional
-    public boolean changeAddress(Member member, Address address) {
-        Long addressId = address.getId();
+    public boolean changeAddress(HttpServletRequest request, Address address) {
+        Address foundAddress = findAddress(request, address.getId());
+        if(foundAddress != null) {
+            foundAddress.setAddress(address);
+            return true;
+        }
+        return false;
+    }
 
-        List<Address> addressList = member.getAddressList();
-        for(Address foundAddress : addressList) {
-            if(foundAddress.getId().equals(addressId)) {
-                Address addressFromId = getAddress(addressId);
-                addressFromId.setAddress(address);
+    @Transactional
+    public boolean removeAddress(HttpServletRequest request, Long id) {
+        Member member = memberService.checkValidity(request);
+        Long mainAddressId = member.getMainAddressId();
+
+        List<Address> myAddress = findMyAddress(request);
+        for(Address foundAddress : myAddress) {
+            if(foundAddress.getId().equals(id)) {
+                System.out.println("+++++++++++++++++++++++++++++++++");
+                System.out.println("mainAddressId" + mainAddressId);
+                System.out.println("foundAddress.getId()" + foundAddress.getId());
+                System.out.println("+++++++++++++++++++++++++++++++++");
+                if(mainAddressId != null && mainAddressId.equals(foundAddress.getId())) {
+                    member.setMainAddressId(null);
+                }
+                myAddress.remove(foundAddress);
+                addressRepository.delete(foundAddress);
                 return true;
             }
         }
         return false;
     }
 
-    @Transactional
-    public boolean removeAddress(Member member, Long id) {
-        List<Address> addressList = member.getAddressList();
-        for(Address foundAddress : addressList) {
-            if(foundAddress.getId().equals(id)) {
-                Address address = getAddress(id);
-                addressRepository.delete(address);
-                addressList.remove(foundAddress);
-                return true;
-            }
+    public boolean registerAddress(HttpServletRequest request, AddressForm addressForm) {
+        Member member = memberService.checkValidity(request);
+//        Hibernate.initialize(member.getAddressList());
+        Address address = new Address(addressForm);
+        save(address);
+        member.setAddress(address);
+
+        if(member.getMainAddressId() == null) {
+            member.setMainAddressId(address.getId());
         }
-        return false;
+        return true;
     }
 }

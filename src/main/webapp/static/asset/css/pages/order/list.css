@@ -108,7 +108,8 @@
     font-weight: 300;
     margin: 0.5rem 0;
 }
-.mycoupang-wrapper__left-menu > .left-group > *:not(.title):hover {
+.mycoupang-wrapper__left-menu > .left-group > *:not(.title):hover,
+.mycoupang-wrapper__left-menu > .left-group > * > a:hover {
     color: var(--blue);
     cursor: pointer;
     font-weight: 600;

@@ -97,5 +97,15 @@ public class Order {
         return totalPrice;
     }
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", date=" + date +
+                ", member=" + member +
+                ", delivery=" + delivery +
+                ", orderProductList=" + orderProductList.size() +
+                ", status=" + status +
+                '}';
+    }
 }

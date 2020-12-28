@@ -83,15 +83,17 @@ public class HomeController {
             CookieForm.setTempIdToCookie(request, response);
             return "main";
         }
-
-        Member emailMember = memberService.findByEmail(member.getEmail());
-        if(emailMember.getPassword().equals(member.getPassword())) {
-            request.getSession().setAttribute("id", emailMember.getId());
-            request.getSession().setAttribute("email", emailMember.getEmail());
-            request.getSession().setAttribute("login", 1);
-            return afterLogin(request, response, emailMember.getId());
-
-        } else {
+        try {
+            Member emailMember = memberService.findByEmail(member.getEmail());
+            if(emailMember.getPassword().equals(member.getPassword())) {
+                request.getSession().setAttribute("id", emailMember.getId());
+                request.getSession().setAttribute("email", emailMember.getEmail());
+                request.getSession().setAttribute("login", 1);
+                return afterLogin(request, response, emailMember.getId());
+            } else {
+            return "redirect:/";
+            }
+        } catch (Exception e) {
             return "redirect:/";
         }
     }

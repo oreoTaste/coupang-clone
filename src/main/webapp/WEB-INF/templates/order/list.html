@@ -28,7 +28,9 @@
                     </section>
                     <section class="product" th:each="orderProduct : ${order.orderProductList}">
                         <div class="product__pic">
-                            <img th:src="${orderProduct.product.thumbnail}"></img>
+                            <a th:href="${'/product/' + orderProduct.product.id}">
+                                <img th:src="${orderProduct.product.thumbnail}"></img>
+                            </a>
                         </div>
                         <div class="product__info">
                             <div>

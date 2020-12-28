@@ -3,6 +3,7 @@ package clonecoder.springLover.repository;
 import clonecoder.springLover.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -19,8 +20,15 @@ public class AddressRepository {
         return address.getId();
     }
 
+    @Transactional
     public void delete(Address address){
+        System.out.println("++++++++++++++++++++++++++++");
+        System.out.println("delete repo");
+        System.out.println(address);
+        System.out.println("++++++++++++++++++++++++++++");
         em.remove(address);
+        em.flush();
+        em.clear();
     }
 
     public Address findOne(Long id) {

@@ -26,33 +26,45 @@
                 <h2>받는사람 정보</h2>
                 <div class="side-by-side__loaf__content">
                     <div>이름</div>
-                    <div th:text="${order.member.name}"></div>
+                    <div th:text="${order.delivery.address.receiverName}"></div>
                     <div>휴대폰</div>
-                    <div th:text="${order.member.tel}"></div>
+                    <div class="js-tel" th:text="${order.delivery.address.receiverTel}"></div>
                     <div>연락처</div>
-                    <div th:text="${order.member.tel}"></div>
+                    <div class="js-tel" th:text="${order.delivery.address.receiverTel}"></div>
                     <div>배송주소</div>
                     <div th:text="${order.delivery.address.street} + ' ' + ${order.delivery.address.detail}"></div>
                     <div>배송요청사항</div>
                     <div th:text="${order.delivery.address.ask}"></div>
+                    <div>배송현황</div>
+                    <div th:text="${#strings.equals(order.delivery.status, 'READY') ?
+                                        '배송준비' :
+                                        (#strings.equals(order.status, 'INDELIVERY')?
+                                        '배송중' :
+                                        '배송완료')}"></div>
                 </div>
             </div>
             <div class="side-by-side__loaf">
                 <h2>결제 정보</h2>
                 <div class="side-by-side__loaf__content">
                     <div>이름</div>
-                    <div th:text="${order.member.name}"></div>
+                    <div th:text="${order.delivery.address.receiverName}"></div>
                     <div>휴대폰</div>
-                    <div th:text="${order.member.tel}"></div>
+                    <div class="js-tel" th:text="${order.delivery.address.receiverTel}"></div>
                     <div>연락처</div>
-                    <div th:text="${order.member.tel}"></div>
+                    <div class="js-tel" th:text="${order.delivery.address.receiverTel}"></div>
                     <div>배송주소</div>
                     <div th:text="${order.delivery.address.street} + ' ' + ${order.delivery.address.detail}"></div>
                     <div>배송요청사항</div>
                     <div th:text="${order.delivery.address.ask}"></div>
+                    <div>결제현황</div>
+                    <div th:text="${#strings.equals(order.status, 'ORDER') ?
+                                        '주문상태' :
+                                        (#strings.equals(order.status, 'PAID')?
+                                        '결제상태' :
+                                        '취소상태')}"></div>
                 </div>
             </div>
-        </div>
+<!--        </div>-->
     </div>
     <div th:replace="fragments/footer :: footer" />
     <script type="module" th:src="@{/static/asset/js/order/after.js}">

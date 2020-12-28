@@ -43,8 +43,7 @@ public class ProductController {
     public String register(@RequestParam("description") MultipartFile description,
                            @RequestParam("thumbnail") MultipartFile thumbnail,
                            @ModelAttribute() ProductForm productForm,
-                           HttpServletRequest request
-    ) throws Exception {
+                           HttpServletRequest request) throws Exception {
 
         String key = "" + System.currentTimeMillis();
         storageService.store(description, key + "/description", request);

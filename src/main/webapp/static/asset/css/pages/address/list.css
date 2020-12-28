@@ -1,4 +1,7 @@
 /*------------------------ content 시작------------------------*/
+.mycoupang-wrapper__left-menu a{
+    color: black;
+}
 .mycoupang-wrapper__content__group.sharp{
     border: 0;
     padding: 0;

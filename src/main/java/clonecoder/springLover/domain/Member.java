@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class Member {
-@Id
+    @Id
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
@@ -32,7 +32,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> cartList = new ArrayList<>();
 
-    @OneToMany(mappedBy="member")
+    @OneToMany(mappedBy="member", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
@@ -57,6 +57,10 @@ public class Member {
     public void setAddress(Address address) {
         this.addressList.add(address);
         address.setMember(this);
+    }
+
+    public List<Address> getAddressList() {
+        return this.addressList;
     }
 
     public boolean plusQuantityCart(Long productId, int quantity) {
@@ -89,6 +93,11 @@ public class Member {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
+                ", addressList=" + addressList.size() +
+                ", cartList=" + cartList.size() +
+                ", orderList=" + orderList.size() +
+                ", comments=" + comments +
                 '}';
     }
+
 }

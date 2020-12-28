@@ -19,6 +19,7 @@ import java.util.List;
 public class CartRepository {
     private final EntityManager em;
 
+    @Transactional
     public Long save(Cart cart) {
         em.persist(cart);
         return cart.getId();

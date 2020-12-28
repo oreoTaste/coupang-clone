@@ -54,9 +54,6 @@ public class MemberService {
     public Member checkValidity(HttpServletRequest request) {
         Long memberId = (Long) request.getSession().getAttribute("id");
         Member foundMember = findOne(memberId);
-        System.out.println("+++++++++++++++++++++++++");
-        System.out.println("checkValidaity");
-        System.out.println(foundMember);
         if(foundMember == null) {
             throw new IllegalArgumentException("올바른 로그인 정보가 필요합니다.");
         }

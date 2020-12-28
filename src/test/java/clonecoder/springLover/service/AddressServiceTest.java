@@ -25,25 +25,25 @@ public class AddressServiceTest {
     @Autowired MemberService memberService;
     @Autowired EntityManager em;
 
-    @Test
-    @Commit
-    public void 주소등록() throws Exception {
-        // given
-        Address address = new Address();
-        address.setCity("Seoul");
-        address.setStreet("my street");
-        address.setDetail("100-200");
-        address.setReceiverName("receiver");
-        address.setZipcode("111-222");
-        
-        // when
-        Long addressId = addressService.save(address);
-        Address foundAddress = addressService.getAddress(addressId);
-
-        // then
-        assertEquals("등록된 정보와 입력한 정보가 같습니다.", address.getCity(), foundAddress.getCity());
-        assertEquals("등록된 정보와 입력한 정보가 같습니다.", address.getDetail(), foundAddress.getDetail());
-    }
+//    @Test
+//    @Commit
+//    public void 주소등록() throws Exception {
+//        // given
+//        Address address = new Address();
+//        address.setCity("Seoul");
+//        address.setStreet("my street");
+//        address.setDetail("100-200");
+//        address.setReceiverName("receiver");
+//        address.setZipcode("111-222");
+//
+//        // when
+//        Long addressId = addressService.save(address);
+//        Address foundAddress = addressService.findAddress(addressId);
+//
+//        // then
+//        assertEquals("등록된 정보와 입력한 정보가 같습니다.", address.getCity(), foundAddress.getCity());
+//        assertEquals("등록된 정보와 입력한 정보가 같습니다.", address.getDetail(), foundAddress.getDetail());
+//    }
 
     @Test
     public void 멤버관련_주소등록() throws Exception {
@@ -64,7 +64,7 @@ public class AddressServiceTest {
         member.setAddress(address);
         AddressSearch addressSearch = new AddressSearch();
         addressSearch.setMemberId(member.getId());
-        List<Address> addressList = addressService.findAddress(addressSearch);
+        List<Address> addressList = addressService.searchAddress(addressSearch);
 
         // then
         assertEquals("등록된 정보와 입력한 정보가 같습니다.", member.getAddressList().get(0).getStreet(), address.getStreet());

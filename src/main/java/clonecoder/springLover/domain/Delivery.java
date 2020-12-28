@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@ToString
 public class Delivery {
     @Id
     @GeneratedValue
@@ -22,7 +21,7 @@ public class Delivery {
     @OneToOne(mappedBy="delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -45,6 +44,13 @@ public class Delivery {
         return delivery;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "id=" + id +
+                ", status=" + status +
+                ", order=" + order.getId() +
+                ", address=" + address +
+                '}';
+    }
 }

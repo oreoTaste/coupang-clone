@@ -19,6 +19,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
+    private final DeliveryService deliveryService;
 
     @Transactional
     public Long depositCheckout(Long memberId,

@@ -37,7 +37,7 @@
 
         <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) ne 0}">
             <h2>받는사람 정보</h2>
-            <input type="hidden" class="addressId" th:data-id="${member.addressList.get(0).id}"/>
+            <input type="hidden" class="addressId" th:data-id="${address.id}"/>
             <table class="classic-table checkout-content">
                 <tr>
                     <td>이름</td>
