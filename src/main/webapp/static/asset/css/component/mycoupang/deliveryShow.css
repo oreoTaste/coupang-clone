@@ -1,0 +1,84 @@
+.mycoupang-wrapper__content .delivery-show {
+    padding: 1rem 2rem;
+}
+.delivery-show__order-info,
+.delivery-show__delivery-info {
+    width: 50%;
+    display: inline-block;
+}
+.delivery-show__order-info {
+    float: left;
+}
+.delivery-show__order-info > div,
+.delivery-show__delivery-info > div {
+    width: 100%;
+    font-size: 0;
+}
+.delivery-show__order-info > .delivery-show__order-info__title,
+.delivery-show__delivery-info > .delivery-show__delivery-info__title {
+    margin: 1rem 0rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.delivery-show__delivery-info > div > span:first-child,
+.delivery-show__order-info > div > span:first-child {
+    width: 20%;
+    display: inline-block;
+    font-size: 1rem;
+}
+.delivery-show__delivery-info > div > span:last-child,
+.delivery-show__order-info > div > span:last-child {
+    width: 80%;
+    display: inline-block;
+    font-size: 1rem;
+}
+.delivery-show__order-info > .delivery-show__order-info__product-info {
+    height: 5rem;
+    font-size: 0.8rem;
+}
+.delivery-show__order-info__product-info .pic {
+    width: 5rem;
+    height: 5rem;
+    float: left;
+}
+.delivery-show__order-info__product-info .pic img{
+    width: 100%;
+    overflow:hidden;
+}
+.delivery-show__order-info__product-info > div:not(.pic) {
+    padding: 1rem 2rem 0rem 7rem;
+}
+.delivery-show__order-info__product-info > div:not(.pic):last-child {
+    padding: 0.6rem 2rem 1rem 7rem;
+}
+.delivery-show__order-info__product-info .productName {
+    font-weight: 600;
+    font-size: 1rem;
+}
+.delivery-show__order-info__product-info .productPrice {
+
+}
+.delivery-show__order-info__product-info .stock {
+
+}
+.price-rocket {
+    background: url('/static/asset/img/rocket_logo.png');
+    width: 4.1rem;
+    height: 1rem;
+    background-size: contain;
+    display: inline-block;
+}
+.delivery-show__order-info .delivery-show__order-info__product-info span.price-rocket {
+    width: 4.1rem;
+}
+.delivery-show__delivery-info > div:not(.delivery-show__delivery-info__title) {
+    margin: 0.5rem 0rem;
+    display: flex;
+}
+.delivery-show__delivery-info {
+    word-break: keep-all;
+}
+.delivery-show .delivery-show__header {
+    background: rgba(0,0,0,0.05);
+    padding: 1rem;
+}

@@ -9,3 +9,11 @@ export const setDeliveryStatus = (num) => {
         document.querySelector(".js-delivery-status").innerText = num;
     }
 }
+export const setDeliveryStatusShowButton = (num) => {
+    if(document.querySelector(".js-show-delivery")) {
+        document.querySelectorAll(".js-show-delivery").forEach(el => el.addEventListener("click", e =>
+            window.location.href = '/deliveryStatus/' + e.target.parentNode.querySelector(".orderId").value
+        ));
+    }
+}
+

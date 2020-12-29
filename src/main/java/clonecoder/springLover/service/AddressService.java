@@ -72,7 +72,11 @@ public class AddressService {
                     member.setMainAddressId(null);
                 }
                 myAddress.remove(foundAddress);
-                addressRepository.delete(foundAddress);
+                if(foundAddress.getDelivery() == null) {
+                    addressRepository.delete(foundAddress);
+                } else {
+                    foundAddress.setMember(null);
+                }
                 return true;
             }
         }

@@ -260,7 +260,7 @@
     margin: 2%;
     padding: 0;
 }
-.mycoupang-wrapper__content__group .buttons > *:first-child {
+.mycoupang-wrapper__content__group .buttons .js-show-delivery {
     border: 1px solid #3d82f7;
     color: var(--button-blue);
 }

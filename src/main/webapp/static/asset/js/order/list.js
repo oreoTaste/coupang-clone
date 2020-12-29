@@ -1,7 +1,7 @@
 import {checkCart, setGoButtons} from '../component/searchHeader.js';
 import {makeCommas, deleteCommas} from "../component/price_quantity.js";
 import {setAddressRegistration} from "../component/buttons.js";
-import {setDeliveryStatus} from "../component/mycoupang.js";
+import {setDeliveryStatus, setDeliveryStatusShowButton} from "../component/mycoupang.js";
 
 function setSaveToCart() {
 
@@ -32,6 +32,7 @@ function init() {
     document.querySelectorAll(".js-price").forEach(el => el.innerText = makeCommas(el.innerText));
     setAddressRegistration();
     setDeliveryStatus();
+    setDeliveryStatusShowButton();
 }
 
 init();

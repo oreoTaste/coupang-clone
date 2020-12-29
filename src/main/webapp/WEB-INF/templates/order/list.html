@@ -17,9 +17,6 @@
                 <div class="mycoupang-wrapper__content__group round" th:each="order : ${orders}">
                     <section class="top">
                         <span th:text="${#dates.format(order.date,'yyyy.MM.dd')} + ' 주문 '"></span>
-<!--                        <span th:if="${#strings.equals(order.status, 'ORDER')}" th:text="주문상태"></span>-->
-<!--                        <span th:if="${#strings.equals(order.status, 'PAID')}" th:text="결제상태"></span>-->
-<!--                        <span th:if="${#strings.equals(order.status, 'CANCEL')}" th:text="취소상태"></span>-->
                         <span th:text="${#strings.equals(order.status, 'ORDER') ?
                                         '(주문상태)' :
                                         (#strings.equals(order.status, 'PAID')?
@@ -46,7 +43,8 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <button class="white-button">배송조회</button>
+                            <input class="orderId" type="hidden" th:value="${order.id}"/>
+                            <button class="white-button js-show-delivery">배송조회</button>
                             <button class="white-button">교환신청</button>
                             <button class="white-button">반품신청</button>
                             <button class="white-button">구매후기 쓰기</button>

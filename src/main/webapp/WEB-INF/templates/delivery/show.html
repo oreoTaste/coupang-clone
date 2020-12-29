@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>배송현황</title>
+    <link href="../../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/searchHeader :: searchHeader" />
+    <div th:replace="fragments/mycoupangLeftMenu :: mycoupangLeftMenu" />
+    <!------------------------- 컨텐츠 시작 ------------------------->
+    <div class="main-wrapper">
+        <div class="mycoupang-wrapper">
+            <div class="mycoupang-wrapper__content">
+                <div class="delivery-show">
+                    <h1>배송조회</h1>
+                    <div class="delivery-show__header">
+                        <span>주문일시</span>
+                        <span class="order-date" th:text="${#dates.format(order.date,'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </div>
+                    <div class="delivery-show__order-info">
+                        <div class="delivery-show__order-info__title">
+                            주문정보
+                                <span th:text="${#strings.equals(order.status, 'ORDER') ?
+                                '(주문완료)' :
+                                (#strings.equals(order.status, 'PAID')?
+                                '(결제완료)' :
+                                '(취소상태)')}"></span>
+                        </div>
+                        <div class="delivery-show__order-info__product-info" th:each="orderProduct :${order.orderProductList}">
+                            <div class="pic">
+                                <img th:src="'/' + ${orderProduct.product.thumbnail}" alt="thumbnail">
+                            </div>
+                            <div>
+                                <span class="price-rocket" th:if="${#strings.equals(orderProduct.product.is_rocket, 'on')}"></span>
+                                <span class="productName" th:text="${orderProduct.product.name}"></span>
+                            </div>
+                            <div>
+                                <span class="js-price productPrice" th:text="${orderProduct.price}"></span>
+                                ·
+                                <span class="js-quantity stock" th:text="${orderProduct.stock}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-show__delivery-info">
+                        <div class="delivery-show__delivery-info__title">
+                            배송정보
+                            <span th:text="${#strings.equals(order.delivery.status, 'READY') ?
+                                '(배송준비)' :
+                                (#strings.equals(order.status, 'INDELIVERY')?
+                                '(배송중)' :
+                                '(배송완료)')}"></span>
+                        </div>
+                        <div><span>받는사람</span><span th:text="${order.delivery.address.receiverName}"></span></div>
+                        <div><span>받는주소</span><span th:text="${order.delivery.address.street + ' ' + order.delivery.address.detail}"></span></div>
+                        <div><span>요청사항</span><span th:text="${order.delivery.address.ask}"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------- 컨텐츠 끝 ------------------------->
+    <div th:replace="fragments/footer :: footer" />
+    <script type="module" th:src="@{/static/asset/js/delivery/show.js}">
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import clonecoder.springLover.repository.MemberRepository;
 import clonecoder.springLover.repository.OrderRepository;
 import clonecoder.springLover.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,9 @@ public class OrderService {
         Delivery delivery = new Delivery();
         delivery.setAddress(address);
         delivery.setStatus(DeliveryStatus.READY);
+
+//        Hibernate.initialize(address);
+        address.setDelivery(delivery);
 
         // 주문관련
         List<OrderProduct> orderProductList = new ArrayList<>();

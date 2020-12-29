@@ -29,7 +29,8 @@ public class Address extends AddressForm{
     private Member member;
 
 
-    @OneToOne(mappedBy = "address", orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
     // 생성자
@@ -58,6 +59,9 @@ public class Address extends AddressForm{
 
     public void setMember(Member member) {
         this.member = member;
+    }
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 
 //    @Override
