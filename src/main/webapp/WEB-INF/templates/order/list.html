@@ -12,7 +12,7 @@
     <div class="main-wrapper">
         <div class="mycoupang-wrapper">
             <div class="mycoupang-wrapper__content">
-                <div class="no-result" th:if="${orders.isEmpty()}" th:text="'해당 내역이 없습니다.'">
+                <div class="no-result" th:if="${orders.isEmpty()}" th:text="'내역이 없습니다.'">
                 </div>
                 <div class="mycoupang-wrapper__content__group round" th:each="order : ${orders}">
                     <section class="top">

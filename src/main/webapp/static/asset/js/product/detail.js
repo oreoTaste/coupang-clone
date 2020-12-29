@@ -10,11 +10,15 @@ const originalPrice = document.querySelector(".js-original-price"),
       thumbnailPic = document.querySelector(".product-detail-header__pic"),
       magnifiedPic = document.querySelector(".magnified-product"),
       detailBody = document.querySelector(".product-detail-body"),
+      content = document.querySelector(".product-detail-content"),
       spreader = document.querySelector(".product-detail-content__spreader"),
       id = document.querySelector(".product-detail-header__product-id"),
       detailForm = document.querySelector("#detailForm"),
       directOrder = document.querySelector(".directOrder"),
-      shoppingCart = document.querySelector("#shoppingCart");
+      shoppingCart = document.querySelector("#shoppingCart"),
+      commentSection = document.querySelector(".product-detail-comment"),
+      askSection = document.querySelector(".product-detail-ask"),
+      infoSection = document.querySelector(".product-detail-info");
 let url = "";
 
 /*-----------------초기화 설정 시작-------------------*/
@@ -60,7 +64,7 @@ const handleDown = () => {
 }
 const handlerSpreader = (e) => {
     e.target.setAttribute("style", "display: none");
-    detailBody.setAttribute("style", "height: auto");
+    content.setAttribute("style", "height: auto");
 }
 /*-----------------버튼 설정 끝-------------------*/
 
@@ -123,12 +127,37 @@ const pushCart = () => {
         checkCart();
     });
 }
-/*-----------------주문기능 설정 시작-------------------*/
+/*-----------------주문기능 설정 끝-------------------*/
+
+/*-----------------위치계산 설정 시작-------------------*/
+function checkPositionForTabs() {
+    window.addEventListener("scroll", checkPosition);
+}
+function checkPosition() {
+    const curPos = window.scrollY;
+    const commentPos = window.pageYOffset + commentSection.getBoundingClientRect().top;
+    const askPos = window.pageYOffset + askSection.getBoundingClientRect().top;
+    const infoPos = window.pageYOffset + infoSection.getBoundingClientRect().top;
+
+    const tabs = document.querySelector(".product-detail-tabs");
+    [...tabs.children].forEach(el => el.classList.remove("active"));
+    if(curPos < commentPos) {
+        tabs.children.item(0).classList.add("active");
+    } else if(curPos < askPos) {
+        tabs.children.item(1).classList.add("active");
+    } else if(curPos < infoPos) {
+        tabs.children.item(2).classList.add("active");
+    } else {
+        tabs.children.item(3).classList.add("active");
+    }
+}
+
 function init() {
     initialize();
     setButton();
     setMagnifier();
     setDirectOrder();
     setShoppingCart();
+    checkPositionForTabs();
 }
 init();

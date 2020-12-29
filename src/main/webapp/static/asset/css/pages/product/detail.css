@@ -110,11 +110,16 @@
     display: flex;
     flex-direction: row;
     text-align: center;
-    height: 3rem;
+    height: 3.5rem;
+    background: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 .product-detail-tabs div{
     width: 25%;
-    line-height: 3rem;
+    line-height: 3.5rem;
     background: rgba(0,0,0,.03);
     border: 1px solid rgba(0,0,0,.2);
     font-size: 1rem;
@@ -127,12 +132,14 @@
 .product-detail-content {
     width: 75%;
     margin: 0 auto;
+    height: 500px;
     overflow: hidden;
 }
 .product-detail-content img{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: top;
 }
 .product-detail-header__pic .magnified-product {
     position: absolute;
@@ -143,9 +150,8 @@
     width: 800px;
     height: 800px;
 }
-.product-detail-body {
-    height: 500px;
-    overflow: hidden;
+.product-detail-body hr{
+    margin:0;
 }
 .product-detail-content {
     position: relative;
@@ -165,4 +171,78 @@
     left: calc(50% - 100px);
     font-weight: 600;
     cursor: pointer;
+}
+.product-detail-comment {
+
+}
+.product-detail-comment .blue-button{
+    float: right;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+}
+.product-detail-comment h3 {
+    font-size: 1.5rem;
+}
+
+.product-detail-ask {
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.4);
+}
+
+.product-detail-ask .white-button {
+    float: right;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+}
+.product-detail-ask h3 {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+.product-detail-ask * {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+.product-detail-ask ul li::marker {
+    color: rgba(0,0,0,0.4);
+}
+.product-detail-ask ul * {
+    color: rgba(0,0,0,0.8);
+}
+.product-detail-ask ul strong {
+    color: black;
+}
+.product-detail-info {
+    font-size: 0;
+}
+.product-detail-info h3{
+    font-size: initial;
+    margin-top: 2.5rem;
+}
+.product-detail-info span {
+    display: inline-block;
+    margin-top: -1px;
+    padding: 1rem;
+}
+.product-detail-info span:nth-child(2n+1) {
+    width: 25%;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.02);
+}
+.product-detail-info span:nth-child(2n) {
+    width: 75%;
+    margin-left: -1px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.delivery-info__detail,
+.refund-info__detail,
+.refund-restriction__detail {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+.delivery-info__detail > *,
+.refund-info__detail > *,
+.refund-restriction__detail > * {
+    font-size: 1rem;
 }
