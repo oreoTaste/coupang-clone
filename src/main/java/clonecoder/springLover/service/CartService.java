@@ -11,8 +11,12 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,10 +24,11 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class CartService {
+    private final MemberService memberService;
+    private final ProductService productService;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
-    private final MemberService memberService;
 
     @Transactional
     public void save(Long memberId, List<Long> productIdList, List<Integer> countList) throws Exception {
@@ -101,6 +106,37 @@ public class CartService {
     }
 
     @Transactional
+    public void clearCookie(Cookie[] cookies,
+                            List<Long> productIdList,
+                            HttpServletRequest request,
+                            HttpServletResponse response) {
+        Optional<Cookie> bmSvCookie = Arrays.stream(cookies).filter((e) ->
+                e.getName().equals("bm_sv")).findAny();
+
+        if(bmSvCookie.isPresent()) {
+            Cookie bmSv = bmSvCookie.get();
+            String query = bmSv.getValue();
+            List<CookieForm> cookieForms = CookieForm.parseCookie(query);
+            for(Long productId : productIdList) {
+                for(CookieForm cookieForm : cookieForms) {
+                    if(cookieForm.getProductId().equals(productId)) {
+                        cookieForms.remove(cookieForm);
+                    }
+                }
+            }
+
+            bmSv.setValue(CookieForm.makeCookie(cookieForms));
+            bmSv.setPath("/");
+            if(cookieForms.size() > 0) {
+                bmSv.setMaxAge(-1);
+            } else {
+                bmSv.setMaxAge(0);
+            }
+            response.addCookie(bmSv);
+        }
+    }
+
+    @Transactional
     public void setQuantity(Long cartId, int quantity) {
         Cart cart = cartRepository.findOne(cartId);
         cart.setCount(quantity);
@@ -131,4 +167,42 @@ public class CartService {
         return false;
     }
 
+    public void sortList(HttpServletRequest request,
+                         List<Cart> rocketList,
+                         List<Cart> normalList) {
+        List<Cart> myCart = findMyCart(request);
+
+        for(Cart cart : myCart) {
+            if(cart.getProduct().getIs_rocket().equals("on")) {
+                rocketList.add(cart);
+            } else {
+                normalList.add(cart);
+            }
+        }
+
+    }
+
+    public void sortListFromCookie(HttpServletRequest request,
+                                   List<Cart> rocketList,
+                                   List<Cart> normalList) {
+        String tempIdFromCookie = CookieForm.getTempIdFromCookie(request);
+        List<CookieForm> cartFromCookie = CookieForm.getCartFromCookie(request);
+
+        if(cartFromCookie.size() > 0 &&
+                cartFromCookie.get(0).getTempId().equals(tempIdFromCookie)) {
+
+            for(CookieForm cookieForm : cartFromCookie) {
+                Product product = productService.findOne(cookieForm.getProductId());
+
+                Cart cart = new Cart();
+                cart.setProduct(product);
+                cart.setCount(cookieForm.getQuantity());
+                if(product.getIs_rocket().equals("on")) {
+                    rocketList.add(cart);
+                } else {
+                    normalList.add(cart);
+                }
+            }
+        }
+    }
 }

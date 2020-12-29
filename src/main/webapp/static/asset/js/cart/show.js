@@ -157,8 +157,35 @@ const purchase = (e) => {
     window.location.href="/product/checkout/" + "productId=" + productId + "&count=" + count;
 }
 /*---------------------------- 구매버튼 끝 ----------------------------*/
+
+/*---------------------------- 삭제버튼 시작 ----------------------------*/
+function setDeleteButton() {
+    setDeletion();
+}
+const setDeletion = () => {
+    document.querySelector(".js-delete").addEventListener("click", deletion);
+}
+const deletion = () => {
+    const checkedItems = [...items].filter(el => el.querySelector(".check-to-buy").checked);
+    let productId = "";
+    for(let item of checkedItems) {
+        productId += item.querySelector(".product-info").getAttribute("value") + ",";
+    }
+
+    fetch(
+        "/cart/delete/" + productId
+    ).then((resp) => {
+        console.log(resp);
+        return resp.json();
+    }).then((json) => {
+        console.log(json);
+    })
+}
+/*---------------------------- 삭제버튼 끝 ----------------------------*/
+
 function init() {
     setPurchaseButtons();
+    setDeleteButton();
     setCalculator();
     setPlusMinusButtons();
     setCheckButtons();

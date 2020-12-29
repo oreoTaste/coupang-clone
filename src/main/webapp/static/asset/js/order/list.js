@@ -15,6 +15,7 @@ function setSaveToCart() {
                     method: 'POST'
                 }).then((response) => {
                     alert("장바구니에 추가되었습니다");
+                    checkCart();
                 });
             })
         );

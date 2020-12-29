@@ -196,6 +196,15 @@
 .cart-grand-summary .red-emphasize {
     color: red;
 }
+.cart-wrapper .cart-wrapper__remover {
+
+}
+.cart-wrapper .cart-wrapper__remover .white-button{
+    border: 1px solid rgba(0,0,0,0.2);
+    color: black;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+}
 .cart-wrapper .buttons {
     margin-top: 3rem;
     justify-content: center!important;

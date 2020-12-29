@@ -11,10 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Getter
+@ToString
 public class CookieForm {
     private Long productId;
     private int quantity;
@@ -50,8 +55,8 @@ public class CookieForm {
         return "";
     }
 
-    private static List<CookieForm> parseCookie(String str) {
-        List<CookieForm> list = new ArrayList<>();
+    public static List<CookieForm> parseCookie(String str) {
+        List<CookieForm> list = new CopyOnWriteArrayList<>();
 
         String[] split = str.split("/");
         for(String item : split) {
@@ -61,7 +66,7 @@ public class CookieForm {
         return list;
     }
 
-    private static String makeCookie(List<CookieForm> list) {
+    public static String makeCookie(List<CookieForm> list) {
         String str = "";
 
         for(CookieForm item : list) {
@@ -84,7 +89,7 @@ public class CookieForm {
             boolean bool = true;
             for(CookieForm cookieForm: cookieForms) {
                 if(cookieForm.getProductId().equals(productId)) {
-                    cookieForm.quantity += 1;
+                    cookieForm.quantity += quantity;
                     bool = false;
                     break;
                 }
@@ -159,6 +164,30 @@ public class CookieForm {
             cartCookie.setPath("/");
             cartCookie.setMaxAge(-1);
             response.addCookie(cartCookie);
+        }
+    }
+
+    public static void deleteCartToCookie(HttpServletRequest request,
+                                          HttpServletResponse response,
+                                          List<Long> productIds) {
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie: cookies) {
+            List<CookieForm> cookieForms = new ArrayList<>();
+            if(cookie.getName().equals("bm_sv")) {
+                cookieForms.addAll(parseCookie(cookie.getValue()));
+
+                for(Long productId : productIds) {
+                    for(CookieForm cookieForm : cookieForms) {
+                        if(cookieForm.getProductId().equals(productId)) {
+                            cookieForm = null;
+                            break;
+                        }
+                    }
+                }
+                String operatedString = makeCookie(cookieForms);
+                cookie.setValue(operatedString);
+                response.addCookie(cookie);
+            }
         }
     }
 

@@ -1,9 +1,6 @@
 package clonecoder.springLover.controller;
 
-import clonecoder.springLover.domain.Member;
-import clonecoder.springLover.domain.Order;
-import clonecoder.springLover.domain.OrderSearch;
-import clonecoder.springLover.domain.Product;
+import clonecoder.springLover.domain.*;
 import clonecoder.springLover.service.CartService;
 import clonecoder.springLover.service.MemberService;
 import clonecoder.springLover.service.OrderService;
@@ -25,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -50,6 +48,19 @@ public class HomeController {
         return "order/list";
     }
 
+    @GetMapping("/mycoupang/cancel")
+    public String myCancel(HttpServletRequest request,
+                            Model model) {
+        String email = (String) request.getSession().getAttribute("email");
+        OrderSearch orderSearch = new OrderSearch();
+        orderSearch.setMemberEmail(email);
+        List<Order> orders = orderService.findOrders(orderSearch);
+        List<Order> cancelList = orders.stream().filter((e) -> {
+            return e.getStatus().equals(OrderStatus.CANCEL);
+        }).collect(Collectors.toList());
+        model.addAttribute("orders", cancelList);
+        return "order/list";
+    }
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request,

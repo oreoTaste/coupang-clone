@@ -12,15 +12,15 @@
     <div class="main-wrapper">
         <div class="mycoupang-wrapper">
             <div class="mycoupang-wrapper__content">
-                <div class="no-result" th:if="${orders.isEmpty()}" th:text="'주문 내역이 없습니다.'">
+                <div class="no-result" th:if="${orders.isEmpty()}" th:text="'해당 내역이 없습니다.'">
                 </div>
                 <div class="mycoupang-wrapper__content__group round" th:each="order : ${orders}">
                     <section class="top">
                         <span th:text="${#dates.format(order.date,'yyyy.MM.dd')} + ' 주문 '"></span>
                         <span th:text="${#strings.equals(order.status, 'ORDER') ?
-                                        '(주문상태)' :
+                                        '(주문완료)' :
                                         (#strings.equals(order.status, 'PAID')?
-                                        '(결제상태)' :
+                                        '(결제완료)' :
                                         '(취소상태)')}"></span>
                     </section>
                     <section class="product" th:each="orderProduct : ${order.orderProductList}">
