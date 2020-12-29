@@ -3,15 +3,19 @@ package clonecoder.springLover.domain;
 import clonecoder.springLover.controller.AddressForm;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter //@Setter
+@Embeddable
+@ToString
 public class Address extends AddressForm{
-    @Id
-    @GeneratedValue
-    @Column(name = "address_id")
+//    @Id
+//    @GeneratedValue
+    @Column(name = "my_id")
     private Long id;
     private String city;
     private String street;
@@ -21,13 +25,13 @@ public class Address extends AddressForm{
     private String receiverName;
     private String receiverTel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-
-    @OneToOne(mappedBy = "address", orphanRemoval = true)
-    private Delivery delivery;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member_id")
+//    private Member member;
+//
+//
+//    @OneToOne(mappedBy = "address", orphanRemoval = true)
+//    private Delivery delivery;
 
     // 생성자
     public Address() {}
@@ -53,23 +57,23 @@ public class Address extends AddressForm{
         return this;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", detail='" + detail + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", ask='" + ask + '\'' +
-                ", memberId=" + member.getId() +
-//                ", delivery(1개만)=" + delivery.get(0) +
-                ", receiverName='" + receiverName + '\'' +
-                ", receiverTel='" + receiverTel + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Address{" +
+//                "id=" + id +
+//                ", city='" + city + '\'' +
+//                ", street='" + street + '\'' +
+//                ", detail='" + detail + '\'' +
+//                ", zipcode='" + zipcode + '\'' +
+//                ", ask='" + ask + '\'' +
+////                ", memberId=" + member.getId() +
+////                ", delivery(1개만)=" + delivery.get(0) +
+//                ", receiverName='" + receiverName + '\'' +
+//                ", receiverTel='" + receiverTel + '\'' +
+//                '}';
+//    }
 }

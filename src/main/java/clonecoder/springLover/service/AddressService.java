@@ -68,10 +68,6 @@ public class AddressService {
         List<Address> myAddress = findMyAddress(request);
         for(Address foundAddress : myAddress) {
             if(foundAddress.getId().equals(id)) {
-                System.out.println("+++++++++++++++++++++++++++++++++");
-                System.out.println("mainAddressId" + mainAddressId);
-                System.out.println("foundAddress.getId()" + foundAddress.getId());
-                System.out.println("+++++++++++++++++++++++++++++++++");
                 if(mainAddressId != null && mainAddressId.equals(foundAddress.getId())) {
                     member.setMainAddressId(null);
                 }
@@ -87,12 +83,25 @@ public class AddressService {
         Member member = memberService.checkValidity(request);
 //        Hibernate.initialize(member.getAddressList());
         Address address = new Address(addressForm);
-        save(address);
         member.setAddress(address);
+//        save(address);
 
         if(member.getMainAddressId() == null) {
+            System.out.println("++++++++++++++++++++++++++++++++++++");
+            System.out.println("registerAddress");
+            System.out.println(member.getMainAddressId());
+            System.out.println(address);
+            for(Address address1:member.getAddressList()) {
+                System.out.println(address1);
+            }
+            System.out.println("++++++++++++++++++++++++++++++++++++");
             member.setMainAddressId(address.getId());
         }
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+        System.out.println("registerAddress");
+        System.out.println(member.getMainAddressId());
+        System.out.println(address.getId());
+        System.out.println("++++++++++++++++++++++++++++++++++++");
         return true;
     }
 }
