@@ -9,9 +9,11 @@
 @import "component/button.css";
 @import "component/price_quantity.css";
 @import "component/mycoupang/deliveryShow.css";
+@import "component/mycoupang/myCoupangLeftMenu.css";
 
 /* import page css */
 @import "pages/main.css";
+@import "pages/member/modify.css";
 @import "pages/product/register.css";
 @import "pages/product/detail.css";
 @import "pages/order/directCheckout.css";
@@ -21,6 +23,7 @@
 @import "pages/address/list.css";
 @import "pages/cart/show.css";
 @import "pages/product/searchList.css";
+@import "pages/product/review.css";
 
 :root {
     --blue: #4285f4;

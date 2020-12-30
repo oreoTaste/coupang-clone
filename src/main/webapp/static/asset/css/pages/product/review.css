@@ -1,0 +1,31 @@
+.mycoupang-wrapper__content__group.product-comment {
+    border: 0;
+    padding: 0;
+}
+.member-info {
+    border: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid var(--blue);
+    margin-bottom: 3rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.member-info__myname {
+    font-size: 1.2rem;
+}
+.product-comment .product {
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.product__info-review {
+    border-right: 0!important;
+}
+.buttons-review {
+    justify-content: space-evenly!important;
+}
+.product-detail-tabs.triple-column > div{
+    width: 33.33%;
+}

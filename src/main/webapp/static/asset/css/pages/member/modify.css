@@ -1,0 +1,55 @@
+.member-container {
+    padding: 3rem;
+    margin-top: 2rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: white;
+}
+.member-container__email {
+    color: rgba(0,0,0,0.75);
+    font-weight: 600;
+}
+.member-container__password tr:first-child {
+    border-top: 2px double rgba(0,0,0,0.4);
+}
+.member-container__password td {
+    border-left: 0;
+    border-right: 0;
+    padding: 1rem;
+}
+.member-container__password td:first-child {
+    border-right: 1px solid rgba(0,0,0,0.2);
+    background: #eef1f8;
+    width: 20%;
+    color: rgba(0,0,0,0.75);
+    font-weight: 600;
+}
+.password-modify-form {
+    color: rgba(0,0,0,0.7);
+}
+.password-modify-form span {
+    display: inline-block;
+    min-width: 8rem;
+    margin-bottom: 0.8rem;
+}
+.password-input {
+    min-width: 15rem;
+}
+.member-container .buttons {
+    justify-content: center!important;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+.member-container .buttons button,
+.member-container .buttons input {
+    width: 5rem;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.3rem;
+}
+.member-container .buttons input {
+    background: linear-gradient(0, gray, darkgray);
+}
+.buttons .js-home.modify-button {
+    color: black;
+    padding: 0.5rem 1rem;
+}

@@ -12,6 +12,11 @@
     <div th:replace="fragments/searchHeader :: searchHeader" />
     <form id="detailForm" th:action="'/product/checkout/productId='+${product.id}">
         <div class="product-detail-header main-wrapper">
+            <div class="product-detail-header__thumbnail">
+                <div>
+                    <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
+                </div>
+            </div>
             <div class="product-detail-header__pic">
                 <div>
                     <img th:src="'../'+${product.thumbnail}" alt="thumbnail"/>
@@ -58,16 +63,51 @@
             <div class="">배송/교환/반품 안내</div>
         </div>
         <div class="product-detail-content">
-            <div class="product-detail-content__spreader">상품정보 더보기</div>
+            <div class="product-detail-content__spreader">상품정보 더보기 ∨</div>
             <img th:src="'../'+${product.description}" alt="description"/>
         </div>
         <hr>
         <div class="product-detail-comment">
-            <button class="blue-button">상품평 쓰기</button>
+            <button class="blue-button js-comment">상품평 쓰기</button>
             <h3>상품평</h3>
         </div>
+        <div class="shadow-setter hidden"></div>
         <div class="product-detail-ask">
-            <button class="white-button">문의하기</button>
+            <button class="white-button js-ask-product" th:value="${product.id}">문의하기</button>
+            <div class="ask-product-page hidden">
+                <form action="">
+                    <header><span>상품문의</span><span class="close-pop">X</span></header>
+                    <div class="ask-product-page__content">
+                            <table>
+                                <tr>
+                                    <td>상품정보</td>
+                                    <td>
+                                        <select name="" id="">
+                                            <option value="" class="hidden">개당 수량을(를) 선택하세요</option>
+                                        </select>
+                                        <br>
+                                        <select name="" id="">
+                                            <option value="" class="hidden">수량을(를) 선택하세요</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>판매자</td>
+                                    <td>상품 옵션 선택하여 판매자를 선택해주세요</td>
+                                </tr>
+                                <tr>
+                                    <td>문의내용</td>
+                                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                                </tr>
+                            </table>
+                    </div>
+                    <p>*개인정보(주민번호, 연락처, 주소, 계좌번호, 카드번호 등)가 포함되지 않도록 유의해주세요.</p>
+                    <div class="buttons">
+                        <button class="blue-button">확인</button>
+                        <input type="button" value="취소" class="close-pop blue-button">
+                    </div>
+                </form>
+            </div>
             <h3>상품문의</h3>
             <ul>
                 <li>

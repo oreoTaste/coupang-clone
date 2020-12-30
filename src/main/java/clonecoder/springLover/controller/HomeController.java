@@ -5,23 +5,20 @@ import clonecoder.springLover.service.CartService;
 import clonecoder.springLover.service.MemberService;
 import clonecoder.springLover.service.OrderService;
 import clonecoder.springLover.service.ProductService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
+import org.apache.logging.log4j.core.util.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-
-import javax.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -47,6 +44,49 @@ public class HomeController {
         model.addAttribute("orders", orders);
         return "order/list";
     }
+
+    @GetMapping("/mycoupang/userModify")
+    public String modifyUserInfo(HttpServletRequest request,
+                                 Model model) {
+        Member member = memberService.checkValidity(request);
+        model.addAttribute("member", member);
+        return "member/modify";
+    }
+
+    @PostMapping("/mycoupang/checkPassword")
+    @ResponseBody
+    public Object checkPassword(HttpServletRequest request) throws IOException {
+
+        String json = IOUtils.toString(request.getReader());
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = new HashMap<>();
+        map = mapper.readValue(json, new TypeReference<Map<String, String>>(){});
+        Member member = memberService.checkValidity(request);
+
+        String password = "";
+        if(map.containsKey("password")) {
+            password += map.get("password");
+        }
+
+        if(member.getPassword().equals(password)) {
+            HashMap<String, String> resp = new HashMap<>();
+            resp.put("answer", "OK");
+            return resp;
+        }
+        return null;
+    }
+
+    @PostMapping("/mycoupang/userModify")
+    public String modify(HttpServletRequest request,
+                         Model model) {
+        Member member = memberService.checkValidity(request);
+        model.addAttribute("member", member);
+        System.out.println("++++++++++++++++++++++++++++++");
+        System.out.println("member/modifyForm");
+        System.out.println("++++++++++++++++++++++++++++++");
+        return "member/modifyForm";
+    }
+
 
     @GetMapping("/mycoupang/cancel")
     public String myCancel(HttpServletRequest request,

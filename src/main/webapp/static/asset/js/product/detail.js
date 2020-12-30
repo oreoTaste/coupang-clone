@@ -18,7 +18,11 @@ const originalPrice = document.querySelector(".js-original-price"),
       shoppingCart = document.querySelector("#shoppingCart"),
       commentSection = document.querySelector(".product-detail-comment"),
       askSection = document.querySelector(".product-detail-ask"),
-      infoSection = document.querySelector(".product-detail-info");
+      infoSection = document.querySelector(".product-detail-info"),
+      divBox = document.querySelector(".ask-product-page"),
+      shadow = document.querySelector(".shadow-setter"),
+      closePop = document.querySelectorAll(".close-pop");
+
 let url = "";
 
 /*-----------------초기화 설정 시작-------------------*/
@@ -63,8 +67,12 @@ const handleDown = () => {
     }
 }
 const handlerSpreader = (e) => {
-    e.target.setAttribute("style", "display: none");
-    content.setAttribute("style", "height: auto");
+    content.classList.toggle("auto-height");
+    if(content.classList.contains("auto-height")) {
+        e.target.innerText = "상품정보 접기 ∧"
+    } else {
+        e.target.innerText = "상품정보 더보기 ∨"
+    }
 }
 /*-----------------버튼 설정 끝-------------------*/
 
@@ -151,7 +159,36 @@ function checkPosition() {
         tabs.children.item(3).classList.add("active");
     }
 }
+/*-----------------위치계산 설정 끝-------------------*/
 
+/*-----------------상품문의 버튼설정 시작-------------------*/
+function setAskProductButtons() {
+    setAskProduct();
+    setShadow();
+    closePop.forEach(el => el.addEventListener("click", askProduct));
+}
+const setAskProduct = () => {
+    const askProductButton = document.querySelector(".js-ask-product");
+    askProductButton.addEventListener("click", askProduct);
+}
+const setShadow = () => {
+    shadow.addEventListener("click", askProduct);
+}
+const askProduct = (e) => {
+    divBox.classList.toggle("hidden");
+    shadow.classList.toggle("hidden");
+}
+/*-----------------상품문의 버튼설정 끝-------------------*/
+
+/*-----------------상품평 버튼설정 시작-------------------*/
+function setCommentButton() {
+    const commentButton = document.querySelector(".js-comment");
+    commentButton.addEventListener("click", setComment);
+}
+const setComment = () => {
+    window.open("/productreview/reviewable");
+}
+/*-----------------상품평 버튼설정 끝-------------------*/
 function init() {
     initialize();
     setButton();
@@ -159,5 +196,7 @@ function init() {
     setDirectOrder();
     setShoppingCart();
     checkPositionForTabs();
+    setAskProductButtons();
+    setCommentButton();
 }
 init();

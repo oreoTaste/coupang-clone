@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>바로 결제하기</title>
+    <link href="../../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+<div th:replace="fragments/searchHeader :: searchHeader" />
+<div th:replace="fragments/mycoupangLeftMenu :: mycoupangLeftMenu" />
+<!------------------------- 컨텐츠 시작 ------------------------->
+<div class="main-wrapper">
+    <div class="mycoupang-wrapper">
+        <div class="mycoupang-wrapper__content">
+            <div class="no-result" th:if="${myProduct.isEmpty()}" th:text="'내역이 없습니다.'">
+            </div>
+            <div class="mycoupang-wrapper__content__group product-comment" >
+                <h1>구매후기</h1>
+                <div class="member-info">
+                    <img th:if="${not #strings.isEmpty(member.emoticon)}" th:src="${member.emoticon}" alt="emoticon">
+                    <img th:if="${#strings.isEmpty(member.emoticon)}" th:src="@{/static/asset/img/icon/empty-emoticon-icon.png}" alt="emoticon">
+                    <span class="member-info__myname" th:text="${member.name}">이름</span>
+                </div>
+                <div class="product-detail-tabs triple-column">
+                    <div class="active">작성가능 구매후기</div>
+                    <div class="">내가 쓴 구매후기</div>
+                    <div class="">쿠팡체험단</div>
+                </div>
+
+                <section class="product" th:each="orderProduct : ${myProduct}"
+                                         th:if="${not #strings.equals(orderProduct.order.status, 'ORDER')}">
+                    <div class="product__pic">
+                        <a th:href="${'/product/' + orderProduct.product.id}">
+                            <img th:src="${'/' + orderProduct.product.thumbnail}"></img>
+                        </a>
+                    </div>
+                    <div class="product__info product__info-review">
+                        <div>
+                            <img class="price__rocket" th:if="${orderProduct.product.is_rocket eq 'on'}"
+                                  th:src="@{/static/asset/img/rocket_logo.png}"/>
+                            <span th:text="${orderProduct.product.name}"></span>
+                        </div>
+                        <div>
+                            <span th:text="${#dates.format(orderProduct.order.date, 'yyyy.MM.dd') + ' 주문 '}"></span>
+                            ·
+                            <span th:text="${#strings.equals(orderProduct.order.delivery.status, 'READY') ?
+                                            '배송준비' :
+                                            (#strings.equals(orderProduct.order.delivery.status, 'INDELIVERY') ?
+                                            '배송중' :
+                                            '배송완료'
+                                            )}">배송상태</span>
+                        </div>
+                    </div>
+                    <div class="buttons buttons-review">
+                        <input class="orderId" type="hidden" th:value="${orderProduct.id}"/>
+                        <button class="white-button js-show-delivery">구매후기 쓰기</button>
+                        <button class="white-button">숨기기</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------- 컨텐츠 끝 ------------------------->
+
+<div th:replace="fragments/footer :: footer" />
+<script type="module" th:src="@{/static/asset/js/product/review.js}">
+</script>
+</body>
+</html>

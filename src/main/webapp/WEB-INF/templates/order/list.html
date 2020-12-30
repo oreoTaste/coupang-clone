@@ -8,6 +8,7 @@
 <body>
     <div th:replace="fragments/searchHeader :: searchHeader" />
     <div th:replace="fragments/mycoupangLeftMenu :: mycoupangLeftMenu" />
+    <div th:replace="fragments/mycoupangTopMenu :: mycoupangTopMenu" />
     <!------------------------- 컨텐츠 시작 ------------------------->
     <div class="main-wrapper">
         <div class="mycoupang-wrapper">
@@ -29,7 +30,7 @@
                                 <img th:src="${orderProduct.product.thumbnail}"></img>
                             </a>
                         </div>
-                        <div class="product__info">
+                        <div class="product__info product__info-review">
                             <div>
                                 <img class="price__rocket" th:if="${orderProduct.product.is_rocket eq 'on'}" th:src="@{/static/asset/img/rocket_logo.png}"/>
                                 <span th:text="${orderProduct.product.name}"></span>

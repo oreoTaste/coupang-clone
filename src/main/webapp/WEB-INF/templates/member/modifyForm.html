@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>쿠팡!</title>
+    <link rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+    <div th:replace="fragments/searchHeader :: searchHeader" />
+        <div class="main-wrapper">
+            <div class="member-container">
+                <h1>회원정보수정</h1>
+                <table class="member-container__password">
+                    <tr>
+                        <td>아이디(이메일)</td>
+                        <td><span th:text="${member.email}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>이름</td>
+                        <td><span th:text="${member.name}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>휴대폰 번호</td>
+                        <td><span th:text="${member.tel}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호변경</td>
+                        <td class="password-modify-form">
+                            <div><span>현재 비밀번호</span><input type="password" class="cur-password"/></div>
+                            <div><span>새 비밀번호</span><input type="password" class="new-password"/></div>
+                            <div><span>비밀번호 다시 입력</span><input type="password" class="new-password-repeat"/></div>
+                            <div><button class="modify-password">비밀번호 변경</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>배송지</td>
+                        <td><span>배송지 주소 관리는 <a class="blue-font">[배송지 관리]</a>에서 수정, 등록 합니다.</span></td>
+                    </tr>
+                    <tr>
+                        <td>수신설정</td>
+                        <td>
+                            <input type="checkbox" name="agree-to-coupon"/> 특가상품, 할인쿠폰, 이벤트 소식 수신 동의 (
+                            <input type="checkbox" name="agree-to-email"/> 이메일
+                            <input type="checkbox" name="agree-to-sms"/> SMS )
+                        </td>
+                    </tr>
+                </table>
+                <div class="buttons">
+                    <button class="js-home modify-button">나가기</button>
+                </div>
+            </div>
+        </div>
+    <div th:replace="fragments/footer :: footer" />
+    <script type="module" th:src="@{/static/asset/js/member/modify.js}">
+    </script>
+</body>
+
+</html>
