@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -20,6 +21,17 @@ public class MemberService {
         duplicateCheck(member.getEmail());
         Long savedId = memberRepository.save(member);
         return savedId;
+    }
+
+    @Transactional
+    public boolean changePassword(HttpServletRequest request, String curPas, String newPas) {
+        Member member = checkValidity(request);
+        if(member.getPassword().equals(curPas)) {
+            member.setPassword(newPas);
+            return true;
+        }
+        return false;
+
     }
 
     public boolean login(String email, String password) {
@@ -59,5 +71,4 @@ public class MemberService {
         }
         return foundMember;
     }
-
 }

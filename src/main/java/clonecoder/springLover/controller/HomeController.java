@@ -5,16 +5,17 @@ import clonecoder.springLover.service.CartService;
 import clonecoder.springLover.service.MemberService;
 import clonecoder.springLover.service.OrderService;
 import clonecoder.springLover.service.ProductService;
+import clonecoder.springLover.util.JsonToString;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.core.util.IOUtils;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,7 +31,12 @@ public class HomeController {
     private final OrderService orderService;
 
     @GetMapping("/")
-    public String home() {
+    public String home(String changePassword,
+                       Model model,
+                       HttpServletRequest request,
+                       HttpServletResponse response) {
+        model.addAttribute("changePassword", changePassword);
+        CookieForm.deleteSession(request, response);
         return "index";
     }
 
@@ -45,6 +51,7 @@ public class HomeController {
         return "order/list";
     }
 
+    // 변경 전 사전 로그인
     @GetMapping("/mycoupang/userModify")
     public String modifyUserInfo(HttpServletRequest request,
                                  Model model) {
@@ -53,6 +60,7 @@ public class HomeController {
         return "member/modify";
     }
 
+    // 변경 중 자격검증
     @PostMapping("/mycoupang/checkPassword")
     @ResponseBody
     public Object checkPassword(HttpServletRequest request) throws IOException {
@@ -76,6 +84,7 @@ public class HomeController {
         return null;
     }
 
+    // 변경 작업 시작
     @PostMapping("/mycoupang/userModify")
     public String modify(HttpServletRequest request,
                          Model model) {
@@ -87,6 +96,24 @@ public class HomeController {
         return "member/modifyForm";
     }
 
+    // 변경 후 반영
+    @PostMapping("/mycoupang/modify")
+    @ResponseBody
+    @Transactional
+    public Object modifyAfter(HttpServletRequest request,
+                                               Model model) throws IOException {
+
+        Map<String, String> map = JsonToString.getJsonStringMap(request);
+        String curPas = map.get("curPas");
+        String newPas = map.get("newPas");
+
+        if(memberService.changePassword(request, curPas, newPas) == true) {
+            HashMap<String, String> resp = new HashMap<>();
+            resp.put("answer", "OK");
+            return resp;
+        }
+        return null;
+    }
 
     @GetMapping("/mycoupang/cancel")
     public String myCancel(HttpServletRequest request,

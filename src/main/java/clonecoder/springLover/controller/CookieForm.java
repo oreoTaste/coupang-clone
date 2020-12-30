@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -188,6 +185,17 @@ public class CookieForm {
                 cookie.setValue(operatedString);
                 response.addCookie(cookie);
             }
+        }
+    }
+
+    public static void deleteSession(HttpServletRequest request,
+                                     HttpServletResponse response) {
+        Optional<Cookie> jsessionid = Arrays.stream(request.getCookies()).filter((e) -> e.getName().equals("JSESSIONID")).findAny();
+        if(jsessionid.isPresent()) {
+            Cookie cookie = jsessionid.get();
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
         }
     }
 

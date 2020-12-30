@@ -20,7 +20,11 @@ const modifyRequest = () => {
         if(json.answer == "OK") {
             moveToModification();
         }
+        return null;
+    }).catch((err) => {
+        alert("사용자 정보가 올바르지 않습니다")
     });
+
 }
 const moveToModification = () => {
     let form = document.createElement("form");
@@ -32,24 +36,56 @@ const moveToModification = () => {
 function executeModification() {
     if(document.querySelector(".modify-password")) {
         const modifyPasswordBtn = document.querySelector(".modify-password");
-        modifyPasswordBtn.addEventListener("click", execute);
+        modifyPasswordBtn.addEventListener("click", setModifyPasswordBtn);
     }
 }
-const execute = (e) => {
+const setModifyPasswordBtn = (e) => {
     const parent = e.target.parentNode.parentNode;
     const curPas = parent.querySelector(".cur-password").value;
     const newPas = parent.querySelector(".new-password").value;
-    const curPasRepeat = parent.querySelector(".new-password-repeat").value;
+    const newPasRepeat = parent.querySelector(".new-password-repeat").value;
+
+    (async () => {
+        let bool = false;
+        const answer = await getVerification({"password": curPas});
+        bool = answer.answer == "OK";
+
+        if(bool == true)
+            bool = checkPassword(newPas, newPasRepeat);
+        if(bool == true)
+            modify({"curPas": curPas, "newPas": newPas});
+
+    })();
+}
+const getVerification = async (data) => await fetch (
+    "/mycoupang/checkPassword", {
+    method: 'POST',
+    body: JSON.stringify(data)
+}).then((resp) => {
+    return resp.json();
+});
+
+const checkPassword = (a, b) => {
+    if(a.toString().length >= 8) {
+        if(a == b) {
+            return true;
+        }
+    }
+    return false;
+}
+const modify = (data) => {
     fetch(
-        "/mycoupang/checkPassword", {
+        "/mycoupang/modify", {
         method: 'POST',
-        body: JSON.stringify({"password": curPas})
+        body: JSON.stringify(data)
     }).then((resp) => {
         return resp.json();
     }).then((json) => {
         if(json.answer == "OK") {
-            // 성공시 수행할 내용
+            window.location.href="/?changePassword=Y";
         }
+    }).catch((err) => {
+        alert("사용자 정보가 올바르지 않습니다")
     });
 }
 function init() {
