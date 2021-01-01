@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Getter //@Setter
-@ToString
 public class Address extends AddressForm{
     @Id
     @GeneratedValue
@@ -29,7 +28,7 @@ public class Address extends AddressForm{
     private Member member;
 
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -64,19 +63,19 @@ public class Address extends AddressForm{
         this.delivery = delivery;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Address{" +
-//                "id=" + id +
-//                ", city='" + city + '\'' +
-//                ", street='" + street + '\'' +
-//                ", detail='" + detail + '\'' +
-//                ", zipcode='" + zipcode + '\'' +
-//                ", ask='" + ask + '\'' +
-////                ", memberId=" + member.getId() +
-////                ", delivery(1개만)=" + delivery.get(0) +
-//                ", receiverName='" + receiverName + '\'' +
-//                ", receiverTel='" + receiverTel + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", detail='" + detail + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", ask='" + ask + '\'' +
+                ", memberId=" + member.getId() +
+                ", delivery=" + delivery.getId() +
+                ", receiverName='" + receiverName + '\'' +
+                ", receiverTel='" + receiverTel + '\'' +
+                '}';
+    }
 }

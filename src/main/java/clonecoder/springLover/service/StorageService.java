@@ -19,7 +19,7 @@ public class StorageService {
 
     public void store(MultipartFile file, String keyPath, HttpServletRequest request) throws Exception {
         String dirPath = servletContext.getRealPath("/upload/");
-        String finalPath = dirPath + keyPath + "/" + file.getOriginalFilename();
+        String finalPath = dirPath + keyPath;
         new File(finalPath).mkdirs();
         file.transferTo(new File(finalPath));
     }

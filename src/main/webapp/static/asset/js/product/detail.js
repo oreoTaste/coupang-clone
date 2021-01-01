@@ -21,7 +21,9 @@ const originalPrice = document.querySelector(".js-original-price"),
       infoSection = document.querySelector(".product-detail-info"),
       divBox = document.querySelector(".ask-product-page"),
       shadow = document.querySelector(".shadow-setter"),
-      closePop = document.querySelectorAll(".close-pop");
+      closePop = document.querySelectorAll(".close-pop"),
+      scrollPosBuffer = 55,
+      scrollMoveBuffer = 100;
 
 let url = "";
 
@@ -50,6 +52,12 @@ function setButton() {
     upButton.addEventListener("click", handleUp);
     downButton.addEventListener("click", handleDown);
     spreader.addEventListener("click", handlerSpreader);
+    const children = document.querySelector(".product-detail-tabs").children;
+    [...children].forEach(el => el.style.cursor = "pointer");
+    children[0].addEventListener("click", moveToContent);
+    children[1].addEventListener("click", moveToComment);
+    children[2].addEventListener("click", moveToAsk);
+    children[3].addEventListener("click", moveToInfo);
 }
 const handleUp = () => {
     const originalQuantity = Number(productQuantity.value);
@@ -74,6 +82,26 @@ const handlerSpreader = (e) => {
         e.target.innerText = "상품정보 더보기 ∨"
     }
 }
+const moveToContent = (e) => {
+    window.scrollTo({top: window.pageYOffset +
+                            document.querySelector(".product-detail-content").getBoundingClientRect().top - scrollPosBuffer,
+                    behavior: 'smooth'});
+}
+const moveToComment = (e) => {
+    window.scrollTo({top: window.pageYOffset +
+                            document.querySelector(".product-detail-comment").getBoundingClientRect().top - scrollPosBuffer,
+                    behavior: 'smooth'});
+}
+const moveToAsk = (e) => {
+    window.scrollTo({top: window.pageYOffset +
+                            document.querySelector(".product-detail-ask").getBoundingClientRect().top - scrollPosBuffer,
+                    behavior: 'smooth'});
+}
+const moveToInfo = (e) => {
+    window.scrollTo({top: window.pageYOffset +
+                            document.querySelector(".product-detail-info").getBoundingClientRect().top - scrollPosBuffer,
+                    behavior: 'smooth'});
+}
 /*-----------------버튼 설정 끝-------------------*/
 
 /*-----------------확대기능 설정 시작-------------------*/
@@ -85,7 +113,6 @@ function setMagnifier() {
 const showBlock = (e) => {
     e.preventDefault();
     magnifiedPic.classList.remove("hidden");
-    console.log("removed hidden")
 }
 const hideBlock = (e) => {
     magnifiedPic.classList.add("hidden");
@@ -142,7 +169,7 @@ function checkPositionForTabs() {
     window.addEventListener("scroll", checkPosition);
 }
 function checkPosition() {
-    const curPos = window.scrollY;
+    const curPos = window.scrollY + scrollMoveBuffer;
     const commentPos = window.pageYOffset + commentSection.getBoundingClientRect().top;
     const askPos = window.pageYOffset + askSection.getBoundingClientRect().top;
     const infoPos = window.pageYOffset + infoSection.getBoundingClientRect().top;

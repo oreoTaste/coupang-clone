@@ -190,12 +190,17 @@ public class CookieForm {
 
     public static void deleteSession(HttpServletRequest request,
                                      HttpServletResponse response) {
-        Optional<Cookie> jsessionid = Arrays.stream(request.getCookies()).filter((e) -> e.getName().equals("JSESSIONID")).findAny();
-        if(jsessionid.isPresent()) {
-            Cookie cookie = jsessionid.get();
-            cookie.setPath("/");
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            Optional<Cookie> jsessionid = Arrays.stream(cookies).filter((e) ->
+                    e.getName().equals("JSESSIONID")).findAny();
+
+            if (jsessionid.isPresent()) {
+                Cookie cookie = jsessionid.get();
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
         }
     }
 

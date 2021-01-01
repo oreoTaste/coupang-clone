@@ -58,9 +58,9 @@
                     <div th:text="${order.delivery.address.ask}"></div>
                     <div>결제현황</div>
                     <div th:text="${#strings.equals(order.status, 'ORDER') ?
-                                        '주문상태' :
+                                        '주문완료' :
                                         (#strings.equals(order.status, 'PAID')?
-                                        '결제상태' :
+                                        '결제완료' :
                                         '취소상태')}"></div>
                 </div>
             </div>

@@ -1,15 +1,18 @@
 package clonecoder.springLover.service;
 
+import clonecoder.springLover.controller.ProductForm;
 import clonecoder.springLover.domain.*;
 import clonecoder.springLover.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final MemberService memberService;
+    private final StorageService storageService;
 
     @Transactional
     public Long saveProduct(Product product) {
@@ -62,5 +66,32 @@ public class ProductService {
             return orderProductList;
         }
         return null;
+    }
+
+    @Transactional
+    public Product register(MultipartFile description,
+                         MultipartFile thumbnail,
+                         ProductForm productForm,
+                         HttpServletRequest request) throws Exception {
+
+        Product product = new Product().create(productForm);
+        saveProduct(product);
+        Long productId = product.getId();
+        String key = "product/" + productId;
+
+        String[] descriptionSplit = description.getOriginalFilename().split("\\.");
+        String descriptionKey = key + "/description/" + UUID.randomUUID() + "."
+                + descriptionSplit[descriptionSplit.length - 1];
+
+        String[] thumbnailSplit = thumbnail.getOriginalFilename().split("\\.");
+        String thumbnailKey = key + "/thumbnail/" + UUID.randomUUID() + "."
+                + thumbnailSplit[thumbnailSplit.length - 1];
+
+        storageService.store(description, descriptionKey, request);
+        storageService.store(thumbnail, thumbnailKey, request);
+
+        product.setDescription("/upload/" + descriptionKey);
+        product.setThumbnail("/upload/" + thumbnailKey);
+        return product;
     }
 }

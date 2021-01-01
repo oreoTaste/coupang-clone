@@ -33,42 +33,33 @@ export const setGoButtons = () => {
     setGoToRegister();
 }
 export const setGoToLogout = () => {
-    console.log("setGoToLogout")
     if(document.querySelector(".go-to-logout")) {
         document.querySelectorAll(".go-to-logout")
             .forEach(el => el.addEventListener("click", () => {
-                console.log("setGoToLogout")
                 window.location.href="/logout";
             }));
     }
 }
 export const setGoToLogin = () => {
-    console.log("setGoToLogin")
-
     if(document.querySelector(".go-to-login")) {
         document.querySelectorAll(".go-to-login")
             .forEach(el => el.addEventListener("click", () => {
-                console.log("setGoToLogin")
                 window.location.href="/";
             }));
     }
 }
 export const setGoToMyCoupang = () => {
-    console.log("setGoToMyCoupang")
     if(document.querySelector(".go-to-mycoupang")) {
         document.querySelectorAll(".go-to-mycoupang")
             .forEach(el => el.addEventListener("click", () => {
-                console.log("setGoToMyCoupang")
                 window.location.href="/mycoupang";
             }));
     }
 }
 export const setGoToRegister = () => {
-    console.log("setGoToRegister")
     if(document.querySelector(".go-to-register")) {
         document.querySelectorAll(".go-to-register")
             .forEach(el => el.addEventListener("click", () => {
-                console.log("setGoToRegister")
                 window.location.href="/register";
             }));
     }

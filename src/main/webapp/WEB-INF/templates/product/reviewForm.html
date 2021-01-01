@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>바로 결제하기</title>
+    <link href="../../../static/asset/css/styles.css" rel="stylesheet" th:href="@{/static/asset/css/styles.css}"/>
+</head>
+<body>
+<div th:replace="fragments/searchHeader :: searchHeader" />
+<div th:replace="fragments/mycoupangLeftMenu :: mycoupangLeftMenu" />
+<!------------------------- 컨텐츠 시작 ------------------------->
+<div class="main-wrapper">
+    <div class="mycoupang-wrapper">
+        <div class="mycoupang-wrapper__content">
+            <form th:action="'/productreview/register/' + ${orderProduct.id}" method="post" enctype="multipart/form-data">
+                <div class="mycoupang-wrapper__content__group product-comment">
+                    <h1>구매후기</h1>
+                    <div class="member-info">
+                        <img th:if="${not #strings.isEmpty(member.emoticon)}" th:src="${member.emoticon}" alt="emoticon">
+                        <img th:if="${#strings.isEmpty(member.emoticon)}" th:src="@{/static/asset/img/icon/empty-emoticon-icon.png}" alt="emoticon">
+                        <span class="member-info__myname" th:text="${member.name}">이름</span>
+                    </div>
+                    <div class="my-review__header">
+                        <div>구매후기 쓰기</div>
+                    </div>
+
+                    <section class="product product-review"
+                             th:if="${not #strings.equals(orderProduct.order.status, 'ORDER')}">
+<!--                        order.status가 order인 건만 노출-->
+                        <div class="product__pic">
+                            <a th:href="${'/product/' + orderProduct.product.id}">
+                                <img th:src="${orderProduct.product.thumbnail}"></img>
+                            </a>
+                        </div>
+                        <div class="product__info product__info-review">
+                            <div>
+                                <img class="price__rocket" th:if="${orderProduct.product.is_rocket eq 'on'}"
+                                      th:src="@{/static/asset/img/rocket_logo.png}"/>
+                                <span th:text="${orderProduct.product.name}"></span>
+                            </div>
+                            <div>
+                                <span th:text="${#dates.format(orderProduct.order.date, 'yyyy.MM.dd') + ' 주문 '}"></span>
+                                ·
+                                <span th:text="${#strings.equals(orderProduct.order.delivery.status, 'READY') ?
+                                                '배송준비' :
+                                                (#strings.equals(orderProduct.order.delivery.status, 'INDELIVERY') ?
+                                                '배송중' :
+                                                '배송완료'
+                                                )}">배송상태</span>
+                            </div>
+                        </div>
+                        <div class="buttons buttons-review">
+                        </div>
+                    </section>
+                    <table class="product-review-form">
+                        <tr>
+                            <td>별점</td>
+                            <td><input type="range" min="0" max="5" name="stars"/></td>
+                        </tr>
+                        <tr>
+                            <td>구매후기</td>
+                            <td><textarea name="comment" id="" cols="30" rows="10" placeholder="자세한 구매후기는 고객의 구매에 많은 도움이 됩니다."></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>사진첨부</td>
+                            <td>
+                                <label for="photo">
+                                    <div class="white-button add-photo">사진 첨부하기</div>
+                                </label>
+                                <input id="photo" name="photo" type="file" class="hidden"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>평가</td>
+                            <td>맛 만족도</td>
+                        </tr>
+                        <tr>
+                            <td>한줄요약</td>
+                            <td><input type="text" name="shortComment" placeholder="한 줄 요약을 입력해 주세요"/></td>
+                        </tr>
+                    </table>
+                    <div class="product-review-button">
+                        <button class="blue-button">등록하기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!------------------------- 컨텐츠 끝 ------------------------->
+
+<div th:replace="fragments/footer :: footer" />
+<script type="module" th:src="@{/static/asset/js/product/review.js}">
+</script>
+</body>
+</html>

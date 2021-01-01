@@ -42,7 +42,7 @@
                     </div>
                     <div class="thumbnail" alt="thumbnail" >
                         <a th:href="'/product/' + ${rocket.product.id}">
-                            <img th:src="'/' + ${rocket.product.thumbnail}"/>
+                            <img th:src="${rocket.product.thumbnail}"/>
                         </a>
                     </div>
                     <div class="main-content">

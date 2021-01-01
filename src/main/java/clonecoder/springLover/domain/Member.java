@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@ToString
 public class Member {
     @Id
     @GeneratedValue
@@ -35,9 +34,6 @@ public class Member {
 
     @OneToMany(mappedBy="member", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Comment> comments = new ArrayList<>();
 
     // 생성메서드 : 신규회원
     public static Member createMember(String email, String name, String tel, String password) {
@@ -97,7 +93,6 @@ public class Member {
                 ", addressList=" + addressList.size() +
                 ", cartList=" + cartList.size() +
                 ", orderList=" + orderList.size() +
-                ", comments=" + comments +
                 '}';
     }
 

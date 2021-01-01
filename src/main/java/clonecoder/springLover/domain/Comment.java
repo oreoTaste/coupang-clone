@@ -2,11 +2,13 @@ package clonecoder.springLover.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 public class Comment {
 
     @Id
@@ -14,14 +16,11 @@ public class Comment {
     @Column(name = "comment_id")
     private Long id; //댓글id
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member; // 회원id
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="product_id")
-    private Product product;
-
+    @OneToOne(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private OrderProduct orderProduct; // 주문제품 테이블 관리용
     private String comment;//후기
+    private int stars;//별점
+    private String photoReview; // 사진평
+    private String shortComment; //한줄후기
 
 }

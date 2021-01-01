@@ -90,6 +90,9 @@ public class OrderController {
         }
 
         Member member = memberService.checkValidity(request);
+        System.out.println("++++++++++++++++++++++++++++");
+        System.out.println(member);
+        System.out.println("++++++++++++++++++++++++++++");
         Address address = addressService.findAddress(request, Long.parseLong(exAddressId));
         Long orderId = orderService.cardCheckout(member.getId(), idList, cntList, address);
         return orderId.toString();

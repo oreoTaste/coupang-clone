@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@ToString
 public class OrderProduct {
     @Id
     @GeneratedValue
@@ -27,6 +26,10 @@ public class OrderProduct {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     // 생성 메서드
     public static OrderProduct createOrderProduct(Product product, int price, int stock) throws NotEnoughStockException {
@@ -47,5 +50,17 @@ public class OrderProduct {
     // order 테이블에서 활용 (주문취소 시)
     public void cancel() {
         this.product.addStock(stock);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderProduct{" +
+                "id=" + id +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", order=" + order +
+                ", product=" + product +
+//                ", comment=" + comment.getId() +
+                '}';
     }
 }

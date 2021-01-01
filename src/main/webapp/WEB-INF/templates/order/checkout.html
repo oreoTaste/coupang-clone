@@ -28,26 +28,26 @@
                 </tr>
             </table>
         </div>
-        <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) eq 0}">
+        <div class="direct-checkout-receiver" th:if="${address eq null}">
             <h2>받는사람 정보 <input class="register-address" type="button" value="배송지 추가"/></h2>
             <div class="address-not-found checkout-content">
                 저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.
             </div>
         </div>
 
-        <div class="direct-checkout-receiver" th:if="${#arrays.length(member.addressList) ne 0}">
+        <div class="direct-checkout-receiver" th:if="${address ne null}">
             <h2>받는사람 정보</h2>
             <input type="hidden" class="addressId" th:data-id="${address.id}"/>
             <table class="classic-table checkout-content">
                 <tr>
                     <td>이름</td>
-                    <td><span th:text="${member.addressList.get(0).receiverName}">이름</span></td>
+                    <td><span th:text="${address.receiverName}">이름</span></td>
                 </tr>
                 <tr>
                     <td>배송주소</td>
                     <td>
                         <span th:if="${#arrays.length(member.addressList) ne 0}"
-                              th:text="${'[' + member.addressList.get(0).zipcode + '] ' + member.addressList.get(0).street + ' ' + member.addressList.get(0).detail}">
+                              th:text="${'[' + address.zipcode + '] ' + address.street + ' ' + address.detail}">
                             배송주소
                         </span>
                         <span th:if="${#arrays.length(member.addressList) eq 0}" th:text="'저장되어 있는 배송지가 없습니다. 배송지를 추가해주세요.'">배송주소</span>
@@ -55,11 +55,11 @@
                 </tr>
                 <tr>
                     <td>연락처</td>
-                    <td><span th:text="${member.addressList.get(0).receiverTel}">연락처</span></td>
+                    <td><span th:text="${address.receiverTel}">연락처</span></td>
                 </tr>
                 <tr>
                     <td>배송 요청사항</td>
-                    <td><span th:text="${member.addressList.get(0).ask}"></span></td>
+                    <td><span th:text="${address.ask}"></span></td>
                 </tr>
             </table>
         </div>

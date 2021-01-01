@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -31,17 +33,12 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="comment_id")
-    private Comment comment;
-
     // 생성 메서드
     public static Product create(ProductForm productForm) {
         Product product = new Product();
         product.setCategory(productForm.getCategory());
         product.setProducer(productForm.getProducer());
         product.setCategory(productForm.getCategory());
-        product.setComment(productForm.getComment());
         product.setName(productForm.getName());
         product.setOrigin(productForm.getOrigin());
         product.setPrice(productForm.getPrice());

@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,23 +43,13 @@ public class ProductController {
     }
 
     @PostMapping("register/product")
+    @Transactional
     public String register(@RequestParam("description") MultipartFile description,
                            @RequestParam("thumbnail") MultipartFile thumbnail,
                            @ModelAttribute() ProductForm productForm,
                            HttpServletRequest request) throws Exception {
 
-        String key = "" + System.currentTimeMillis();
-        storageService.store(description, key + "/description", request);
-        storageService.store(thumbnail, key + "/thumbnail", request);
-
-        if (productForm.getIs_rocket() == null) {
-            productForm.setIs_rocket("off");
-        }
-        Product product = new Product().create(productForm);
-        product.setDescription("upload/" + key + "/description/" + description.getOriginalFilename());
-        product.setThumbnail("upload/" + key + "/thumbnail/" + thumbnail.getOriginalFilename());
-
-        productService.saveProduct(product);
+        productService.register(description, thumbnail, productForm, request);
         return "redirect:../main";
     }
 
