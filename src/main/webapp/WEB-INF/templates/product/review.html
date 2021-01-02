@@ -14,7 +14,7 @@
         <div class="mycoupang-wrapper__content">
             <div class="no-result" th:if="${orderProductList.isEmpty()}" th:text="'내역이 없습니다.'">
             </div>
-            <div class="mycoupang-wrapper__content__group product-comment" >
+            <div class="mycoupang-wrapper__content__group product-review" >
                 <h1>구매후기</h1>
                 <div class="member-info">
                     <img th:if="${not #strings.isEmpty(member.emoticon)}" th:src="${member.emoticon}" alt="emoticon">
@@ -26,10 +26,10 @@
                     <div class="">내가 쓴 구매후기</div>
                     <div class="">쿠팡체험단</div>
                 </div>
-<!--------------------------------작성가능 구매후기 시작-------------------------------->
                 <div class="section-wrapper">
+<!--------------------------------작성가능 구매후기 시작-------------------------------->
                     <section class="product" th:each="orderProduct : ${orderProductList}"
-                                             th:if="${orderProduct.comment ne null and
+                                             th:if="${orderProduct.review eq null and
                                                        not #strings.equals(orderProduct.order.status, 'CANCEL')}">
     <!--                    cancel상태가 아니고, 상품평이 작성된 경우를 제외하면 -->
                         <div class="product__pic">
@@ -63,37 +63,37 @@
 <!--------------------------------작성가능 구매후기 끝-------------------------------->
 
 <!--------------------------------내가 쓴 구매후기 시작-------------------------------->
-                    <section class="mycomment hidden" th:each="comment : ${comments}"
-                                                      th:if="${comment ne null}">
-                        <div class="mycomment__product-info">
-                            <div class="mycomment__product-info__pic">
-                                <a th:href="${'/product/' + comment.orderProduct.product.id}">
-                                    <img th:src="${comment.orderProduct.product.thumbnail}"></img>
+                    <section class="myreview hidden" th:each="review : ${reviews}"
+                                                      th:if="${review ne null}">
+                        <div class="myreview__product-info">
+                            <div class="myreview__product-info__pic">
+                                <a th:href="${'/product/' + review.orderProduct.product.id}">
+                                    <img th:src="${review.orderProduct.product.thumbnail}"></img>
                                 </a>
                             </div>
-                            <div class="mycomment__product-info__detail">
-                                <img class="price__rocket" th:if="${comment.orderProduct.product.is_rocket eq 'on'}"
+                            <div class="myreview__product-info__detail">
+                                <img class="price__rocket" th:if="${review.orderProduct.product.is_rocket eq 'on'}"
                                      th:src="@{/static/asset/img/rocket_logo.png}"/>
-                                <span class="blue-font" th:text="${comment.orderProduct.product.name}"></span>
+                                <span class="blue-font" th:text="${review.orderProduct.product.name}"></span>
                             </div>
                         </div>
-                        <div class="mycomment__review">
-                            <div class="mycomment__review__rating js-star-rating">
-                                <span class="hidden" th:text="${comment.stars}"></span>
+                        <div class="myreview__review">
+                            <div class="myreview__review__rating js-star-rating">
+                                <span class="hidden" th:text="${review.stars}"></span>
                             </div>
-                            <div class="mycomment__review__photo-review">
-                                <img th:src="${comment.photoReview}"/>
+                            <div class="myreview__review__photo-review">
+                                <img th:src="${review.photoReview}"/>
                             </div>
-                            <div class="mycomment__review__short-comment">
-                                <span th:text="${comment.shortComment}"></span>
+                            <div class="myreview__review__short-review" th:if="${review.shortReview ne null}">
+                                <span th:text="${review.shortReview}"></span>
                             </div>
-                            <div class="mycomment__review__comment">
-                                <span th:text="${comment.comment}"></span>
+                            <div class="myreview__review__review">
+                                <span th:text="${review.review}"></span>
                             </div>
                         </div>
                     </section>
-                </div>
 <!--------------------------------내가 쓴 구매후기 끝-------------------------------->
+                </div>
             </div>
         </div>
     </div>

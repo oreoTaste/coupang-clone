@@ -32,7 +32,7 @@ function setReviewTab() {
     const reviewTabs = reviewTab.children;
     [...reviewTabs].forEach(el => el.style.cursor = "pointer");
     reviewTabs[0].addEventListener("click", showReviewable);
-    reviewTabs[1].addEventListener("click", showMyComment);
+    reviewTabs[1].addEventListener("click", showMyReview);
 }
 const preSet = () => {
     const wrapperChildren = document.querySelector(".section-wrapper").children;
@@ -45,15 +45,15 @@ const showReviewable = (e) => {
     preSet();
     products.forEach(el => el.classList.remove("hidden"));
 }
-const showMyComment = (e) => {
-    [...e.target.children].forEach(el => el.classList.remove("active"));
+const showMyReview = (e) => {
+    [...e.target.parentNode.children].forEach(el => el.classList.remove("active"));
     e.target.classList.add("active");
-    const comments = document.querySelectorAll(".mycomment");
+    const reviews = document.querySelectorAll(".myreview");
     preSet();
-    comments.forEach(el => el.classList.remove("hidden"));
+    reviews.forEach(el => el.classList.remove("hidden"));
 
     // 사진 리뷰 확대보기
-    const photos = document.querySelectorAll(".mycomment__review__photo-review");
+    const photos = document.querySelectorAll(".myreview__review__photo-review");
     [...photos].forEach(el => el.addEventListener("click", magnifyPhoto));
 }
 const magnifyPhoto = (e) => {

@@ -13,7 +13,7 @@
     <div class="mycoupang-wrapper">
         <div class="mycoupang-wrapper__content">
             <form th:action="'/productreview/register/' + ${orderProduct.id}" method="post" enctype="multipart/form-data">
-                <div class="mycoupang-wrapper__content__group product-comment">
+                <div class="mycoupang-wrapper__content__group product-review">
                     <h1>구매후기</h1>
                     <div class="member-info">
                         <img th:if="${not #strings.isEmpty(member.emoticon)}" th:src="${member.emoticon}" alt="emoticon">
@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <td>구매후기</td>
-                            <td><textarea name="comment" id="" cols="30" rows="10" placeholder="자세한 구매후기는 고객의 구매에 많은 도움이 됩니다."></textarea></td>
+                            <td><textarea required name="review" id="" cols="30" rows="10" placeholder="자세한 구매후기는 고객의 구매에 많은 도움이 됩니다."></textarea></td>
                         </tr>
                         <tr>
                             <td>사진첨부</td>
@@ -76,7 +76,7 @@
                         </tr>
                         <tr>
                             <td>한줄요약</td>
-                            <td><input type="text" name="shortComment" placeholder="한 줄 요약을 입력해 주세요"/></td>
+                            <td><input type="text" name="shortReview" placeholder="한 줄 요약을 입력해 주세요"/></td>
                         </tr>
                     </table>
                     <div class="product-review-button">

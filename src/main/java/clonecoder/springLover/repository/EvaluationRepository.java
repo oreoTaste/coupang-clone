@@ -1,11 +1,9 @@
 package clonecoder.springLover.repository;
 
-import clonecoder.springLover.domain.Comment;
 import clonecoder.springLover.domain.Evaluation;
 import clonecoder.springLover.domain.EvaluationSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;

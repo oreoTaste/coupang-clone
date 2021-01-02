@@ -3,30 +3,25 @@ package clonecoder.springLover.controller;
 import clonecoder.springLover.domain.*;
 import clonecoder.springLover.service.*;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-public class CommentController {
+public class ReviewController {
 
     private final ProductService productService;
     private final MemberService memberService;
     private final OrderService orderService;
     private final OrderProductService orderProductService;
     private final StorageService storageService;
-    private final CommentService commentService;
+    private final ReviewService reviewService;
 
     // 구매후기 목록
     @GetMapping("productreview/reviewable")
@@ -39,9 +34,9 @@ public class CommentController {
         Member member = memberService.checkValidity(request);
         model.addAttribute("member", member);
 
-        List<Comment> comments = orderProductList.stream().map((e) ->
-                e.getComment()).collect(Collectors.toList());
-        model.addAttribute("comments", comments);
+        List<Review> reviews = orderProductList.stream().map((e) ->
+                e.getReview()).collect(Collectors.toList());
+        model.addAttribute("reviews", reviews);
         return "product/review";
     }
 
@@ -60,12 +55,12 @@ public class CommentController {
     @PostMapping("productreview/register/{orderProductId}")
     public String productReviewRegister(@PathVariable Long orderProductId,
                                         @RequestParam("photo") MultipartFile photo,
-                                        Comment comment,
+                                        Review review,
                                         HttpServletRequest request,
                                         Model model) throws Exception {
 
-        Comment registeredComment = commentService.register(orderProductId, photo, comment, request);
-        model.addAttribute("comment", registeredComment);
+        Review registeredReview = reviewService.register(orderProductId, photo, review, request);
+        model.addAttribute("review", registeredReview);
 
         return "redirect:/productreview/reviewable";
     }

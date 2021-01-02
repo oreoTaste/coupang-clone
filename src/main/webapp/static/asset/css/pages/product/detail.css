@@ -194,19 +194,19 @@
     font-weight: 600;
     cursor: pointer;
 }
-.product-detail-comment {
+.product-detail-review {
 
 }
-.product-detail-comment .blue-button{
+.product-detail-review .blue-button{
     float: right;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
 }
-.product-detail-comment h3 {
+.product-detail-review h3 {
     font-size: 1.5rem;
 }
 /*----- 상품평 시작 -----*/
-.mycomment__review__header__emoticon {
+.myreview__review__header__emoticon {
     float: left;
     width: 4rem;
     margin-right: 1rem;

@@ -67,33 +67,33 @@
             <img th:src="'../'+${product.description}" alt="description"/>
         </div>
         <hr>
-        <div class="product-detail-comment">
-            <button class="blue-button js-comment">상품평 쓰기</button>
+        <div class="product-detail-review">
+            <button class="blue-button js-review">상품평 쓰기</button>
             <h3>상품평</h3>
-            <div th:each="orderProduct : ${product.orderProductList}" th:if="${orderProduct.comment ne null}" >
-                <div class="mycomment__review">
+            <div th:each="orderProduct : ${product.orderProductList}" th:if="${orderProduct.review ne null}" >
+                <div class="myreview__review">
 
-                    <div class="mycomment__review__header">
-                        <img class="mycomment__review__header__emoticon"
+                    <div class="myreview__review__header">
+                        <img class="myreview__review__header__emoticon"
                              th:if="${not #strings.isEmpty(orderProduct.order.member.emoticon)}"
                              th:src="${orderProduct.order.member.emoticon}" alt="emoticon">
-                        <img class="mycomment__review__header__emoticon"
+                        <img class="myreview__review__header__emoticon"
                              th:if="${#strings.isEmpty(orderProduct.order.member.emoticon)}"
                              th:src="@{/static/asset/img/icon/empty-emoticon-icon.png}" alt="emoticon">
                         <span class="member-info__myname" th:text="${orderProduct.order.member.name}">이름</span>
-                        <div class="mycomment__review__rating js-star-rating">
-                            <span class="hidden" th:text="${orderProduct.comment.stars}"></span>
+                        <div class="myreview__review__rating js-star-rating">
+                            <span class="hidden" th:text="${orderProduct.review.stars}"></span>
                         </div>
                     </div>
 
-                    <div class="mycomment__review__photo-review">
-                        <img th:src="${orderProduct.comment.photoReview}"/>
+                    <div class="myreview__review__photo-review">
+                        <img th:src="${orderProduct.review.photoReview}"/>
                     </div>
-                    <div class="mycomment__review__short-comment">
-                        <span th:text="${orderProduct.comment.shortComment}"></span>
+                    <div class="myreview__review__short-review" th:if="${orderProduct.review.shortReview ne null}">
+                        <span th:text="${orderProduct.review.shortReview}"></span>
                     </div>
-                    <div class="mycomment__review__comment">
-                        <span th:text="${orderProduct.comment.comment}"></span>
+                    <div class="myreview__review__review">
+                        <span th:text="${orderProduct.review.review}"></span>
                     </div>
                 </div>
             </div>

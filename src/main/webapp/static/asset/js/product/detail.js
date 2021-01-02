@@ -17,7 +17,7 @@ const originalPrice = document.querySelector(".js-original-price"),
       detailForm = document.querySelector("#detailForm"),
       directOrder = document.querySelector(".directOrder"),
       shoppingCart = document.querySelector("#shoppingCart"),
-      commentSection = document.querySelector(".product-detail-comment"),
+      reviewSection = document.querySelector(".product-detail-review"),
       askSection = document.querySelector(".product-detail-ask"),
       infoSection = document.querySelector(".product-detail-info"),
       divBox = document.querySelector(".ask-product-page"),
@@ -91,7 +91,7 @@ const moveToContent = (e) => {
 }
 const moveToComment = (e) => {
     window.scrollTo({top: window.pageYOffset +
-                            document.querySelector(".product-detail-comment").getBoundingClientRect().top - scrollPosBuffer,
+                            document.querySelector(".product-detail-review").getBoundingClientRect().top - scrollPosBuffer,
                     behavior: 'smooth'});
 }
 const moveToAsk = (e) => {
@@ -172,13 +172,13 @@ function checkPositionForTabs() {
 }
 function checkPosition() {
     const curPos = window.scrollY + scrollMoveBuffer;
-    const commentPos = window.pageYOffset + commentSection.getBoundingClientRect().top;
+    const reviewPos = window.pageYOffset + reviewSection.getBoundingClientRect().top;
     const askPos = window.pageYOffset + askSection.getBoundingClientRect().top;
     const infoPos = window.pageYOffset + infoSection.getBoundingClientRect().top;
 
     const tabs = document.querySelector(".product-detail-tabs");
     [...tabs.children].forEach(el => el.classList.remove("active"));
-    if(curPos < commentPos) {
+    if(curPos < reviewPos) {
         tabs.children.item(0).classList.add("active");
     } else if(curPos < askPos) {
         tabs.children.item(1).classList.add("active");
@@ -210,11 +210,11 @@ const askProduct = (e) => {
 /*-----------------상품문의 버튼설정 끝-------------------*/
 
 /*-----------------상품평 버튼설정 시작-------------------*/
-function setCommentButton() {
-    const commentButton = document.querySelector(".js-comment");
-    commentButton.addEventListener("click", setComment);
+function setReviewButton() {
+    const reviewButton = document.querySelector(".js-review");
+    reviewButton.addEventListener("click", setReview);
 }
-const setComment = () => {
+const setReview = () => {
     window.open("/productreview/reviewable");
 }
 /*-----------------상품평 버튼설정 끝-------------------*/
@@ -226,6 +226,6 @@ function init() {
     setShoppingCart();
     checkPositionForTabs();
     setAskProductButtons();
-    setCommentButton();
+    setReviewButton();
 }
 init();

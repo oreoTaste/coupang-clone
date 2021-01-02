@@ -1,5 +1,5 @@
 /*--------------------------------작성가능 구매후기 시작--------------------------------*/
-.mycoupang-wrapper__content__group.product-comment {
+.mycoupang-wrapper__content__group.product-review {
     border: 0;
     padding: 0;
 }
@@ -16,7 +16,7 @@
 .member-info__myname {
     font-size: 1.2rem;
 }
-.product-comment .product {
+.product-review .product {
     border-radius: 0;
     border: 0;
     border-bottom: 1px solid rgba(0,0,0,.2);
@@ -33,14 +33,14 @@
 /*--------------------------------작성가능 구매후기 끝--------------------------------*/
 
 /*--------------------------------내가 쓴 구매후기 시작--------------------------------*/
-.mycomment {
+.myreview {
     border-bottom: 1px solid rgba(0,0,0,0.4);
 }
-.mycomment__product-info {
+.myreview__product-info {
     width: 100%;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
-.mycomment__product-info__pic {
+.myreview__product-info__pic {
     height: 4rem;
     width: 4rem;
     overflow: hidden;
@@ -48,11 +48,11 @@
     float: left;
     padding: 0.5rem;
 }
-.mycomment__product-info__pic img {
+.myreview__product-info__pic img {
     width: 100%;
     height: 100%;
 }
-.mycomment__product-info__detail {
+.myreview__product-info__detail {
     height: 4rem;
     width: calc(100% - 6rem);
     overflow: hidden;
@@ -60,28 +60,28 @@
     padding: 0.5rem 0;
     line-height: 3rem;
 }
-.mycomment__product-info__detail .price__rocket {
+.myreview__product-info__detail .price__rocket {
     height: 1rem;
 }
-.mycomment__product-info__detail .blue-font {
+.myreview__product-info__detail .blue-font {
     font-size: 1rem;
 }
-.mycomment__review {
+.myreview__review {
     padding: 0.5rem;
 }
-.mycomment__review__rating,
-.mycomment__review__short-comment,
-.mycomment__review__comment{
+.myreview__review__rating,
+.myreview__review__short-review,
+.myreview__review__review{
     height: 2rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
-.mycomment__review__photo-review {
+.myreview__review__photo-review {
     width: 8rem;
     height: 8rem;
     overflow: hidden;
 }
-.mycomment__review__photo-review img {
+.myreview__review__photo-review img {
     width: 8rem;
     height: 8rem;
     padding: 0.5rem;
@@ -89,11 +89,11 @@
     display: inline-block;
     border: 1px solid rgba(0,0,0,0.2);
 }
-.mycomment__review__short-comment{
+.myreview__review__short-review{
     font-size: 1rem;
     font-weight: 600;
 }
-.mycomment__review__comment {
+.myreview__review__review {
     font-size: 1rem;
     font-weight: 500;
 }

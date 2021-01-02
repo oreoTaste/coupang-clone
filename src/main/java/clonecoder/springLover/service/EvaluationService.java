@@ -1,9 +1,7 @@
 package clonecoder.springLover.service;
 
-import clonecoder.springLover.domain.Comment;
 import clonecoder.springLover.domain.Evaluation;
 import clonecoder.springLover.domain.EvaluationSearch;
-import clonecoder.springLover.repository.CommentRepository;
 import clonecoder.springLover.repository.EvaluationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
 package clonecoder.springLover.service;
 
-import clonecoder.springLover.domain.Comment;
+import clonecoder.springLover.domain.Review;
 import clonecoder.springLover.domain.EvaluationSearch;
 import clonecoder.springLover.domain.OrderProduct;
 import clonecoder.springLover.domain.Product;
-import clonecoder.springLover.repository.CommentRepository;
+import clonecoder.springLover.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,46 +17,46 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class CommentService {
-    private final CommentRepository commentRepository;
+public class ReviewService {
+    private final ReviewRepository reviewRepository;
     private final OrderProductService orderProductService;
     private final StorageService storageService;
     private final MemberService memberService;
 
     @Transactional
-    public Long saveComment(Comment comment) {
-        return commentRepository.save(comment);
+    public Long saveReview(Review review) {
+        return reviewRepository.save(review);
     }
 
-    public Comment findOne(Long id) {
-        return commentRepository.findOne(id);
+    public Review findOne(Long id) {
+        return reviewRepository.findOne(id);
     }
 
-    public List<Comment> findComments() {
-        return commentRepository.findAll();
+    public List<Review> findReviews() {
+        return reviewRepository.findAll();
     }
 
-    public List<Comment> searchComments(EvaluationSearch evaluationSearch) {
-        return commentRepository.findAllByString(evaluationSearch);
+    public List<Review> searchReviews(EvaluationSearch evaluationSearch) {
+        return reviewRepository.findAllByString(evaluationSearch);
     }
 
     @Transactional
-    public Comment register(Long orderProductId,
-                            MultipartFile photo,
-                            Comment comment,
-                            HttpServletRequest request) throws Exception {
+    public Review register(Long orderProductId,
+                           MultipartFile photo,
+                           Review review,
+                           HttpServletRequest request) throws Exception {
         OrderProduct orderProduct = orderProductService.findOne(orderProductId);
         Product product = orderProduct.getProduct();
-        saveComment(comment);
-        orderProduct.setComment(comment);
-        Long commentId = comment.getId();
+        saveReview(review);
+        orderProduct.setReview(review);
+        Long reviewId = review.getId();
 
         String key = "productReview/" + product.getId();
         String[] photoSplit = photo.getOriginalFilename().split("\\.");
         String photoKey = key + UUID.randomUUID() + "."
                         + photoSplit[photoSplit.length - 1];
         storageService.store(photo, photoKey, request);
-        comment.setPhotoReview("/upload/" + photoKey);
-        return comment;
+        review.setPhotoReview("/upload/" + photoKey);
+        return review;
     }
 }

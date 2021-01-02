@@ -108,7 +108,7 @@ ALTER TABLE Category
 CREATE TABLE Comment (
 	comment_id INTEGER      NOT NULL COMMENT '댓글id', -- 댓글id
 	member_id  INTEGER      NOT NULL COMMENT '회원id', -- 회원id
-	comment    VARCHAR(255) NULL     COMMENT '후기' -- 후기
+	review    VARCHAR(255) NULL     COMMENT '후기' -- 후기
 )
 COMMENT '댓글';
 
