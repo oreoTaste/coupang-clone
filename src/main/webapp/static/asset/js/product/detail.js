@@ -13,6 +13,8 @@ const originalPrice = document.querySelector(".js-original-price"),
       detailBody = document.querySelector(".product-detail-body"),
       content = document.querySelector(".product-detail-content"),
       spreader = document.querySelector(".product-detail-content__spreader"),
+      qnaContent = document.querySelector(".product-detail-ask__content-box"),
+      qnaSpreader = document.querySelector(".product-detail-ask__content-box__spreader"),
       id = document.querySelector(".product-detail-header__product-id"),
       detailForm = document.querySelector("#detailForm"),
       directOrder = document.querySelector(".directOrder"),
@@ -39,6 +41,7 @@ function initialize() {
     // 로그인 로그아웃 버튼 설정
     setGoButtons();
     setStarRatings();
+    setEmailEncryption();
 }
 const setFormData = () => {
     url = detailForm.action;
@@ -47,6 +50,14 @@ const setFormData = () => {
 const setComma = () => {
     [...prices].forEach(el => el.innerText = makeCommas(el.innerText));
 }
+const setEmailEncryption = () => {
+    const emails = document.querySelectorAll(".email");
+    [...emails].forEach(el => encryptEmail(el));
+}
+const encryptEmail = (el) => {
+    const pattern = /^([a-zA-Z0-9._%+-]{0,3})([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]{1,2})([a-zA-Z0-9.-]*)\.([a-zA-Z]{2,6})$/;
+    el.innerText = el.innerText.toString().replace(pattern, '$1***@$3.$5');
+}
 /*-----------------초기화 설정 끝-------------------*/
 
 /*-----------------버튼 설정 시작-------------------*/
@@ -54,6 +65,7 @@ function setButton() {
     upButton.addEventListener("click", handleUp);
     downButton.addEventListener("click", handleDown);
     spreader.addEventListener("click", handlerSpreader);
+    qnaSpreader.addEventListener("click", handlerQnaSpreader);
     const children = document.querySelector(".product-detail-tabs").children;
     [...children].forEach(el => el.style.cursor = "pointer");
     children[0].addEventListener("click", moveToContent);
@@ -82,6 +94,14 @@ const handlerSpreader = (e) => {
         e.target.innerText = "상품정보 접기 ∧"
     } else {
         e.target.innerText = "상품정보 더보기 ∨"
+    }
+}
+const handlerQnaSpreader = (e) => {
+    qnaContent.classList.toggle("auto-height");
+    if(qnaContent.classList.contains("auto-height")) {
+        e.target.innerText = "접기 ∧"
+    } else {
+        e.target.innerText = "더보기 ∨"
     }
 }
 const moveToContent = (e) => {
@@ -218,6 +238,58 @@ const setReview = () => {
     window.open("/productreview/reviewable");
 }
 /*-----------------상품평 버튼설정 끝-------------------*/
+
+/*-----------------상품문의 버튼설정 시작-------------------*/
+function setQna() {
+    setQnaButton();
+    setContent();
+}
+const setQnaButton = () => {
+    const qnaButton = document.querySelector(".js-qna-register");
+    qnaButton.addEventListener("click", setQnaAsk);
+}
+const setQnaAsk = (e) => {
+    const parent = e.target.parentNode.parentNode;
+    const data = {
+        "comment" : parent.querySelector(".comment").value,
+        "productId" : parent.querySelector(".productId").innerText
+    };
+
+    console.log(JSON.stringify(data))
+    fetch(
+        "/qna/register", {
+        method: "post",
+        body: JSON.stringify(data)
+        }
+    ).then((resp) => {
+        return resp.json();
+    }).then((json) => {
+        if(json.answer == "OK") {
+            alert("문의글이 등록되었습니다")
+        } else {
+            alert("등록에 실패했습니다");
+        }
+    });
+}
+const setContent = () => {
+    const contents = document.querySelectorAll(".product-detail-ask__content");
+    contents.forEach(el => seperateQnA(el));
+}
+const seperateQnA = (e) => {
+    const bool = e.querySelector(".question-or-answer").innerText;
+    if(bool == "true") {
+        e.querySelector(".question-or-answer").innerText = "질문";
+        e.querySelector(".question-or-answer").classList.add("question");
+    } else {
+        const span = document.createElement("span");
+        span.classList.add("reply-icon");
+        e.querySelector(".question-or-answer").parentNode.insertBefore(span, e.querySelector(".question-or-answer"));
+        e.querySelector(".question-or-answer").innerText = "답변";
+        e.querySelector(".question-or-answer").classList.add("answer");
+    }
+}
+/*-----------------상품문의 버튼설정 끝-------------------*/
+
 function init() {
     initialize();
     setButton();
@@ -227,5 +299,6 @@ function init() {
     checkPositionForTabs();
     setAskProductButtons();
     setReviewButton();
+    setQna();
 }
 init();

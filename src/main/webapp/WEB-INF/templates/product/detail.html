@@ -102,38 +102,38 @@
         <div class="product-detail-ask">
             <button class="white-button js-ask-product" th:value="${product.id}">문의하기</button>
             <div class="ask-product-page hidden">
-                <form action="">
-                    <header><span>상품문의</span><span class="close-pop">X</span></header>
-                    <div class="ask-product-page__content">
-                            <table>
-                                <tr>
-                                    <td>상품정보</td>
-                                    <td>
-                                        <select name="" id="">
-                                            <option value="" class="hidden">개당 수량을(를) 선택하세요</option>
-                                        </select>
-                                        <br>
-                                        <select name="" id="">
-                                            <option value="" class="hidden">수량을(를) 선택하세요</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>판매자</td>
-                                    <td>상품 옵션 선택하여 판매자를 선택해주세요</td>
-                                </tr>
-                                <tr>
-                                    <td>문의내용</td>
-                                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
-                                </tr>
-                            </table>
-                    </div>
-                    <p>*개인정보(주민번호, 연락처, 주소, 계좌번호, 카드번호 등)가 포함되지 않도록 유의해주세요.</p>
-                    <div class="buttons">
-                        <button class="blue-button">확인</button>
-                        <input type="button" value="취소" class="close-pop blue-button">
-                    </div>
-                </form>
+                <header><span>상품문의</span><span class="close-pop">X</span></header>
+                <div class="ask-product-page__content">
+                        <table>
+                            <tr>
+                                <td>상품정보</td>
+                                <td>
+                                    <span th:text="${product.name}"></span>
+                                    <span class="hidden productId" th:text="${product.id}"></span>
+<!--                                        <select name="" id="">-->
+<!--                                            <option value="" class="hidden">개당 수량을(를) 선택하세요</option>-->
+<!--                                        </select>-->
+<!--                                        <br>-->
+<!--                                        <select name="" id="">-->
+<!--                                            <option value="" class="hidden">수량을(를) 선택하세요</option>-->
+<!--                                        </select>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>판매자</td>
+                                <td>상품 옵션 선택하여 판매자를 선택해주세요</td>
+                            </tr>
+                            <tr>
+                                <td>문의내용</td>
+                                <td><textarea name="comment" class="comment" cols="30" rows="10"></textarea></td>
+                            </tr>
+                        </table>
+                </div>
+                <p>*개인정보(주민번호, 연락처, 주소, 계좌번호, 카드번호 등)가 포함되지 않도록 유의해주세요.</p>
+                <div class="buttons">
+                    <button class="blue-button js-qna-register">확인</button>
+                    <input type="button" value="취소" class="close-pop blue-button">
+                </div>
             </div>
             <h3>상품문의</h3>
             <ul>
@@ -153,7 +153,19 @@
                     공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.
                 </li>
             </ul>
-            <div class="product-detail-ask__content"></div>
+            <div class="product-detail-ask__content-box">
+                <div class="product-detail-ask__content-box__spreader">더보기 ∨</div>
+                <div class="product-detail-ask__content" th:each="qna : ${product.qnaList}">
+                    <span class="question-or-answer" th:text="${qna.superQna == null}"></span>
+                    <div class="product-detail-ask__content__header">
+                        <span class="email" th:text="${qna.writer.email}"></span>
+                        <span class="date" th:text="${#dates.format(qna.date,'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </div>
+                    <div class="product-detail-ask__content__body">
+                        <span th:text="${qna.comment}"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="product-detail-info">
             <div class="delivery-info">

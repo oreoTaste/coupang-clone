@@ -35,6 +35,9 @@ public class Member {
     @OneToMany(mappedBy="member", cascade = CascadeType.ALL)
     private List<Order> orderList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer")
+    private List<Qna> qnaList = new ArrayList<>();
+
     // 생성메서드 : 신규회원
     public static Member createMember(String email, String name, String tel, String password) {
         Member member = new Member();

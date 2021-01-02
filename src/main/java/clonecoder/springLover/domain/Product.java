@@ -36,6 +36,9 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<OrderProduct> orderProductList = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<Qna> qnaList = new ArrayList<>();
+
     // 생성 메서드
     public static Product create(ProductForm productForm) {
         Product product = new Product();
