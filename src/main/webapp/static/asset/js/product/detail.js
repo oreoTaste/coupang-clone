@@ -1,5 +1,6 @@
 import {checkCart, setGoButtons} from '../component/searchHeader.js';
 import {makeCommas, deleteCommas} from '../component/price_quantity.js';
+import {setStarRatings} from '../component/stars.js';
 
 const originalPrice = document.querySelector(".js-original-price"),
       prices = document.querySelectorAll(".js-price"),
@@ -37,6 +38,7 @@ function initialize() {
     setComma();
     // 로그인 로그아웃 버튼 설정
     setGoButtons();
+    setStarRatings();
 }
 const setFormData = () => {
     url = detailForm.action;

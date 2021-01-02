@@ -33,6 +33,9 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<OrderProduct> orderProductList = new ArrayList<>();
+
     // 생성 메서드
     public static Product create(ProductForm productForm) {
         Product product = new Product();

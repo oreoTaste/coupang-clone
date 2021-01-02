@@ -50,19 +50,23 @@ const setModifyPasswordBtn = (e) => {
         const answer = await getVerification({"password": curPas});
         bool = answer.answer == "OK";
 
-        if(bool == true)
+        if(bool == true) {
             bool = checkPassword(newPas, newPasRepeat);
-        if(bool == true)
+        }
+        if(bool == true) {
             modify({"curPas": curPas, "newPas": newPas});
+        } else {
+            alert("새 비밀번호를 다시 확인해주세요 (8자이상이어야합니다)")
+        }
 
     })();
 }
 const getVerification = async (data) => await fetch (
     "/mycoupang/checkPassword", {
-    method: 'POST',
-    body: JSON.stringify(data)
-}).then((resp) => {
-    return resp.json();
+        method: 'POST',
+        body: JSON.stringify(data)
+    }).then((resp) => {
+        return resp.json();
 });
 
 const checkPassword = (a, b) => {

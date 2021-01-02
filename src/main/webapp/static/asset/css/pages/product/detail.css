@@ -205,7 +205,13 @@
 .product-detail-comment h3 {
     font-size: 1.5rem;
 }
-
+/*----- 상품평 시작 -----*/
+.mycomment__review__header__emoticon {
+    float: left;
+    width: 4rem;
+    margin-right: 1rem;
+}
+/*----- 상품평 끝 -----*/
 .product-detail-ask {
     padding: 2rem;
     border: 1px solid rgba(0,0,0,0.4);

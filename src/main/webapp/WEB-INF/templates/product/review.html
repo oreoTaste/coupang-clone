@@ -29,7 +29,7 @@
 <!--------------------------------작성가능 구매후기 시작-------------------------------->
                 <div class="section-wrapper">
                     <section class="product" th:each="orderProduct : ${orderProductList}"
-                                             th:if="${#strings.isEmpty(orderProduct.comment) and
+                                             th:if="${orderProduct.comment ne null and
                                                        not #strings.equals(orderProduct.order.status, 'CANCEL')}">
     <!--                    cancel상태가 아니고, 상품평이 작성된 경우를 제외하면 -->
                         <div class="product__pic">
